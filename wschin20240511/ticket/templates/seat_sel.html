@@ -1,0 +1,732 @@
+{% extends 'layout/layout.html' %}
+
+
+{% block style %} 
+<!-- flex 요소 정렬하기 참고사이트 https://hyerin-shin.tistory.com/45 -->
+    <style>
+        .disp1 {
+            display: flex;
+            width: 1000px;
+            flex-direction : row;
+            align-content:center;  
+        }
+
+        #disp2_1  {
+            background-color: skyblue;
+            width: 500px;
+            float: left;
+        }
+        /* #disp2_2  { 수직선 위치가 제대로 되지 않음
+            background-color: rgb(192, 235, 135);
+            width: 10px;
+            float: left;
+        } */
+        #disp2_3  {
+            background-color: rgb(236, 139, 11);
+            width: 500px;
+            float: left;
+        }
+
+        .empty { 
+            background-color: white;
+            color: black;
+            width: 30px;
+            height: 30px;
+            font-size: 12px;
+        }
+        .occupied {
+            background-color: rgb(241, 156, 156);
+            color: white;
+            width: 30px;
+            height: 30px;
+            font-size: 12px;
+        }
+        .picked {
+            background-color: rgb(238, 216, 17);
+            color: white;
+            width: 30px;
+            height: 30px;
+            font-size: 12px;
+        }
+
+
+        .button_gen, .button_youth, .button_elder, .button_special {
+            background-color: skyblue;
+            color: white;
+            width: 25px;
+            height: 25px;
+            
+        }
+        #button_gen_sel, #button_youth_sel, #button_elder_sel, #button_special_sel {
+            background-color: rgb(8, 8, 8);
+            color: white;
+            width: 25px;
+            height: 25px;
+        }
+        .v-line{
+            border-left: solid #000;
+            height:110px;
+            left: 50%;
+            position: absolute;
+        }
+
+        #disp1_0 {
+            width: 1000px;
+            height: 50px;
+            background-color: rgb(230, 218, 218);
+            text-align: center;
+        }
+        .button {
+            background-color: rgb(228, 243, 218);
+        }
+
+
+        #info0 {
+            float: left; /* 필수, 왼쪽 정렬*/
+            width : 1%;
+            height : 130px;
+        }
+        #info0_1, #info0_2 {
+            float: left; /* 필수, 왼쪽 정렬*/
+            width : 25%;
+            height : 130px;
+            background-color: rgb(243, 218, 228);
+        }
+        #info0_3 {
+            float: left; /* 필수, 왼쪽 정렬*/
+            width : 25%;
+            height : 130px;
+            background-color: rgb(243, 218, 228);
+        }
+        #info0_4 {
+            float: left; /* 필수, 왼쪽 정렬*/
+            width : 8%;
+            height : 130px;
+            background-color: rgb(243, 218, 228);
+        }
+        #info0_5 {
+            float: left; /* 필수, 왼쪽 정렬*/
+            width : 8%;
+            height : 130px;
+            background-color: rgb(243, 218, 228);
+        }
+
+        .hrline {width:50px; border:1px; }
+    </style>
+{% endblock %}
+
+
+{% block script %}
+    <script type="text/javascript">
+        var click_screentime_no =0; //클릭한 상영스케줄 시퀀스 번호
+        var click_movie_no =0; //클릭한 영화 시퀀스 번호
+        // 서버에서 받은 screentime_no 데이터 변환 추출
+        const imsi1 = "{{screentime_no}}";
+        click_screentime_no = unescapeHtml(imsi1);
+        // var hallseat_dict = JSON.parse(imsi_dict2);
+        const imsi2 = "{{movie_no}}";
+        click_movie_no = unescapeHtml(imsi2);
+        console.log("movie_no");
+        console.log(click_movie_no);
+
+
+        var pay_money = 0;
+        var pay_cnt = 0;
+        var click_gen_cnt = 0;
+        var click_youth_cnt = 0;
+        var click_elder_cnt = 0;
+        var click_special_cnt = 0;
+        var click_tot_cnt = 0;
+
+
+        function openPayImg() {
+            const info1 = document.getElementById('info1');
+            const info2 = document.getElementById('info2');
+            const info2_2 = document.getElementById('info2_2');
+            const info2_3 = document.getElementById('info2_3');
+            const info2_4 = document.getElementById('info2_4');
+            const info3 = document.getElementById('info3');
+            const info3_2 = document.getElementById('info3_2');
+            const info3_3 = document.getElementById('info3_3');
+            const info3_4 = document.getElementById('info3_4');
+            const info4 = document.getElementById('info4');
+            // const movie_no = info1.value; 서버에서 직접 받아 처리함
+            // const theater_no = info2.value;
+            // const date_no = info2_2.value;
+            
+            console.log("info2_2.innerText");
+            console.log(info2_2.innerText);
+            console.log("info2_3.innerText");
+            console.log(info2_3.innerText);
+            // console.log(theater_no);
+            // console.log(date_no);
+            const tmp_str1 = info3.innerText.trim();
+            console.log("tmp_str1");
+            console.log(tmp_str1);
+
+            if( pay_money < 1 ){ 
+                alert("좌석이 선택되지 않았습니다1.");
+                return;                
+            } 
+            if( info3.innerText.length < 8 && info3_2.innerText.length < 5  && info3_3.innerText.length < 6  && info3_3.innerText.length < 5){ 
+                alert("좌석이 선택되지 않았습니다.");
+                return;                
+            } 
+
+            // 유형별 좌석번호 배열 및 결제금액을 서버로 전송
+            let seat_info = {};
+            let imsi_seatArr =[];
+            pay_cnt = Number(light_seat_arr.length) + Number(general_seat_arr.length) + Number(disabled_seat_arr.length) + Number(special_seat_arr.length);
+            for(let i = 0; i < light_seat_arr.length ; i++){
+                imsi_seatArr.push(light_seat_arr[i]);
+            }
+            for(let i = 0; i < general_seat_arr.length ; i++){
+                imsi_seatArr.push(general_seat_arr[i]);
+            }
+            for(let i = 0; i < disabled_seat_arr.length ; i++){
+                imsi_seatArr.push(disabled_seat_arr[i]);
+            }
+            for(let i = 0; i < special_seat_arr.length ; i++){
+                imsi_seatArr.push(special_seat_arr[i]);
+            }
+            console.log("imsi_seatArr");
+            console.log(imsi_seatArr);
+            seat_info["seat_info"] = imsi_seatArr;
+            // console.log("seat_info");
+            // console.log(seat_info);
+            // console.log("pay_money");
+            // console.log(pay_money);
+            console.log("screentime_no");
+            console.log(click_screentime_no);
+            const myseat_info = JSON.stringify(seat_info);
+
+            console.log("click_movie_no");
+            console.log(click_movie_no);
+
+
+            const mystr = 'payment?screentime_no=' + click_screentime_no
+              + '&seat_info=' + myseat_info + '&pay_money=' + pay_money 
+              + '&movie_no=' + click_movie_no + '&movie_name=' + '"' + info1.innerText + '"' 
+              + '&theater_info=' + '"' + info2.innerText + '"' + '&date_info=' + '"'
+              + info2_2.innerText + '"' + '&screen_info=' + '"' + info2_3.innerText + '"'
+              + '&count_info=' + '"' + info2_4.innerText + '"'
+              + '&info3=' + '"' + info3.innerText + '"'
+              + '&info3_2=' + '"' + info3_2.innerText + '"'
+              + '&info3_3=' + '"' + info3_3.innerText + '"'
+              + '&info3_4=' + '"' + info3_4.innerText + '"'
+              + '&info4=' + '"' + info4.innerText + '"'
+              ;
+            console.log(mystr);
+            document.location.href=mystr;
+            
+        }
+
+        //Ajax를 쓰기위한 함수
+        // var xhr = null;   static/js 하위에 있음 layout.html 문서에서 load함
+        // function getCookie(name) {  
+
+            var xhr = null;
+
+        function getCookie(name) {
+            var cookieValue = null;
+            console.log("getcookie name!!!");
+            console.log(name);
+            console.log("document.cookie !!!");
+            console.log(document.cookie);
+            
+            if (document.cookie && document.cookie !== '') {
+                var cookies = document.cookie.split(';');
+                console.log("cookies !!!");
+                console.log(cookies);
+                for (var i = 0; i < cookies.length; i++) {
+                    var cookie = cookies[i].trim();
+                    // Does this cookie string begin with the name we want?
+                    if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                        break;
+                    }
+                }
+            }
+            console.log(cookieValue);
+            return cookieValue;
+        }
+
+        var csrftoken = getCookie('csrftoken');
+
+        
+
+        function makeRequest(mydata){
+            console.log("window.ActiveXObject");
+            console.log(window.ActiveXObject);
+            if(window.ActiveXObject){   // 익스플로어인 경우 T 그 외의 브라우저일 경우 F
+                xhr = new ActiveXObject("Microsoft.XMLHTTP")
+            }else{
+                xhr = new XMLHttpRequest();
+            }
+            if(!xhr){ // xhr이 없으면
+                alert("XMLHTTP 객체를 생성할 수 없습니다.");
+                return;                
+            } // >>통신을 위한 객체 준비 완료<<     
+            //POST 방식으로 데이터 전달
+            xhr.open('POST','ajax1/');
+            xhr.setRequestHeader('Content-Type',"application/x-www-form-urlencoded");
+            xhr.setRequestHeader('X-CSRFToken', csrftoken);
+            xhr.onreadystatechange = alertContents;
+            console.log("mydata : " + mydata);
+            xhr.send('mydata=' + mydata);
+        }
+
+
+
+        const gen_btnList = document.querySelectorAll('.button_gen');
+        const youth_btnList = document.querySelectorAll('.button_youth');
+        const elder_btnList = document.querySelectorAll('.button_elder');
+        const special_btnList = document.querySelectorAll('.button_special');
+        const tbody_screenlayout = document.getElementById('tbody_screenlayout');
+        const info3 = document.getElementById('info3');
+        const info3_2 = document.getElementById('info3_2');
+        const info3_3 = document.getElementById('info3_3');
+        const info3_4 = document.getElementById('info3_4');
+        const info4 = document.getElementById('info4');
+
+        gen_btnList[0].id = 'button_gen_sel';
+        youth_btnList[0].id = 'button_youth_sel';
+        elder_btnList[0].id = 'button_elder_sel';
+        special_btnList[0].id = 'button_special_sel';
+
+        function pick_seat_disp() { 
+            info3.innerText = 'light석:'
+            for(let i = 0; i < light_seat_arr.length ; i++){
+                info3.innerText += light_seat_arr[i] + ',';
+            }
+            info3_2.innerText = '일반석:'
+            for(let i = 0; i < general_seat_arr.length ; i++){
+                info3_2.innerText += general_seat_arr[i] + ',';
+            }
+            info3_3.innerText = '장애인석:'
+            for(let i = 0; i < disabled_seat_arr.length ; i++){
+                info3_3.innerText += disabled_seat_arr[i] + ',';
+            }
+            info3_4.innerText = '특별석:'
+            for(let i = 0; i < special_seat_arr.length ; i++){
+                info3_4.innerText += special_seat_arr[i] + ',';
+            }
+            if (click_tot_cnt == 0) {
+                info4.innerText = '';
+                return;    
+            }
+            info4.innerText = '';
+            pay_money = 0;
+            let remain_cnt = 0;
+            const general_price = 10000;
+            const youth_price = 8000;
+            const etc_price = 7000;
+            pay_cnt = Number(light_seat_arr.length) + Number(general_seat_arr.length) + Number(disabled_seat_arr.length) + Number(special_seat_arr.length);
+            console.log("pick_seat_disp!!");
+            console.log(pay_cnt);
+            if (click_youth_cnt > 0) {
+                if (pay_cnt <= click_youth_cnt) {
+                    pay_money = pay_cnt * youth_price;
+                    info4.innerText = pay_money + '원';
+                    return;
+                } else {
+                    pay_money = click_youth_cnt * youth_price;
+                    pay_cnt = pay_cnt - click_youth_cnt;
+                }
+            }
+
+            if (click_elder_cnt > 0) {
+                if (pay_cnt <= click_elder_cnt) {
+                    pay_money += pay_cnt * etc_price;
+                    info4.innerText = pay_money + '원';
+                    return;
+                } else {
+                    pay_money += click_elder_cnt * etc_price;
+                    pay_cnt = pay_cnt - click_elder_cnt;
+                }
+            }
+            if (click_special_cnt > 0) {
+                if (pay_cnt <= click_special_cnt) {
+                    pay_money += pay_cnt * etc_price;
+                    info4.innerText = pay_money + '원';
+                    return;
+                } else {
+                    pay_money += click_special_cnt * etc_price;
+                    pay_cnt = pay_cnt - click_special_cnt;
+                }
+            }
+            pay_money += pay_cnt * general_price;
+            info4.innerText = pay_money + '원';
+
+        }
+
+        function unescapeHtml(str) {
+            if (str == null) {
+            return "";
+            }
+            return str
+            .replace(/&amp;/g, '&')
+            .replace(/&lt;/g, '<')
+            .replace(/&gt;/g, '>')
+            .replace(/&quot;/g, '"')
+            .replace(/&#039;/g, "'")
+            .replace(/&#39;/g, "'");
+        }
+
+        function viewer_cnt_disp() {  
+            let mystr = '';
+            mystr = '일반' + click_gen_cnt + '명, ';
+            if (click_youth_cnt > 0 ) {
+                mystr += '청소년' + click_youth_cnt + ', ';
+            }
+            if (click_elder_cnt > 0 ) {
+                mystr += '경로' + click_elder_cnt + ', ';
+            }
+            if (click_special_cnt > 0 ) {
+                mystr += '우대' + click_special_cnt ;
+            }
+            return mystr;
+        }
+
+        const gen_clickHandler = (event)=>{
+            click_gen_cnt = Number(event.target.value);
+            click_tot_cnt = click_gen_cnt + click_youth_cnt + click_elder_cnt + click_special_cnt;
+            let mystr = '';
+            mystr = viewer_cnt_disp();
+            info2_4.innerText = mystr;
+            for(let i = 0; i < gen_btnList.length ; i++){
+                if (gen_btnList[i].id == 'button_gen_sel') {
+                    gen_btnList[i].id ='';
+                }
+            }
+            event.target.id = 'button_gen_sel';
+            // pick_seat_disp();
+        }
+
+        const youth_clickHandler = (event)=>{
+            click_youth_cnt = Number(event.target.value);
+            click_tot_cnt = click_gen_cnt + click_youth_cnt + click_elder_cnt + click_special_cnt;
+            let mystr = '';
+            mystr = viewer_cnt_disp();
+            info2_4.innerText = mystr;
+            for(let i = 0; i < youth_btnList.length ; i++){
+                if (youth_btnList[i].id == 'button_youth_sel') {
+                    youth_btnList[i].id ='';
+                }
+            }
+            event.target.id = 'button_youth_sel';
+            // pick_seat_disp();
+        }
+
+        const elder_clickHandler = (event)=>{
+            click_elder_cnt = Number(event.target.value);
+            click_tot_cnt = click_gen_cnt + click_youth_cnt + click_elder_cnt + click_special_cnt;
+            let mystr = '';
+            mystr = viewer_cnt_disp();
+            info2_4.innerText = mystr;
+            for(let i = 0; i < elder_btnList.length ; i++){
+                if (elder_btnList[i].id == 'button_elder_sel') {
+                    elder_btnList[i].id ='';
+                }
+            }
+            event.target.id = 'button_elder_sel';
+            // pick_seat_disp();
+        }
+        const special_clickHandler = (event)=>{
+            click_special_cnt = Number(event.target.value);
+            click_tot_cnt = click_gen_cnt + click_youth_cnt + click_elder_cnt + click_special_cnt;
+            let mystr = '';
+            mystr = viewer_cnt_disp();
+            info2_4.innerText = mystr;
+            for(let i = 0; i < special_btnList.length ; i++){
+                if (special_btnList[i].id == 'button_special_sel') {
+                    special_btnList[i].id ='';
+                }
+            }
+            event.target.id = 'button_special_sel';
+            // pick_seat_disp();
+        }
+        gen_btnList.forEach(gbtn => gbtn.onclick = gen_clickHandler);
+        youth_btnList.forEach(ybtn => ybtn.onclick = youth_clickHandler);
+        elder_btnList.forEach(ebtn => ebtn.onclick = elder_clickHandler);
+        special_btnList.forEach(sbtn => sbtn.onclick = special_clickHandler);
+
+        // 서버에서 받은 직렬 데이터(홀 모든 좌석정보)를 반복가능한(iterative) 오브젝트로 변환
+        var imsi_dict1 = "{{hallseat_dict}}";
+        var imsi_dict2 = unescapeHtml(imsi_dict1);
+        var hallseat_dict = JSON.parse(imsi_dict2);
+        console.log( "hallseat_dict");  //
+        console.log( hallseat_dict);
+        var hallseat_key = Object.keys(hallseat_dict); // 모든 키들을 배열로 저장
+        console.log("hallseat_key");
+        console.log(hallseat_key);
+        var hallseat_value = Object.values(hallseat_dict); //모든 값들을 배열로 저장
+        
+        // 서버에서 받은 직렬 데이터(예매좌석정보)를 반복가능한(iterative) 오브젝트로 변환
+        var imsi_dict1 = "{{ticketseat_dict}}";
+        var imsi_dict2 = unescapeHtml(imsi_dict1);
+        var ticketseat_dict = JSON.parse(imsi_dict2);
+        console.log( "ticketseat_dict");  //
+        console.log( ticketseat_dict);
+        var ticketseat_key = Object.keys(ticketseat_dict); // 모든 키들을 배열로 저장
+        console.log("ticketseat_key");
+        console.log(ticketseat_key);
+        var ticketseat_value = Object.values(ticketseat_dict); //모든 값들을 배열로 저장
+        
+        function find_seattype(str) {
+            for(let i = 0; i < hallseat_key.length ; i++){  // 좌석번호를 입력받아 좌석유형 반환
+                if (str == hallseat_key[i]) {
+                    return hallseat_value[i];
+                }
+            }
+            return "error!";
+        }
+
+        var light_seat_arr = [];
+        var general_seat_arr = [];
+        var disabled_seat_arr = [];
+        var special_seat_arr = [];
+        var tot_cnt = 0;
+        function plus_type_cnt(seat_no, seat_type) { 
+            tot_cnt += 1;
+            if (seat_type == 1) {
+                light_seat_arr.push(seat_no);
+            } else if (seat_type == 2) {
+                general_seat_arr.push(seat_no);
+            } else if (seat_type == 3) {
+                disabled_seat_arr.push(seat_no);
+            } else {
+                special_seat_arr.push(seat_no);
+            }
+        }
+
+        function minus_type_cnt(seat_no, seat_type) {
+            tot_cnt -= 1;
+            if (seat_type == 1) {
+                for(let i = 0; i < light_seat_arr.length ; i++){
+                    if (light_seat_arr[i]== seat_no) {
+                        light_seat_arr.splice(i,1); // i번째 요소 1개 삭제
+                        break;
+                    }
+                }
+            } else if (seat_type == 2) {
+                for(let i = 0; i < general_seat_arr.length ; i++){
+                    if (general_seat_arr[i]== seat_no) {
+                        general_seat_arr.splice(i,1); // i번째 요소 1개 삭제
+                        break;
+                    }
+                }
+            } else if (seat_type == 3) {
+                for(let i = 0; i < disabled_seat_arr.length ; i++){
+                    if (disabled_seat_arr[i]== seat_no) {
+                        disabled_seat_arr.splice(i,1); // i번째 요소 1개 삭제
+                        break;
+                    }
+                }
+            } else {
+                for(let i = 0; i < special_seat_arr.length ; i++){
+                    if (special_seat_arr[i]== seat_no) {
+                        special_seat_arr.splice(i,1); // i번째 요소 1개 삭제
+                        break;
+                    }
+                }
+            }
+        }
+
+        // 좌석배치도 화면 표출
+        var newTr ='';
+        var newTd ='';
+        let previous_row = '0' ;
+        let in_text = '';
+        for(let i = 0; i < hallseat_key.length ; i++){  // 버튼 value 0:빈좌석, 1:선택, 9:예매(기존)
+            in_text = '&nbsp<button class="empty" id=' + '"' + hallseat_key[i] + '"' 
+                    + ' value="0" >' + hallseat_key[i] + '</button>'; 
+            for(let j = 0; j < ticketseat_key.length ; j++){
+                if ( hallseat_key[i] == ticketseat_key[j]) { // 예약된 좌석의 화면은 배경색 달리 표출
+                    in_text = '&nbsp<button class="occupied" id=' + '"' + hallseat_key[i] + '"' 
+                    + ' value="9" >' + hallseat_key[i] + '</button>'; 
+                    break;
+                }
+            }
+            newTd = document.createElement("td");
+            newTd.innerHTML = in_text; 
+            if (hallseat_key[i].substring(0, 1) == previous_row) {
+                newTr.appendChild(newTd);
+            } else {   // 1줄이 끝나고 row가 바뀐다
+                if (i == 0) { 
+                    newTr = document.createElement("tr");
+                    newTr.appendChild(newTd);
+                } else {
+                    tbody_screenlayout.appendChild(newTr);
+                    newTr = document.createElement("tr");
+                    newTr.appendChild(newTd);
+                }
+            }
+            previous_row = hallseat_key[i].substring(0, 1);
+            if (i == hallseat_key.length - 1) { //마지막 줄
+                tbody_screenlayout.appendChild(newTr);
+            }
+        }
+        const seat_btnList = document.querySelectorAll('#tbody_screenlayout button');
+
+        const seat_clickHandler = (event)=>{
+            const seat_type = find_seattype(event.target.id);
+            if (event.target.value == 1) {
+                event.target.value = 0;
+                event.target.classList.remove('picked');
+                event.target.classList.add('empty');
+                if (tot_cnt > 0) {
+                    minus_type_cnt(event.target.id, seat_type);
+                }
+            } else {
+                if (tot_cnt >= click_tot_cnt) {
+                    alert("선택인원이 초과되었습니다.");
+                    return;
+                }
+                if (event.target.value == 9) {
+                    alert("이미 예약된 좌석입니다.");
+                    return;
+                }
+                event.target.value = 1;
+                event.target.classList.remove('empty');
+                event.target.classList.add('picked'); 
+                plus_type_cnt(event.target.id, seat_type);
+            }
+            pick_seat_disp();
+        }
+        
+        seat_btnList.forEach(stbtn => stbtn.onclick = seat_clickHandler);
+
+        // console.log("window.location.href");
+        // console.log(window.location.href);
+        // const url = new URL(window.location.href);
+        // const urlParams = url.searchParams
+        // const ticketseat_dict = urlParams.getAll('ticketseat_dict');
+        // console.log( "ticketseat_dict"); 
+        // console.log( ticketseat_dict);
+        
+    </script>
+{% endblock %}
+
+
+{% block content %}
+    <div class ="disp1">
+        <div id ="disp1_0">인원/좌석
+        </div>
+    </div>
+    <div class ="disp1">
+        <div id ="disp2_1">인원 선택
+            <table>
+                <tr>
+                    <td> 일&nbsp;&nbsp;&nbsp;반&nbsp; &nbsp; </td>
+                    <td>
+                        <button class="button_gen" type="button" value="0"> 0 </button>&nbsp; 
+                        <button class="button_gen" type="button" value="1"> 1 </button>&nbsp;
+                        <button class="button_gen" type="button" value="2"> 2 </button>&nbsp;
+                        <button class="button_gen" type="button" value="3"> 3 </button>&nbsp;
+                        <button class="button_gen" type="button" value="4"> 4 </button>&nbsp;
+                        <button class="button_gen" type="button" value="5"> 5 </button>&nbsp;
+                        <button class="button_gen" type="button" value="6"> 6 </button>&nbsp;
+                        <button class="button_gen" type="button" value="7"> 7 </button>&nbsp;
+                        <button class="button_gen" type="button" value="8"> 8 </button>&nbsp;
+                    </td>
+                </tr>
+                <tr>
+                    <td> 청소년&nbsp; &nbsp; </td>
+                    <td>
+                        <button class="button_youth" type="button" value="0"> 0 </button>&nbsp; 
+                        <button class="button_youth" type="button" value="1"> 1 </button>&nbsp;
+                        <button class="button_youth" type="button" value="2"> 2 </button>&nbsp;
+                        <button class="button_youth" type="button" value="3"> 3 </button>&nbsp;
+                        <button class="button_youth" type="button" value="4"> 4 </button>&nbsp;
+                        <button class="button_youth" type="button" value="5"> 5 </button>&nbsp;
+                        <button class="button_youth" type="button" value="6"> 6 </button>&nbsp;
+                        <button class="button_youth" type="button" value="7"> 7 </button>&nbsp;
+                        <button class="button_youth" type="button" value="8"> 8 </button>&nbsp;
+                    </td>
+                    <tr>
+                        <td> 경&nbsp;&nbsp;&nbsp;로&nbsp; &nbsp; </td>
+                        <td>
+                            <button class="button_elder" type="button" value="0"> 0 </button>&nbsp; 
+                            <button class="button_elder" type="button" value="1"> 1 </button>&nbsp;
+                            <button class="button_elder" type="button" value="2"> 2 </button>&nbsp;
+                            <button class="button_elder" type="button" value="3"> 3 </button>&nbsp;
+                            <button class="button_elder" type="button" value="4"> 4 </button>&nbsp;
+                            <button class="button_elder" type="button" value="5"> 5 </button>&nbsp;
+                            <button class="button_elder" type="button" value="6"> 6 </button>&nbsp;
+                            <button class="button_elder" type="button" value="7"> 7 </button>&nbsp;
+                            <button class="button_elder" type="button" value="8"> 8 </button>&nbsp;
+                        </td>
+                    </tr>
+                    <tr>
+                        <td> 우&nbsp;&nbsp;&nbsp;대&nbsp; &nbsp; </td>
+                        <td>
+                            <button class="button_special" type="button" value="0"> 0 </button>&nbsp; 
+                            <button class="button_special" type="button" value="1"> 1 </button>&nbsp;
+                            <button class="button_special" type="button" value="2"> 2 </button>&nbsp;
+                            <button class="button_special" type="button" value="3"> 3 </button>&nbsp;
+                            <button class="button_special" type="button" value="4"> 4 </button>&nbsp;
+                            <button class="button_special" type="button" value="5"> 5 </button>&nbsp;
+                            <button class="button_special" type="button" value="6"> 6 </button>&nbsp;
+                            <button class="button_special" type="button" value="7"> 7 </button>&nbsp;
+                            <button class="button_special" type="button" value="8"> 8 </button>&nbsp;
+                        </td>
+                    </tr>
+
+                </table>
+        
+        </div>
+        <div id ="disp2_3">
+            <div> &nbsp;&nbsp; {{theater_info}} | {{screen_info}} | 남은좌석 {{avail_seat}}/{{hall_totseat}}</div>
+            <div> <h5> &nbsp;&nbsp; {{date_info}} </h5></div>
+        </div>
+    </div>    
+    <br>
+    <div class ="disp1">
+        <div id ="disp3">
+            <table style="width: inherit; margin: 5px auto;">
+                <tr align="center">
+                    <th> {{screen_info}} 좌석배치도</th>
+                </tr>
+                <tbody id="tbody_screenlayout">
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <br>
+    <div class ="disp1">
+        <div id ="info0"></div> 
+        <div id="info0_1"> 영화선택 
+            <div id="info1" value="{{movie_no}}">{{movie_no}},{{movie_name}} </div>
+        </div> 
+        <div id="info0_2"> 극장선택 
+            <div id="info2"> {{theater_info}}</div>
+            <div id="info2_2"> {{date_info}} </div>  
+            <div id="info2_3"> {{screen_info}} </div>
+            <div id="info2_4"> 인원 info2_4</div>
+        </div> 
+        <div id="info0_3"> 좌석선택
+            <div id="info3"></div>
+            <div id="info3_2"></div>
+            <div id="info3_3"></div>
+            <div id="info3_4"></div>
+        </div> 
+        <div id="info0_4"> 결제금액
+            <div id="info4"> </div>
+        </div> 
+        <div id="info0_5"> 선택버튼
+            <div id="info5">  
+                <button onclick="javascript:openPayImg()" ><img id="select_img" src="/media/ticket/select_pay.jpg"></button>
+            </div>    
+        </div> 
+    </div>        
+
+    
+
+{% endblock %}
+
+
+
+
+
+

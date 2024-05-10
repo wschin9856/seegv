@@ -1,0 +1,230 @@
+{% extends 'layout\layout.html' %}
+
+{% block style %}
+
+    <script type="text/javascript">
+
+        function getCookie(name) {
+            var cookieValue = null;
+            if (document.cookie && document.cookie !== '') {
+                var cookies = document.cookie.split(';');
+                for (var i = 0; i < cookies.length; i++) {
+                    var cookie = cookies[i].trim();
+                    // Does this cookie string begin with the name we want?
+                    if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                        break;
+                    }
+                }
+            }
+            return cookieValue;
+        }
+    
+
+        var csrftoken = getCookie('csrftoken');
+    
+        // //////////////////////////id 확인////////////////////////////////    
+            //Ajax를 쓰기위한 함수
+            function makeRequest(){
+    
+                // >>통신을 위한 객체 준비<<
+                if(window.ActiveXObject){   // 익스플로어인 경우 T 그 외의 브라우저일 경우 F
+                    xhr = new ActiveXObject("Microsoft.XMLHTTP")
+                }else{
+                    xhr = new XMLHttpRequest();
+                }
+    
+                if(!xhr){ // xhr이 없으면
+                    alert("XMLHTTP 객체를 생성할 수 없습니다.");
+                    return;                
+                }
+            
+                
+    
+                //POST 방식으로 데이터 전달
+                data = document.getElementById('id');
+                xhr.open('POST','/user/join/ajax_id');  // 서버에 보낼 url 생성 (메소드 방식, 보낼url)
+                xhr.setRequestHeader('Content-Type',"application/x-www-form-urlencoded");
+                xhr.setRequestHeader('X-CSRFToken', csrftoken); // csrftoken검사 함수 실행 (POST방식에서만 사용)
+    
+                xhr.send('id=' + data.value);  // Post 방식은 send에 데이터 값을 넣고 get방식은 안넣는다 
+                xhr.onreadystatechange = alertContents;
+    
+    
+            }
+    
+    
+            function alertContents(){
+                
+    
+                let idresult = document.getElementById('idresult') //현재 페이지 데이터의 json파일
+                // readyState 상태값(0~4) 4(DONE) : 데이터를 다 받은 상태
+                if(xhr.readyState === xhr.DONE){ // 데이터 처리가 끝난 후의 행동을 지정한다. 
+                // json파일 : dic인 문자열 타입>> json 타입으로 변경해 줘야한다                
+                    text = JSON.parse(xhr.responseText) //responseText : 넘겨받은 데이터(json파일)
+                    idresult.innerText = text["msg"]
+    
+                }
+                
+                
+            };
+    
+    </script>
+    
+    {% endblock %}
+
+
+
+
+
+    {% block content %}
+
+    {% if check %}
+        <div>    
+        회원가입하기
+        <form action="/user/join/result" method="post">
+            {% csrf_token %}
+            <input type="hidden" name="ic" value="{{ic}}">
+            <input type="hidden" name="name" value="{{user_name}}">
+            <input type="hidden" name="years" value="{{years}}">
+            <input type="hidden" name="month" value="{{month}}"> 
+            <input type="hidden" name="day" value="{{day}}"> 
+            <input type="hidden" name="tel2" value="{{tel2}}"> 
+            <input type="hidden" name="tel3" value="{{tel3}}"> 
+
+
+            <table>
+                <tr>
+                    <td>이름</td>
+                    <td>{{user_name}}</td>
+                </tr>                
+                <tr>
+                    <td>아이디</td>
+                    <td><input type="text" id = "id" name="id"  placeholder="아이디를 입력해주세요." required>
+                        <input type="button" id="btn" onclick="javascript:makeRequest()" value="중복확인" >
+                        <div id="idresult"></div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>비밀번호</td>
+                    <td><input type="password" id="pw" name="pw"  placeholder="비밀번호를 입력해주세요." required></td>
+                </tr>
+                <tr>
+                    <td>비밀번호 확인</td>
+                    <td>
+                        <input type="password" id="pwck" name="pwck" placeholder="비밀번호를 입력해주세요." onchange="javascript:Handler()" required>
+                        <div id="pwresult"></div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>생년월일</td>
+                    <td>{{years}}년 {{month}}월 {{day}}일</td>
+                </tr>
+                <tr>
+                    <td>성별</td>
+                    <td><label><input type="radio" name="gender" value="0" checked>남자</label><label><input type="radio" name="gender" value="1" ></label>여자</td>
+                </tr>                
+                <tr>
+                    <td>휴대전화번호</td>
+                    <td>010-{{tel2}}-{{tel3}}</td>
+
+                </tr>
+                <tr>
+                    <td>이메일</td>
+                    <td><input type="text" name="mailid" size="10" placeholder="이메일 아이디"  required>@
+                        <input type="text" name="mailaddress" size="15" placeholder="이메일 주소"  required></td>
+                </tr>
+                <tr>
+                    <td><input type = "submit" id = "submit" value = "회원가입"></td>
+                </tr>
+            </table>
+            
+
+
+<!--        약관동의 항목       -->
+            {% for term in terms %}
+                {% if term.terms_no in pp %}
+                    <table style="width: 600px; height: auto;" >
+                        <th>
+                            <tr colspan="3">{{term.terms_title}}
+                                {% if term.terms_required == 0 %}
+                                    (필수) 비동의 가입 불가
+                                {% else %}
+                                    (선택)
+                                {% endif %}
+                            </tr>
+                                                   
+                        </th>
+                        <tr>
+                            <td style="width: 25%;">약관제목</td>
+                            <td style="width: 50%;">약관항목</td>
+                            <td style="width: 25%;">이용목적</td>
+                        </tr>
+                        <tr>
+                            <td>{{term.terms_item}}</td>
+                            <td>{{term.terms_purpose}}</td>
+                            <td>{{term.terms_period}}</td>
+                        </tr>
+                        <td colspan="3" align="right">
+                            <!-- <label><input type="radio" name="terms{{term.terms_no}}" value="1" checked>동의</label>
+                            <label><input type="radio" name="terms{{term.terms_no}}" value="0">비동의</label> -->
+                            <label><input type="radio" name="terms{{term.terms_no}}" value="1" checked>동의</label><label><input type="radio" name="terms{{term.terms_no}}" value="0">비동의</label>
+                            
+                        </td>
+                    </table>
+                    <br><br><br>
+                {%else%}
+                
+                {% endif %}
+            {% endfor %}
+
+
+        </form>
+
+        </div>
+
+    {% else %}
+        <script type="text/javascript">
+            alert("{{text}}");
+            location.href = "{{url}}";
+        </script>
+    {% endif %}
+
+
+
+
+    <script type="text/javascript">
+
+        // //////////////////////////비밀번호 확인////////////////////////////////    
+            
+        const data1 = document.getElementById('pw');
+        const data2 = document.getElementById('pwck');
+        const str = '';
+
+        const Handler = (event) => {
+
+            const pwresult = document.getElementById('pwresult')
+            let str = "";
+            if(data1.value != data2.value){
+                str = '비밀번호를 다시 입력하세요';
+            }else{
+                str = '비밀번호가 일치합니다.';
+              
+            };
+            console.log(str)
+            pwresult.innerText = str ;
+
+
+
+        };
+
+        data2.onchange = Handler;
+
+
+
+
+
+    </script>
+
+
+{% endblock %}

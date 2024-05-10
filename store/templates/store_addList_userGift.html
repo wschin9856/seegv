@@ -1,0 +1,185 @@
+{% extends 'layout/store_layout.html' %}
+
+
+
+{% block body_store %} 
+{% load user_template %}
+{%if check%}
+<script type="text/javascript">
+  let check = "{{check}}"
+
+  alert("{{text}}");
+  location.href = "{{url}}";
+
+</script>
+{% endif %}
+
+
+<div>
+  <h4>구매상품 정보</h4>
+
+</div>
+
+<table class="table" style="border-bottom: 20px;">
+    <thead class="table-group-divider">
+      <tr>
+        <th scope="col">상품명</th>
+        <th scope="col">판매금액</th>
+        <th scope="col">수량</th>
+        <th scope="col">구매금액</th>
+      </tr>
+    </thead>
+    {% for a in addList %}
+    <tbody>
+      <tr>
+      <th scope="row">
+            <img src="/media/{{a.sp_no.sp_image}}" style="height: 150px;;">
+            {{a.sp_no.sp_name}}
+      </th>
+
+        <td>
+          {% if a.sp_no.sp_discount != None %} <!-- 할인이 있는경우 -->
+                    {{a.sp_no.sp_discount}}
+                <strike>{{a.sp_no.sp_price}}</strike>
+          {% else %}  <!-- 할인이 없는 경우 -->
+          {{a.sp_no.sp_price}}
+          {% endif %}
+        </td>
+        <td>{{a.addList_count}}</td>
+        
+        <td>
+            {% if a.sp_no.sp_discount != None %} <!-- 할인이 있는경우 -->
+                {{a.sp_no.sp_discount|mul:a.addList_count}}
+            {% else %}<!-- 할인이 없는 경우 -->
+                {{a.sp_no.sp_price|mul:a.addList_count}}
+            {% endif %}
+        </td>
+      </tr>
+    </tbody>
+    {% endfor %}
+  </table>
+
+
+<br>
+<br>
+<br>
+<br>
+<br>
+
+
+  <table class="table">
+    <thead >
+      <tr>
+        <th  scope="col">총 상품 금액</th>
+        <th></th>
+        <th scope="col">할인 금액</th>
+        <th></th>
+        <th scope="col">총 결제 금액</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <tr>
+
+
+        <td><!-- 총상품금액 -->
+            {{totalPrice}}
+        </td>
+        <td>
+          <img src="\static\media\B.png">
+        </td>
+        <td><!-- 할인금액 -->
+            {{totalDiscount}}
+        </td>
+        <td><!-- 총결제금액 -->
+          <img src="\static\media\R.png">
+        </td>
+        <td>{{f_price}}</td>
+      </tr>
+    </tbody>
+
+
+    
+  </table>
+
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+
+
+  <div>
+    <h4>주문자 정보</h4>
+  </div>
+
+  <table class="table">
+    <thead>
+      <tr>
+
+        <th>이름: {{member.member_name}}</th>
+
+        <th>휴대전화번호 : 010 - {{member.member_tel2}} - {{member.member_tel3}}</th>
+
+      </tr>
+    </thead>
+    </table>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <div>
+      <h4>선물 받는 분 정보</h4>
+    </div>
+  <form action="/store/addList/userGift/result" method="post" align="center">
+      
+        {% csrf_token %}
+    <table class="table">
+      <thead>
+        <tr>
+  
+          <th>이름: <input type="text" name="user_name"></th>
+  
+          <th>휴대전화번호 : <input type="text" name="user_tel"  placeholder="하이픈없이 입력"></th>
+  
+        </tr>
+      </thead>
+      </table>
+      <br>
+      <br>
+      <br>
+      <br>
+      <br>
+      <input type="hidden" name="totalPrice" value="{{totalPrice}}">
+      <input type="hidden" name="totalDiscount" value="{{totalDiscount}}">
+      <input type="hidden" name="f_price" value="{{f_price}}">
+
+  
+  
+  
+        <input type="submit" value="결제하기">
+      </form>
+  
+    
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+
+  <br>
+  <br>
+  <br>
+  <br>
+
+  <br>
+
+
+{% endblock %}

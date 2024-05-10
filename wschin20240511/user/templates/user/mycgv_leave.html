@@ -1,0 +1,28 @@
+
+{% extends 'layout\mycgv_layout.html' %}
+{% block body_main_mycgv %}
+    {% if check %}
+        <h3>회원탈퇴</h3>
+
+            <div>그동안 CGV 서비스를 이용해주셔서 감사합니다.</div>
+            <table>
+                <tr>
+                    <td><button type = "button" onclick="location.href = '/user/mycgv/leave/result'">회원탈퇴</button></td>
+                    <td><button type = "button" onclick="location.href = '/user/mycgv'">취소</button></td>
+                </tr>
+            </table>
+
+
+
+    {% else %}
+        <script type="text/javascript">
+            alert("{{text}}");
+            location.href = "{{url}}";
+        </script>
+    {% endif %}
+
+
+
+
+{% endblock %}
+

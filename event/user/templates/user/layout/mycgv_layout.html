@@ -1,0 +1,69 @@
+
+{% extends 'layout\layout.html' %}
+
+
+
+
+
+
+
+{% block style %}
+    {% block head_mycgv %}{% endblock %}
+{% endblock %}
+{% block content %}
+
+ {% block body_top_mycgv %}{% endblock %}
+
+<!--네비게이션 바-->
+<div id="3" style="float:left; width:20%; margin-top:50px;">
+    <div>MY CGV HOME</div>
+    <div>나의 예매내역</div>
+    <div>관람권/할인쿠폰 관리</div>
+    <div><a href="/user/mycgv/myevent/">이벤트 참여내역</a></div>
+    <div><a href="/user/mycgv/giftcard">기프트카드</a></div>
+    <div><a href="/user/mycgv/giftcon"> 내 기프트콘</a></div>
+    <div><a href="/user/mycgv/payment"> 결제내역</a></div>
+    <div><a href="/user/mycgv/pwcheck?url=/user/mycgv/myInfo">회원정보</a></div>
+    <div><a href="/user/mycgv/pwcheck?url=/user/mycgv/myInfo">   개인정보 변경</a></div>
+    <div><a href="/user/mycgv/point">   포인트</a></div>
+    <div><a href="/user/mycgv/pwcheck?url=/user/mycgv/terms">   CGV 서비스 이용동의 설정</a></div>
+    <div><a href="/user/mycgv/pwcheck?url=/user/mycgv/leave">   회원탈퇴</a></div>
+    <div><a href="/user/mycgv/profile">프로필 관리</a></div>
+    <div>나의 문의내역</div>
+    <div>   1:1 문의</div>
+    <div>   분실물 문의</div>
+<div></div>
+<div></div>
+<div></div>
+<div></div>
+<div></div>
+<div></div>
+<div></div>
+<div></div>
+<div></div>
+<div></div>
+<div></div>
+<div></div>
+
+
+</div>
+
+
+<div id="4" style="float:left; width:60%; margin-top:50px;">
+
+    {% block body_main_mycgv %}{% endblock %}
+    
+</div>
+
+<div id="4" style="float:left; width:20%; margin-top:50px;">
+
+    
+    
+</div>
+
+
+{% block body_script_mycgv %}{% endblock %}
+
+{% endblock %}
+</body>
+</html>

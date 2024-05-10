@@ -1,0 +1,104 @@
+{% extends 'layout\mycgv_layout.html' %}
+
+{% block head_mycgv %}
+
+
+
+{% endblock %}
+
+
+{% block body_main_mycgv %}
+
+<div>
+    <h4>결제 내역</h4>
+  </div>
+
+  <table class="table" style="border-bottom: 20px;">
+      <thead class="table-group-divider">
+        <tr>
+          <th scope="col">주문 NO</th>
+          <th scope="col">주문번호</th>
+          <th scope="col">주문일자</th>
+          <th scope="col">주문내역</th>
+          <th scope="col">상품금액 합계</th>
+          <th scope="col">할인금액 합계</th>
+          <th scope="col">결제 금액</th>
+          <th scope="col">포인트 적립액</th>
+          <th scope="col">결제 상태</th>
+
+        </tr>
+      </thead>
+  
+      <tbody >
+          {% for order in storeOrder %}
+          
+          <tr>
+          <td>{{order.order_no}}</td>
+          <td><a href="/user/mycgv/payment/detail?no={{order.order_no}}">{{order.order_number}}</a></td>
+          <td>{{order.order_date}}</td>
+          <td></td>
+          <td>{{order.order_price}}</td>
+          <td>{{order.order_discount}}</td>
+          <td>{{order.order_payment}}</td>
+          <td>{{order.pointUse_no_id}}</td>
+          {% if order.order_state == 1 %}
+          <td>결제완료</td>
+          {% elif order.order_state == 0 %}
+          <td>결제취소</td>
+          {% endif %}
+          </tr>
+        {% empty %}
+          <tr>
+            <td colspan="7" align="center" >결제내역이 없습니다.</td>
+          </tr>
+        {% endfor %}  
+      </tbody>
+    </table>
+
+
+
+
+
+    <div style="text-align: center; margin-top: 10px;">
+      <!-- 첫페이지 이전페이지 -->
+      {% if storeOrder.has_previous %}  <!-- 이전이 있으면 true -->
+          <a href="/user/mycgv/payment=1">[&lt;&lt;]</a>
+          <a href="/user/mycgv/payment?page={{storeOrder.previous_page_number}}">[&lt;]</a>
+      {% else %}
+          [&lt;&lt;]
+          [&lt;]
+      {% endif %}
+
+
+      <!-- 숫자창 -->
+      {% for page_number in storeOrder.paginator.page_range %}
+          {% if start_page <= page_number and end_page >= page_number %}
+              {% if page_number == storeOrder.number %}
+                  <span style="font-weight: bolder; color: black;">[{{ page_number }}]</span>
+              {% else %}
+                  <a href="/user/mycgv/payment?page={{page_number}}">[{{ page_number }}]</a>
+                  <input type="hidden" name = 'search' value="{{search}}" >
+              {% endif %}
+          {% endif %}
+      {% endfor %}
+
+
+      <!-- 마지막페이지 다음페이지 -->
+      {% if storeOrder.has_next %}<!-- 이후가 있으면 true -->
+          <a href="/user/mycgv/payment?page={{ payment.next_page_number}}">[&gt;]</a>
+          <a href="/user/mycgv/payment?page={{last_page}}">[&gt;&gt;]</a>
+      {% else %}
+          [&gt;]
+          [&gt;&gt;]
+      {% endif %}
+  </div> 
+
+
+
+
+
+
+
+
+{% endblock %}
+

@@ -1,0 +1,103 @@
+{% extends 'layout\manager_layout.html' %}
+
+{% block head_mycgv %}
+
+<style type="text/css">
+  .hidden {
+      display: none;
+  }
+</style>
+
+
+
+{% endblock %}
+
+
+{% block body_main_mycgv %}
+
+
+<div>
+  <h4>상품 관리</h4>
+</div>
+<form id="formtable" action="" method="post">
+  {% csrf_token %}
+
+  <table class="table" style="border-bottom: 20px; width: 60%;">
+    <input type="hidden" name="sp_no" value="{{storeProduct.sp_no}}">
+        <tr>
+          <th scope="col">상품번호</th>
+          <td>{{storeProduct.sp_no}}</td>
+        </tr>
+
+        <tr>
+          <th scope="col">상품명</th>
+          <td>{{storeProduct.sp_name}}</td>
+        </tr>
+        
+        <tr>
+          <th scope="col">금액</th>
+          <td>{{storeProduct.sp_price}}</td>
+        </tr>
+
+        <tr>
+          <th scope="col">할인금액</th>
+          <td>{{storeProduct.sp_discount}}</td>
+        </tr>
+        <tr>
+          <th scope="col">판매상태</th>
+          <td>{{storeProduct.sps_no.sps}}</td>
+        </tr>
+        <tr>
+          <th scope="col">상품 이미지</th>
+          <td>
+            {% if storeProduct.sp_image == None%}
+              사진없음
+            {% else %}
+              <img id = 'product_image' src="..{{storeProduct.sp_image.url}}" width="100px" >
+            {% endif %}
+            </td>
+        </tr>
+
+
+
+    </table>
+      <button onclick="javascript:change()">변경</button>
+      <button onclick="javascript:remove()">삭제</button>
+  
+
+  </form>
+
+
+
+
+
+</div>
+
+<script type="text/javascript">
+
+function remove(){
+
+const formtable = document.getElementById("formtable");
+formtable.action = "/manager/product/remove";
+
+
+}
+
+function change(){
+
+const formtable = document.getElementById("formtable");
+formtable.action = "/manager/product/change";
+
+
+}
+</script>
+
+
+
+
+
+
+
+
+{% endblock %}
+

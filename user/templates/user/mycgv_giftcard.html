@@ -1,0 +1,84 @@
+{% extends 'layout\mycgv_layout.html' %}
+
+{% block head_mycgv %}
+
+
+
+
+
+
+
+
+{% endblock %}
+
+
+{% block body_main_mycgv %}
+
+<div>
+    <h4>내 기프트 카드</h4>
+  
+  </div>
+  <div><a href="/user/mycgv/giftcard/register"><button>내 기프트카드 추가하기</button></a></div>
+  <table class="table" style="border-bottom: 20px;">
+    <tr>
+      <th scope="col">기프트카드 NO</th>
+      <th scope="col">사용기간</th>
+      <th scope="col">기프트카드 금액</th>
+      <th scope="col">기프트카드 잔액</th>
+      <th scope="col">기프트카드 상태</th>
+ 
+    </tr>
+
+
+    {% for card in card %}
+      <tr>
+        <td><a href="/user/mycgv/giftcard?no={{card.giftcard_no}}">{{card.giftcard_number}}</a></td>
+        <td>{{card.giftcard_period}}</td>
+        <td>{{card.giftcard_price}}</td>
+        <td>{{card.giftcard_balance}}</td>
+        <td>{{card.gs_no.giftcon_state}}</td>
+      </tr>
+    {% empty %}
+    <tr>
+      <td colspan="3">보유 중인 기프트카드가 없습니다.</td>
+    </tr>
+    {% endfor %}
+  </form>  
+
+</table>
+<br>
+<br>
+ 
+  {% if no != None %}
+  <table class="table" style="border-bottom: 20px;">
+      <thead class="table-group-divider">
+        <tr>
+          <th scope="col">NO</th>
+          <th scope="col">사용금액</th>
+          <th scope="col">사용일</th>
+          <th scope="col">상태</th>
+        </tr
+      </thead>
+  
+      <tbody >
+        {% for g in giftcardUse %}
+          <tr>
+          <td>{{g.giftcardUse_no}}</td>
+          <td>{{g.giftcardUse_price}}</td>
+          <td>{{g.giftcardUse_date}}</td>
+          <td>{{g.giftcard_no.gs_no.giftcon_state}}</td>
+          </tr>
+        {% empty %}
+          <tr>
+            <td colspan="7" align="center" >이용 내역이 없습니다.</td>
+          </tr>
+        {% endfor %}  
+      </tbody>
+    </table>
+  {% endif %}
+
+
+
+
+{% endblock %}
+

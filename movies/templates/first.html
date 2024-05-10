@@ -1,0 +1,268 @@
+{% extends 'layout/layout.html' %}
+{% block style %}{% endblock %}
+{% block script %}
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script type="text/javascript">
+function scrollToTop() {
+    window.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
+}
+function scrollToBottom() {
+    window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
+}
+
+window.addEventListener('scroll', function() {
+    var topButton = document.querySelector('.top-button');
+    var bottomButton = document.querySelector('.bottom-button');
+    if (window.scrollY > 0) {
+        topButton.style.display = 'block'; // 최상단에 스크롤되지 않았을 때 최상단으로 버튼을 보이게 함
+        bottomButton.style.display = 'block'; // 최상단에 스크롤되지 않았을 때 최하단으로 버튼을 보이게 함
+    } else {
+        topButton.style.display = 'none'; // 최상단에 스크롤되었을 때 최상단으로 버튼을 숨김
+        bottomButton.style.display = 'none'; // 최상단에 스크롤되었을 때 최하단으로 버튼을 숨김
+    }
+});
+
+function loadData() {
+    var chk_nowshow = document.getElementById('chk_nowshow').checked;
+
+    var url = '/movies/?ft=' + chk_nowshow;
+
+    // 쿼리스트링 파라미터를 포함한 URL로 이동하기 전에 Local Storage에 체크박스 상태를 저장
+    localStorage.setItem('chk_nowshow', chk_nowshow);
+
+    window.location.href = url;
+}
+
+// 페이지가 로드될 때 실행되는 함수
+window.onload = function() {
+
+    var chk_nowshow = localStorage.getItem('chk_nowshow');
+
+    if (chk_nowshow !== null) {
+        document.getElementById('chk_nowshow').checked = (chk_nowshow === 'true');
+    }
+};
+
+</script>
+
+
+
+{% endblock %}
+{% block content %}
+<!doctype html>
+
+    <!-- Favicons -->
+
+<meta name="theme-color" content="#712cf9">
+
+
+    <style>
+      .bd-placeholder-img {
+        font-size: 1.125rem;
+        text-anchor: middle;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        user-select: none;
+      }
+
+      a {
+  	  text-decoration: none;
+      }
+      a:link { color: black; }
+      a:hover { color: skyblue; }
+      
+
+      @media (min-width: 768px) {
+        .bd-placeholder-img-lg {
+          font-size: 3.5rem;
+        }
+      }
+
+      .b-example-divider {
+        width: 100%;
+        height: 3rem;
+        background-color: rgba(0, 0, 0, .1);
+        border: solid rgba(0, 0, 0, .15);
+        border-width: 1px 0;
+        box-shadow: inset 0 .5em 1.5em rgba(0, 0, 0, .1), inset 0 .125em .5em rgba(0, 0, 0, .15);
+      }
+
+      .b-example-vr {
+        flex-shrink: 0;
+        width: 1.5rem;
+        height: 100vh;
+      }
+
+      .bi {
+        vertical-align: -.125em;
+        fill: currentColor;
+      }
+
+      .nav-scroller {
+        position: relative;
+        z-index: 2;
+        height: 2.75rem;
+        overflow-y: hidden;
+      }
+
+
+      .btn-bd-primary {
+        --bd-violet-bg: #712cf9;
+        --bd-violet-rgb: 112.520718, 44.062154, 249.437846;
+
+        --bs-btn-font-weight: 600;
+        --bs-btn-color: var(--bs-white);
+        --bs-btn-bg: var(--bd-violet-bg);
+        --bs-btn-border-color: var(--bd-violet-bg);
+        --bs-btn-hover-color: var(--bs-white);
+        --bs-btn-hover-bg: #6528e0;
+        --bs-btn-hover-border-color: #6528e0;
+        --bs-btn-focus-shadow-rgb: var(--bd-violet-rgb);
+        --bs-btn-active-color: var(--bs-btn-hover-color);
+        --bs-btn-active-bg: #5a23c8;
+        --bs-btn-active-border-color: #5a23c8;
+      }
+
+      .bd-mode-toggle {
+        z-index: 1500;
+      }
+
+      .bd-mode-toggle .dropdown-menu .active .bi {
+        display: block !important;
+      }
+      .navigation-button {
+        position: fixed;
+        bottom: 20px; /* 원하는 위치로 조정 가능 */
+        right: 20px; /* 원하는 위치로 조정 가능 */
+        z-index: 999; /* 다른 요소 위에 표시되도록 설정 */
+      }
+
+      /* 선택적으로 버튼에 스타일링 추가 가능 */
+      .navigation-button {
+          background-color: grey;
+          color: #fff;
+          border: none;
+          padding: 10px 20px;
+          border-radius: 5px;
+          font-size: 16px;
+          cursor: pointer;
+          /* 기타 원하는 스타일링 추가 */
+      }
+      .top-button {
+    position: fixed;
+    bottom: 20px; /* 최하단으로부터의 거리 조정 */
+    right: 150px;
+    z-index: 999;
+}
+
+.bottom-button {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 999;
+}
+.buttons {
+        background-color: #dc3545;;
+        border: none;
+        color: white;
+        padding: 10px 20px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 16px;
+        margin: 2px 2px;
+        cursor: pointer;
+        border-radius: 8px;
+        
+    }
+    .buttons:hover{
+        background-color : #cc071b;
+    }
+    </style>
+
+    
+  </head>
+  <body>
+
+
+    
+
+<main>
+  
+
+  <section class="py-5 text-center container">
+    <div class="row py-lg-5" align="left">
+      <h1 class="fw-light"><strong>무비차트</strong></h1>
+      <hr>
+      <div align="right">
+        <button type="button" class="buttons" onclick="location.href='/movies/'">무비차트</button>  <button type="button" class="buttons" onclick="location.href='/movies/pre-movies/'">상영예정작</button> 
+      </div>
+      <div align="left">
+          <input type="checkbox" class="now" id="chk_nowshow" name="chk_nowshow" align="left" onchange="loadData()">
+          <label for="chk_nowshow">현재 상영작만 보기</label>
+        </div>
+
+    </div>
+    {% if member == '관리자'%}
+    <div>
+      <a href="/movies/create/">영화추가</a>
+      <a href="/movies/update/">영화수정</a>
+    </div>
+    {% endif %}
+  </section>
+  <div>
+    <button class="navigation-button top-button" onclick="scrollToTop()">최상단으로</button>
+    <button class="navigation-button bottom-button" onclick="scrollToBottom()">최하단으로</button>
+  </div>
+</div>
+  <div class="album py-5 bg-body-tertiary">
+    <div class="container">
+      <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3" id="movieview">
+        {% for i in ml %}
+        <div class="col">
+          <p align="center">NO.{{forloop.counter}}</p>
+          <div class="card shadow-sm">
+            <svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: صورة مصغرة" preserveAspectRatio="xMidYMid slice" focusable="false">
+              <title>Placeholder</title>
+              <rect width="100%" height="100%" fill="#55595c"/>
+              <a href="/movies/detailview/?no={{i.no}}">
+                <image xlink:href="{{i.image.url}}" width="100%" height="100%" />
+              </a>
+            </svg>
+            <div class="card-body">
+              <a href="/movies/detailview/?no={{i.no}}"><strong>{{i.krname}}</strong></a>
+              <p class="card-text">{{i.ViewableAge_no.name}}</p>
+              <p class="card-text">{{i.opendate}} 개봉</p>
+              <div class="d-flex justify-content-between align-items-center">
+                <div class="btn-group">
+                  <button type="button" class="btn btn-sm btn-outline-secondary" onclick="document.location.href='/ticket/?Movie_no={{i.no}}'">예매하기</button>
+                  <button type="button" class="btn btn-sm btn-outline-secondary" onclick="document.location.href='/movies/detailview/?no={{i.no}}'">상세정보</button>
+                </div>
+                <small class="text-body-secondary">
+                  {% if i.opendate <= currentdate %}
+                    상영중 
+                  {% else %}
+                    상영예정 D-{{i.d_day}}
+                  {% endif %}
+                </small>
+              </div>
+            </div>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+      
+    </div>
+
+  </div>
+  
+
+</main>
+
+<footer class="text-body-secondary py-5">
+
+</footer>
+    </body>
+</html>
+
+{% endblock %}

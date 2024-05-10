@@ -1,0 +1,180 @@
+{% extends 'layout\mycgv_layout.html' %}
+
+{% block head_mycgv %}
+    <style type="text/css">
+        .hidden {
+            display: none;
+        }
+    </style>
+    
+
+{% endblock %}
+
+
+{% block body_main_mycgv %}
+
+    {% if check %}
+
+        <form action="/user/mycgv/myInfo/result" method="post">
+            {% csrf_token %}
+            <table>
+                <tr>
+                    <td>이름</td>
+                    <td>{{name}}</td>
+                </tr>                
+                <tr>
+                    <td>아이디</td>
+                    <td>{{id}}</div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>생년월일</td>
+                    <td>{{years}}년 {{month}}월 {{day}}일</td>
+                </tr>
+                <tr>
+                    <td>성별</td>
+                    <td>
+                        {% if gender == 0 %}
+                            남자
+                        {% elif gender == 1 %}
+                            여자
+                        {% endif %}
+                    </td>
+                </tr>                
+
+
+                <tr id="t1">
+                    <td>휴대전화번호</td>
+                    <td>010-{{tel2}}-{{tel3}}<input type="button" name="btn2" id="btn2" value="변경하기" onclick="javascript:clickHandler2()"></td>
+                </tr>
+                <!-- 변경하기 버튼 누르기 전 숨김처리 -->
+                <tr id="t2" class="hidden">
+                    <td>휴대전화번호</td>
+                    <td>010-<input type="text" name ="tel2" size="5">-<input type="text" name ="tel3" size="5"></td>
+                </tr>
+                
+                
+                
+                <tr id="m1">
+                    <td>이메일</td>
+                    <td>{{mailid}}@{{mailaddress}}<input type="button" id="btn1" value="변경하기" onclick="javascript:clickHandler1()"></td>
+                </tr>
+                <!-- 변경하기 버튼 누르기 전 숨김처리 -->
+                <tr id="m2" class="hidden">
+                    <td>이메일</td>
+                    <td>
+                        <input type="text" name ="mailid" size="10" placeholder="이메일 아이디">@<input type="text" name ="mailaddress" size="15" placeholder="이메일 주소">
+                    </td>
+                </tr>
+
+
+
+                <tr id="pw1" class="">
+                    <td>비밀번호</td>
+                    <td><input type="button" id="btn" value="변경하기" onclick="javascript:clickHandler()"></td>
+                </tr>
+                <!-- 변경하기 버튼 누르기 전 숨김처리 -->
+                <tr id="pw2" class="hidden">
+                    <td>비밀번호</td>
+                    <td><input type="password" id="pw" name="pw"  placeholder="비밀번호를 입력 해주세요."></td>
+                </tr>
+                <tr id="pw3" class="hidden">
+                    <td>비밀번호 확인</td>
+                    <td>
+                        <input type="password" id="pwck" name="pwck" placeholder="비밀번호를 재입력 해주세요." onchange="javascript:Handler()">
+                        <div id="pwresult"></div>
+                    </td>
+                </tr>
+                
+                
+                <tr>
+                    <td><input type = "submit" id = "submit" value = "수정하기"></td>
+                </tr>
+            </table>
+        </form>
+
+    {% else %}
+        <script type="text/javascript">
+            alert("{{text}}");
+            location.href = "{{url}}";
+        </script>
+    {% endif %}
+
+
+
+
+
+<script type="text/javascript">
+
+    // 전화번호 변경하기 버튼을 눌러 입력창 띄우기
+    const btn2 = document.getElementById('btn2')
+    const t1 = document.getElementById('t1')
+    const t2 = document.getElementById('t2')
+
+    const clickHandler2 = (event) => {
+        t1.className = ("hidden");
+        t2.className = ("");
+    };
+
+    btn2.onclick = clickHandler2;
+
+
+    // 이메일 변경하기 버튼을 눌러 숨겨졌던 입력창 띄우기
+    const btn1 = document.getElementById('btn1')
+    const m1 = document.getElementById('m1')
+    const m2 = document.getElementById('m2')
+
+    const clickHandler1 = (event) => {
+        m1.className = ("hidden");
+        m2.className = ("");
+    };
+
+    btn1.onclick = clickHandler1;
+
+
+
+
+    // 비밀번호 변경하기 버튼을 눌러 입력창 띄우기
+    const btn = document.getElementById('btn')
+    const pw1 = document.getElementById('pw1')
+    const pw2 = document.getElementById('pw2')
+    const pw3 = document.getElementById('pw3')
+
+    const clickHandler = (event) => {
+        pw1.className = ("hidden");
+        pw2.className = ("");
+        pw3.className = ("");
+    };
+
+    btn.onclick = clickHandler;
+    
+    
+    // 비밀번호 입력 확인 
+    const data1 = document.getElementById('pw');
+        const data2 = document.getElementById('pwck');
+        const str = '';
+
+        const Handler = (event) => {
+
+            const pwresult = document.getElementById('pwresult')
+            let str = "";
+            if(data1.value != data2.value){
+                str = '비밀번호를 다시 입력하세요';
+            }else{
+                str = '비밀번호가 일치합니다.';
+              
+            };
+            pwresult.innerText = str ;
+        };
+
+    data2.onchange = Handler;
+
+
+</script>
+
+
+
+
+
+{% endblock %}
+

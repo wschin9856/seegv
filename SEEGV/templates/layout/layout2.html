@@ -1,0 +1,132 @@
+{%load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="{% static 'js/bootstrap.min.js' %}"></script>
+    <script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
+    <link rel="stylesheet" media="all" type="text/css" href="{% static 'css/bootstrap.min.css' %}">
+    {% block style %}{% endblock %}
+    <style>
+
+      </style>
+  
+</head>
+<body>
+    <nav class="navbar">
+      <div class="container-fluid m">
+        <a class="navbar-brand" href="#">
+          <img src="static/media/cgv1.png" width="150px" class="d-inline-block align-text-bottom">
+          <span>CULTUREFLEX</span>
+        </a>
+        <ul class="nav justify-content-end">
+          <li class="nav-item"><a href="#" style="text-decoration-line:none; color:black;" ><img src="static/media/loginimage/loginPassword.png" width="50px" style="display:block; margin-right: 31px;">로그인</a></li>
+          <li class="nav-item"><a href="#" style="text-decoration-line:none; color:black;"><img src="static/media/loginimage/loginJoin.png" width="50px" style="display:block;margin-right: 31px;">회원가입</a></li>
+          <li class="nav-item"><a href="#" style="text-decoration-line:none; color:black;"><img src="static/media/loginimage/loginMember.png" width="50px" style="display:block;margin-right: 31px;">MY CGV</a></li>
+          <li class="nav-item"><a href="#" style="text-decoration-line:none; color:black;"><img src="static/media/loginimage/loginCustomer.png" width="50px" style="display:block;margin-right: 31px;">MY CGV</a></li>
+        </ul>
+    </nav>
+    <hr>
+    </div>
+    <nav class="navbar navbar-expand-lg navbar-light ">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="#"></a>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="true">
+                영화
+              </a>
+              <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <li><a class="dropdown-item" href="#">영화</a></li>
+                <li><hr class="dropdown-divider"></li>
+                <li><a class="dropdown-item" href="#">무비차트</a></li>
+                <li><a class="dropdown-item" href="#">아트하우스</a></li>
+                <li><a class="dropdown-item" href="#">ICECON</a></li>
+              </ul>
+            </li>
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                극장
+              </a>
+              <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <li><a class="dropdown-item" href="#">극장</a></li>
+                <li><hr class="dropdown-divider"></li>
+                <li><a class="dropdown-item" href="#">CGV 극장</a></li>
+                <li><a class="dropdown-item" href="#">특별관</a></li>
+              </ul>
+            </li>
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                예매
+              </a>
+              <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <li><a class="dropdown-item" href="#">예매</a></li>
+                <li><hr class="dropdown-divider"></li>
+                <li><a class="dropdown-item" href="#">빠른예매</a></li>
+                <li><a class="dropdown-item" href="#">상영스케줄</a></li>
+
+
+              </ul>
+            </li>
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                스토어
+              </a>
+              <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <li><a class="dropdown-item" href="#">스토어</a></li>
+                <li><hr class="dropdown-divider"></li>
+                <li><a class="dropdown-item" href="#">패키지</a></li>
+                <li><a class="dropdown-item" href="#">영화관람권</a></li>
+                <li><a class="dropdown-item" href="#">기프트카드</a></li>
+                <li><a class="dropdown-item" href="#">콤보</a></li>
+                <li><a class="dropdown-item" href="#">팝콘</a></li>
+                <li><a class="dropdown-item" href="#">음료</a></li>
+                <li><a class="dropdown-item" href="#">스낵</a></li>
+                <li><a class="dropdown-item" href="#">플레이존</a></li>
+                <li><a class="dropdown-item" href="#">씨네샵</a></li>
+              </ul>
+            </li>
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                이벤트
+              </a>
+              <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <li><a class="dropdown-item" href="#">이벤트</a></li>
+                <li><hr class="dropdown-divider"></li>
+                <li><a class="dropdown-item" href="#">영화/예매</a></li>
+                <li><a class="dropdown-item" href="#">멤버십/CLUB</a></li>
+                <li><a class="dropdown-item" href="#">CGV 극장별</a></li>
+                <li><a class="dropdown-item" href="#">제휴할인</a></li>
+                <li><a class="dropdown-item" href="#">당첨자 발표</a></li>
+                <li><a class="dropdown-item" href="#">종료된 이벤트</a></li>
+              </ul>
+            </li>
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                혜택
+              </a>
+              <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <li><a class="dropdown-item" href="#">혜택</a></li>
+                
+                <li><hr class="dropdown-divider"></li>
+                  <li><a class="dropdown-item" href="#">CGV 할인정보</a></li>
+                  <li><a class="dropdown-item" href="#">VIP 라운지</a></li>
+              </ul>
+            </li>
+          </ul>
+          <form class="d-flex">
+            <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+            <button class="btn btn-outline-success" type="submit">Search</button>
+          </form>
+        </div>
+    </div>
+    </nav>
+    <hr>
+    <div style="margin-left: 30px;">
+    {% block content %}{% endblock %}
+    </div>
+</body>
+</html>

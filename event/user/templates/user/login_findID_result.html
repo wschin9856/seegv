@@ -1,0 +1,32 @@
+{% extends 'layout\layout.html' %}
+{% block content %}
+    {{text}}
+
+    {% if check %}
+        <form action="/user/join/" method="post">
+            {% csrf_token %}
+            <input type="hidden" name = "user_name" value="{{ user_name }}">
+            <input type="hidden" name = "user_birth" value="{{ user_birth }}">
+            <input type="hidden" name = "user_tel" value="{{ user_tel }}">
+            <input type="hidden" name = "check" value="{{ check }}">
+            <input type="submit" value="회원가입">
+        </form>
+    {% else %}
+        <form action="/user/login/" method="post">
+            {% csrf_token %}
+            <input type="hidden" name = "id" value="{{ findID.member_id }}">
+            <input type="submit" value="로그인">
+        </form>
+        <form action="/user/login/findPW" method="post">
+            {% csrf_token %}
+            <input type="hidden" name = "user_id" value="{{ findID.member_id }}">
+            <input type="hidden" name = "user_name" value="{{ user_name }}">
+            <input type="hidden" name = "user_birth" value="{{ user_birth }}">
+            <input type="hidden" name = "user_tel" value="{{ user_tel }}">
+            <input type="submit" value="비밀번호 찾기">
+        </form>
+    {% endif %}
+
+
+    
+    {% endblock %}

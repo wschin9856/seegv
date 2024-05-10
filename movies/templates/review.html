@@ -1,0 +1,143 @@
+{% extends 'layout/layout.html' %}
+
+{% block style %}
+<style>
+    
+    label {
+        display: inline-block;
+        width: 100px;
+        text-align: right;
+         
+    }
+
+    
+    .evaluation-label {
+        text-align: center;
+        padding: 10px;
+    }
+
+
+
+    .checkbox-row {
+        display: flex;
+        align-items: center; /* 수직 정렬 */
+    }
+    .checkbox-label {
+        margin-left: 10px; /* 체크박스와 레이블 간격 조정 */
+    }
+
+
+
+</style>
+{% endblock %}
+
+{% block script %}
+<script>
+    // 페이지가 로드되면 실행될 함수
+    window.onload = function() {
+        // 모든 감정점수 체크박스 요소를 가져옴
+        var emotionCheckboxes = document.querySelectorAll('input[type="checkbox"]');
+
+        // 각 체크박스에 대해 이벤트 리스너를 등록
+        emotionCheckboxes.forEach(function(checkbox) {
+            checkbox.addEventListener('change', function() {
+                // 체크되었을 때 값은 5, 아닐 때 값은 0 또는 제거
+                if (this.checked) {
+                    this.value = 5;
+                } else {
+                    this.value = 0;
+                }
+            });
+        });
+
+        // 폼 요소에 제출 이벤트 리스너 등록
+        var form = document.querySelector('form');
+        form.addEventListener('submit', validateForm);
+    };
+
+    // 폼 제출 시에 유효성 검사를 수행하는 함수
+    function validateForm(event) {
+        var reviewContent = document.getElementById('review_content').value;
+        var rating = document.querySelector('input[name="rating"]:checked');
+
+        // 리뷰 내용이 10자 미만이거나, 평가가 선택되지 않은 경우 제출을 막음
+        if (reviewContent.length < 10 || !rating) {
+            alert("리뷰는 최소 10자 이상이어야 하며, 평가를 선택해주세요.");
+            event.preventDefault(); // 제출을 막음
+        } else {
+            // 감정점수가 체크되지 않은 경우 0으로 설정
+            var emotionCheckboxes = document.querySelectorAll('input[type="checkbox"]');
+            emotionCheckboxes.forEach(function(checkbox) {
+                if (!checkbox.checked) {
+                    checkbox.value = 0;
+                }
+            });
+        }
+    }
+    function validateForm() {
+        var reviewContent = document.getElementById('review_content').value;
+        var rating = document.querySelector('input[name="rating"]:checked');
+
+
+        if (reviewContent.length < 10 || !rating) {
+            alert("리뷰는 최소 10자 이상이어야 하며, 평가를 선택해주세요.");
+            return false;
+        }
+    }
+</script>
+{% endblock %}
+
+{% block content %}
+
+<form action="checkwrite/" method="POST" onsubmit="return validateForm()">
+    {% csrf_token %}
+    <table>
+        <tr>
+            <td><label class="evaluation-label" for="reviewer_name">영화제목 </label></td>
+            <td>{{ movie.krname }}</td>
+        </tr>
+        <tr>
+            <td>
+                <label class="evaluation-label" for="ticket_no">티켓 번호</label>
+            </td>
+            <td>
+                <input type="hidden" name="ticket_no" value="{{ ticket.ticket_no }}">
+                <span>{{ ticket.ticket_no }}</span>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                <label class="evaluation-label">평가</label>
+                <input type="radio" name="rating" value="1" id="rating">
+                <label for="good">재밌어요</label>
+                <input type="radio" name="rating" value="2" id="rating">
+                <label for="bad">별로에요</label>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                <label class="evaluation-label">감정점수</label>
+                {% for i in emotion %}
+                <input type="checkbox" class="checkbox-item" name="emotions[]" value="{{ i.no }}">{{ i.name }}
+                {% endfor %}
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                <label class="evaluation-label">매력점수</label>
+                {% for i in charm %}
+                <input type="checkbox" class="checkbox-item" name="charms[]" value="{{ i.no }}">{{ i.name }}
+                {% endfor %}
+            </td>
+        </tr>
+        <tr>
+            <td><label class="evaluation-label" for="review_content">리뷰 내용</label></td>
+            <td><textarea id="review_content" name="review_content" rows="8" cols="80"></textarea></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td><button type="submit" onclick="return validateForm()">리뷰 작성</button></td>
+        </tr>
+    </table>
+</form>
+{% endblock %}

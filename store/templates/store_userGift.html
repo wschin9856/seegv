@@ -1,0 +1,157 @@
+{% extends 'layout/store_layout.html' %}
+
+<script type="text/javascript">
+
+</script>
+
+{% block body_store %} 
+{% load user_template %}
+
+
+<div>
+  <h4>구매상품 정보</h4>
+
+</div>
+
+<table class="table" style="border-bottom: 20px;">
+    <thead class="table-group-divider">
+      <tr>
+        <th scope="col">상품명</th>
+        <th scope="col">판매금액</th>
+        <th scope="col">수량</th>
+        <th scope="col">구매금액</th>
+      </tr>
+    </thead>
+
+    <tbody >
+      <tr>
+      <th scope="row">
+            <img src="/media/{{storeProduct.sp_image}}" style="height: 150px;;">
+      </th>
+
+        <td>
+          {% if storeProduct.sp_discount != None %}
+            <strike>{{storeProduct.sp_price}}</strike>
+          {% endif %}
+          {{price}}
+        </td>
+        <td>{{count}}</td>
+        <td>{{f_price}}</td>
+      </tr>
+    </tbody>
+  </table>
+
+
+<br>
+<br>
+<br>
+<br>
+<br>
+
+
+  <table class="table">
+    <thead >
+      <tr>
+        <th  scope="col">총 상품 금액</th>
+        <th></th>
+        <th scope="col">할인 금액</th>
+        <th></th>
+        <th scope="col">총 결제 금액</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <tr>
+
+
+        <td><!-- 총상품금액 -->
+          {% if storeProduct.sp_price == None %}
+          {{price}} <!-- 기프트카드 -->
+          {% else %}
+          {{storeProduct.sp_price|mul:count}} <!-- 기프트카드 이외 -->
+          {% endif %}
+        </td>
+        <td>
+          <img src="\static\media\B.png">
+        </td>
+        <td><!-- 할인금액 -->
+          {% if storeProduct.sp_discount != None %}
+            {{total_discount}} <!-- 패키지상품 -->
+          {% else %}
+           0 <!-- 패키지상품 이외 -->
+          {% endif %}
+        </td>
+        <td><!-- 총결제금액 -->
+          <img src="\static\media\R.png">
+        </td>
+        <td>{{f_price}}</td>
+      </tr>
+    </tbody>
+
+
+    
+  </table>
+
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+
+
+  <div>
+    <h4>선물 받는 분 정보</h4>
+  </div>
+<form action="/store/userGift/result" method="post" align="center">
+    
+      {% csrf_token %}
+  <table class="table">
+    <thead>
+      <tr>
+
+        <th>이름: <input type="text" name="user_name"></th>
+
+        <th>휴대전화번호 : <input type="text" name="user_tel"  placeholder="하이픈없이 입력"></th>
+
+      </tr>
+    </thead>
+    </table>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+      <input type="hidden" name="sp_no" value="{{storeProduct.sp_no}}">
+      <input type="hidden" name="giftcard_price" value="{{price}}">
+      <input type="hidden" name="count" value="{{count}}">
+      <input type="hidden" name="list" value="{{list}}">
+      <input type="hidden" name="method" value="{{method}}">
+      <!-- <input type="hidden" name="" value="">
+      <input type="hidden" name="" value=""> -->
+
+
+
+
+      <input type="submit" value="결제하기">
+    </form>
+  
+    
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+
+{% endblock %}

@@ -1,0 +1,46 @@
+{% extends 'layout\layout.html' %}
+{% block content %}
+    <h3>회원가입 여부 확인</h3>
+    <form action="/user/join/" method="post">
+        {% csrf_token %}
+        <input type="text" name="user_name" size="40"  placeholder="이름을 입력해주세요" required><br>
+        <input type="text" id="user_birth" name="user_birth"  size="40" placeholder="법정생년월일 8자리를 입력해 주세요" maxlength="8" required>
+        <div id="birthresult"></div>
+        <input type="text" id="user_tel" name="user_tel"  size="40" placeholder="휴대전화번호 뒤 8자리를 입력해주세요. (010 제외)" maxlength="8" required><br>
+        <div id="telresult"></div>
+        <input type = "submit" value = "확인하기">
+    </form>
+
+
+
+    <script type="text/javascript">
+        // 입력자리수 확인
+        const data1 = document.getElementById('user_birth');
+        const data2 = document.getElementById('user_tel');
+
+        const Handler1 = (event) => {
+            const birthresult = document.getElementById('birthresult')
+            let str = "";
+            if(data1.value.length != 8 ){
+                str = '8자리로 입력하세요';
+            };
+            birthresult.innerText = str ;
+        };
+
+        const Handler2 = (event) => {
+            const telresult = document.getElementById('telresult')
+            let str = "";
+            if(data2.value.length != 8 ){
+                str = '8자리로 입력하세요';
+            };
+            telresult.innerText = str ;
+        };
+
+        data1.onchange = Handler1;
+        data2.onchange = Handler2;
+    
+    </script>
+
+{% endblock %}
+
+    

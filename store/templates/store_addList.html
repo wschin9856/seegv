@@ -1,0 +1,226 @@
+{% extends 'layout/store_layout.html' %}
+
+{% block head_store %}
+<script type="text/javascript">
+
+
+
+function getCookie(name) {
+    var cookieValue = null;
+    if (document.cookie && document.cookie !== '') {
+        var cookies = document.cookie.split(';');
+        for (var i = 0; i < cookies.length; i++) {
+            var cookie = cookies[i].trim();
+            if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                break;
+            }
+        }
+    }
+    return cookieValue;
+};
+
+var csrftoken = getCookie('csrftoken');
+
+
+function makeRequest1(){
+
+
+    // >>통신을 위한 객체 준비<<
+    if(window.ActiveXObject){   // 익스플로어인 경우 T 그 외의 브라우저일 경우 F
+    xhr = new ActiveXObject("Microsoft.XMLHTTP")
+    }else{
+    xhr = new XMLHttpRequest();
+    }
+
+    if(!xhr){ // xhr이 없으면
+    alert("XMLHTTP 객체를 생성할 수 없습니다.");
+    return;                
+    }
+    // >>통신을 위한 객체 준비 완<<     
+
+        //POST 방식으로 데이터 전달
+        addList_no = event.target.value
+        no = 'no'+ addList_no
+        data = document.getElementById(no);
+
+        xhr.open('POST','/store/addList/ajax');  // 서버에 보낼 url 생성 (메소드 방식, 보낼url)
+        xhr.setRequestHeader('Content-Type',"application/x-www-form-urlencoded");
+        xhr.setRequestHeader('X-CSRFToken', csrftoken); // csrftoken검사 함수 실행 (POST방식에서만 사용)
+
+        xhr.send('addList_no='+ addList_no +'&value=' +data.value);  // + '&list=' +list  // Post 방식은 send에 데이터 값을 넣는다 
+        xhr.onreadystatechange = alertContents1;
+};
+
+function alertContents1(){
+
+// let result = document.getElementById('{{list.addList_no}}') //현재 페이지 데이터의 json파일
+
+
+    if(xhr.readyState === xhr.DONE){ // readyState 상태값(0~4) 4(DONE) : 데이터를 다 받은 상태
+    // json파일 : dic인 문자열 타입>> json 타입으로 변경해 줘야한다                
+        text = JSON.parse(xhr.responseText)//responseText : 넘겨받은 데이터(json파일)
+
+        alert(text["msg"]);
+
+
+    };
+
+
+};
+
+
+
+//////////////
+
+
+function purchase1(){  // 구매하기
+
+const next = document.getElementById("next");
+next.action = "/store/addList/purchase";
+
+
+}
+
+function userGift1(){  // 선물하기
+
+const next = document.getElementById("next");
+next.action = "/store/addList/userGift";
+
+
+}
+
+function purchase2(){  // 구매하기
+
+const next = document.getElementById("next");
+let value = event.target.value
+
+next.action = "/store/purchase?method=2&"+value;
+
+
+}
+
+function userGift2(){  // 선물하기
+
+const next = document.getElementById("next");
+next.action = "/store/userGift?method=2";
+
+
+}
+
+
+
+
+
+
+
+
+</script>
+
+{% endblock %}
+
+
+{% block body_store %} 
+
+<table class="table">
+    <thead>
+    <tr>
+        <td><input type="checkbox" id="checkbox" value="selectAll" onclick='selectAll()'></td>
+        <td>상품명</td>
+        <td>판매금액</td>
+        <td>수량</td>
+        <td>구매금액</td>
+        <td>선택</td>
+        <td></td>
+    </tr>
+    </thead>
+
+
+    <form action="" id="next" method="post" align="center">
+        {% csrf_token %}
+    
+    <tbody>
+{% load user_template %}
+    {%for list in addList%}
+        {% for p in storeProduct %}
+            {% if list.sp_no_id == p.sp_no %}
+                <tr>
+                    <!-- 체크박스 -->
+                    <td><input type="checkbox" name="ck{{list.addList_no}}" value="{{list.addList_no}}"></td> 
+
+                    <!-- 상품명 -->
+                    <td> 
+                        <img src="/media/{{p.sp_image}}" style="height: 100px;;">
+                        {{p.sp_name}}
+                    </td>
+
+                    <!-- 판매금액 --> 
+                    {% if p.sp_discount == None %} <!-- 할인금액이 없는경우 -->
+                    <td>{{p.sp_price}}</td>
+                    {% else %} <!-- 할인 금액이 있는 경우 -->
+                    <td>{{p.sp_discount}}<strike>{{p.sp_price}}</strike></td>
+                    {% endif %}
+
+                    <!-- 수량 -->
+                    <td>
+
+                        <input type="number" id="no{{list.addList_no}}" value="{{list.addList_count}}" min="1" max="10" step="1" >
+                   
+                        <button type="button" value="{{list.addList_no}}" onclick="javascript:makeRequest1()">변경</button>
+                   
+                    </td>
+
+                    <!-- 구매금액 -->
+                    {% if p.sp_discount == None %} <!-- 할인금액이 없는경우 -->
+
+                    <td>{{p.sp_price|mul:list.addList_count}}</td>
+
+                    {% else %} <!-- 할인금액이 있는경우 -->
+                    <td>
+                        {{p.sp_discount|mul:list.addList_count}}
+                    </td>
+                    {% endif %}
+
+                    <!-- 선택 -->
+                    <td><a href="/store/purchase?method=2&no={{p.sp_no}}&count={{list.addList_count}}&list={{list.addList_no}}"><button type="button" style="display: block;" >구매하기</button></a>
+                        <a href="/store/userGift?method=2&no={{p.sp_no}}&count={{list.addList_count}}&list={{list.addList_no}}"><button type="button" style="display: block;">선물하기</button></a>
+                        <!-- <input type="hidden" name="no{{p.sp_no}}" value="{{p.sp_no}}">
+                        <input type="hidden" name="count{{list.addList_count}}" value="{{list.addList_count}}"> -->
+                    </td>
+                    <td><button>X</button></td>
+
+                </tr>
+            {% endif %}
+        {% endfor %}
+        {% empty %}
+          <tr>
+            <td colspan="7" align="center" >장바구니 내역이 없습니다.</td>
+          </tr>
+        {% endfor %}   
+        <tr>
+            <td><button onclick ="javascript:purchase1()">구매하기</button></td>
+            <td><button onclick ="javascript:userGift1()">선물하기</button></td>
+        </tr>
+    
+    </tbody>
+
+    
+</form>
+    
+
+</table>
+
+<script type="text/javascript">
+
+
+</script>
+
+
+{% endblock %}
+
+
+
+
+
+
+

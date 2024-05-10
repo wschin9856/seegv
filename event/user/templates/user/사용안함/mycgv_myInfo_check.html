@@ -1,0 +1,25 @@
+{% extends 'layout\mycgv_layout.html' %}
+
+{% block body_main_mycgv %}
+
+<h3>회원정보 수정</h3>
+<form action="/user/memberInfo/" method="post">
+    {% csrf_token %}
+    <table>
+        <tr>
+            <td>회원정보를 수정하시려면 비밀번호를 입력하셔야 합니다.</td>
+        </tr>
+        <tr>
+            <td><label>PW<input type="password" name="pw" required></label></td>
+        </tr>
+        <tr>
+            <td><input type = "submit" value = "확인"></td>
+        </tr>
+        
+    </table>
+</form>
+
+
+
+
+{% endblock %}

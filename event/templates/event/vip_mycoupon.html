@@ -1,0 +1,94 @@
+{% extends 'layout/layout.html' %}
+{% block style %}
+
+{% endblock %}
+
+{% block script %}
+<script>
+ $(document).ready(function(){
+    var a = "{{member.member_class.vipgo_name}}";
+    $.ajax({
+        url:"/event/get_grade/",
+        type:"POST",
+        data: {
+            'nowgrade' : a,
+            csrfmiddlewaretoken: '{{ csrf_token }}',
+        },
+        success:function(data){
+            var nowpoint = "{{member.member_vipPoint}}";
+            //console.log(nowpoint);
+            var widths= Math.round((nowpoint/data.grade[0].vipgo_score)*100);
+            //console.log(widths);
+            $("#nextgrade").html(data.grade[0].vipgo_name);
+            $("#nextscore").html(data.grade[0].vipgo_score);
+            $(".progress-bar").css({"width":widths+"%"});
+        }
+    })
+});
+
+</script>
+
+{% endblock %}
+{% block content %}  
+<h2>VIP LOUNGE</h2>
+<hr>
+<div class="container">
+    <div class="row"> 
+        <img src="/static/media/vip/vip_hdinfo_img.jpg">
+    </div>
+    <div class="row">
+        <div class="col-4">         
+        <br>
+            <div style="text-align: center;">
+                <button class="btn btn-outline-success" style="width: 200px; height: 150px;" disabled>{{member.member_class.vipgo_name}}</button >
+            </div>
+        </div>
+        <div class="col-8">
+            <br> 
+            <p style="text-align: center;">{{member.member_id}}님은  {{member.member_class.vipgo_name}} 등급 입니다.</p>
+            <div style="display: flex; justify-content: space-between;">
+                <span>{{member.member_class.vipgo_name}}</span>
+                <span id="nextgrade" name="nextgrade"></span>
+            </div>
+            <div class="progress" role="progressbar" aria-label="Basic example" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">
+                <div class="progress-bar" style="width: 50%"></div>
+            </div>
+            <div style="display: flex; justify-content: space-between;">
+                <span>0</span>
+                <span id="nextscore" name="nextscore"></span>
+            </div>
+            <p style="text-align: center;">{{member.member_vipPoint}}</p>  
+        </div>
+    </div>
+    <hr>
+    <div class="row">
+        <hr>
+        <h2>사용 가능한 나의 쿠폰 갯수</h2>
+        <hr>
+        <div class="col">
+            <p>영화 쿠폰</p>
+            <hr>
+        {% if coupon == None %}
+            <p> 사용가능한 쿠폰이 없습니다.</p>
+        {% endif %}
+        {% for i in coupon %}
+            <p>{{i.onco2_no.onco2_name}} : {{i.vipcm_number}}개</p>
+        {% endfor %}
+        </div>
+        <div class="col">
+            <p>혜택 관련</p>
+            <hr>
+            {% for i in benifit %}
+            <p>{{i.vso2_no.vos2_name}} : {{i.vbmm_number}}%</p>
+            {% endfor %}
+        </div>
+        <div class="col">
+            <p>상품 관련</p>
+            <hr>
+            {% for i in other %}
+            <p>{{i.vboo_no.vboo_name}} : {{i.vipbo_number}}</p>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+{% endblock %}

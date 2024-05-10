@@ -1,0 +1,132 @@
+{% extends 'layout/store_layout.html' %}
+
+{% block head_store %}
+
+
+
+<style>
+    .bbbbox1 { 			
+        width:200px;
+        height:300px;
+        display:block;
+    } 
+
+    .bbbbox2 { 			
+        width:200px;
+        height:300px;
+        display:inline;
+    } 
+
+</style>
+
+{% endblock %}
+{% block body_store %} 
+<div id="Package">
+    <h5 style="display:inline;">패키지</h5><a href="/store/category?sc_no=1"><button>+</button></a>
+    <hr size="5" color="#000000" >
+
+    <ul style="list-style:list-item;">
+        
+        {% for p in package %}
+        <a href="product?sp_no={{p.sp_no}}">
+            <li style="display: inline-block;">
+                <div class="bbbbox1" id="pack" >
+                    <img src="{{p.sp_image.url}}" width="200px" style="display: block;">
+                    <p style="text-align: center;">{{p.sp_name}}<br>
+                    {{p.sp_discount}}<strike>{{p.sp_price}}</strike></p>
+                </div>
+            </li>
+        </a>    
+        {% endfor %}
+
+    </ul>
+</div>
+
+<div id="tiket" style="float:left; height: max-content; width:50%; margin-top:50px;">
+    <h5 style="display:inline;">영화관람권</h5><a href="/store/category?sc_no=2"><button>+</button></a>
+    <hr size="5" color="#000000" >
+
+
+    <ul style="list-style:list-item;">
+        
+        {% for p in moviet %}
+        <a href="product?sp_no={{p.sp_no}}">
+            <li style="display:block;">
+                <div class="bbbbox2" id="pack" >
+                    <div style="display:inline;">
+                        <img src="{{p.sp_image.url}}" width="200px" style="display: inline;">
+                        <div style="display:inline-block;">
+                            <p>{{p.sp_name}}<br>
+                            {{p.sp_items}}<br>
+                            {{p.sp_price}}</p>
+                        </div>                 
+                    </div>
+                </div>
+            </li>
+        </a>        
+        {% endfor %}
+
+    </ul>
+</div>
+
+<div id="tiket" style="float:left; height: max-content; width:50%; margin-top:50px;">
+    <h5 style="display:inline;">기프트카드</h5><a href="/store/category?sc_no=3"><button>+</button></a>
+    <hr size="5" color="#000000" >
+
+
+    <ul style="list-style:list-item;">
+        
+        {% for p in giftcard %}
+        <a href="product?sp_no={{p.sp_no}}">
+            <li style="display:block;">
+                <div class="bbbbox2" id="pack" >
+                    <div style="display:inline;">
+                        <img src="{{p.sp_image.url}}" width="200px" style="display: inline;">
+                        <div style="display:inline-block;">
+                            <p>{{p.sp_name}}<br>
+                            {{p.sp_items}}<br>
+                            금액충전형</p>
+                        </div>                 
+                    </div>
+                </div>
+            </li>
+        </a>
+        {% endfor %}
+    </ul>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+{% endblock %}

@@ -1,0 +1,39 @@
+
+{% extends 'layout\layout.html' %}
+{% block style %}
+    {% block head_store %}{% endblock %}
+{% endblock %}
+{% block content %}
+
+<div style="float:left; height: max-content; width:20%; margin-top:50px;"></div>
+
+<div style="float:left; height: max-content; width:60%; margin-top:50px;">
+<div style="display: block;">
+    <!-- 스토어 상단 네비게이션 바 만들어야함-->
+    <h3>스토어 </h3>
+    <hr size="5" color="#000000" >
+    <div style="display: inline;" id="category">
+        {% for cate in category %}
+            <div style="display: inline;" id="{{cate.sc_no}}" herf="">
+                <a href="/store/category?sc_no={{cate.sc_no}}">{{cate.sc_category}}</a>
+            </div>
+        {% endfor %}
+        {% if login != None %}
+        <a href="/user/mycgv/giftcon"><button>내 기프트콘</button></a>
+        <a href="addList"><button>장바구니</button></a>
+        {% elif login == None %}
+        <a href="/user/login?returnURL=/store"><button>내 기프트콘</button></a>
+        <a href="/user/login?returnURL=/store"><button>장바구니</button></a>
+        {% endif %}
+
+
+    </div>
+    <hr>
+</div>
+ {% block body_store %} {% endblock %}
+
+</div> 
+
+ <div style="float:left; height: max-content; width:20%; margin-top:50px;"></div><!--오른쪽공백-->
+
+{% endblock %}

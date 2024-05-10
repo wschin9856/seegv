@@ -1,0 +1,88 @@
+{% extends 'layout/layout.html' %}
+
+{% block style %}
+{% endblock %}
+
+{% block script %}
+<script type="text/javascript">
+
+    $('button[id="delete"]').click(function(){
+        var member = '{{login}}';
+        var premovie = $(this).attr('name');
+        var all = '{{premovies}}'
+        if(confirm("삭제하시겠습니까?")) {
+            $.ajax({
+            type:'GET',
+            url:'/user/mycgv/movielogdelete/',
+            data:{
+                'member':member,
+                'premovie':premovie,
+                'all':all,
+            },
+            success: function(response){
+                alert("삭제되었습니다.");
+                location.reload();
+            }
+        })
+        } else {
+            return;
+        }
+
+        })
+
+
+
+
+</script>
+{% endblock %}
+
+{% block content %}
+
+<div class="album py-5 bg-body-tertiary">
+    <div class="container">
+      <h3>기대되는 영화</h3>
+      <hr>
+      <br>
+      <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3" id="movieview">
+        
+        {% for i in ml %}
+        <div class="col">
+          <div class="card shadow-sm">
+            <svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: صورة مصغرة" preserveAspectRatio="xMidYMid slice" focusable="false">
+              <title>Placeholder</title>
+              <rect width="100%" height="100%" fill="#55595c"/>
+              <a href="/movies/detailview/?no={{i.no}}">
+                <image xlink:href="{{i.image.url}}" width="100%" height="100%" />
+              </a>
+            </svg>
+            <div class="card-body">
+              <a href="/movies/detailview/?no={{i.no}}"><strong>{{i.krname}}</strong></a>
+              <p class="card-text">{{i.ViewableAge_no.name}}</p>
+              <p class="card-text">{{i.opendate}} 개봉</p>
+              <div class="d-flex justify-content-between align-items-center">
+                <div class="btn-group">
+                  <button type="button" class="btn btn-sm btn-outline-secondary" onclick="document.location.href='/ticket/?Movie_no={{i.no}}'">예매하기</button>
+                  <button type="button" class="btn btn-sm btn-outline-secondary" onclick="document.location.href='/movies/detailview/?no={{i.no}}'">상세정보</button>
+                  <button type="button" class="btn btn-sm btn-outline-secondary" id="delete" name="{{i.no}}">삭제</button>
+                </div>
+                <small class="text-body-secondary">
+                  {% if i.opendate <= currentdate %}
+                    상영중 
+                  {% else %}
+                    상영예정 D-{{i.d_day}}
+                  {% endif %}
+                </small>
+              </div>
+            </div>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+      
+    </div>
+
+  </div>
+
+
+
+{% endblock %}

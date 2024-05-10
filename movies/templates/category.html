@@ -1,0 +1,140 @@
+{% extends 'layout/layout.html' %}
+
+{% block script %}
+
+{% endblock %}
+
+{% block style %}
+<style>
+.special_detail_top {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.contents {
+    width: 100%;
+    max-width: 800px; /* 최대 너비 지정 */
+    padding: 20px; /* 내부 여백 추가 */
+}
+
+.img_wrap {
+    width: 100%; /* 부모 요소인 .contents의 가로폭에 맞게 설정 */
+    overflow: hidden; /* 이미지를 부모 요소 안에 꽉 차게 표시 */
+}
+
+.img_wrap img {
+    width: 100%; /* 이미지가 부모 요소의 너비에 맞게 표시되도록 함 */
+    height: auto; /* 가로 비율을 유지한 채 이미지의 세로 비율을 자동으로 조정 */
+}
+
+.special_detail_title {
+    margin-top: 10px; /* 제목과 이미지 사이에 여백 추가 */
+    font-size: 24px; /* 선택적으로 제목 크기 조정 */
+}
+
+.special_detail_subTitle {
+    font-size: 16px; /* 선택적으로 부제목 크기 조정 */
+    color: #666; /* 선택적으로 부제목 색상 조정 */
+}
+.carousel-control-prev,
+.carousel-control-next {
+    margin-left: 300px;
+    margin-right: 300px;
+}
+
+.carousel slide {
+    color: gray; /* 링크 색상을 회색으로 지정 */
+}
+.button-container1 {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+}
+
+
+
+.buttons {
+        background-color: #dc3545;;
+        border: none;
+        color: white;
+        padding: 15px 32px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 16px;
+        margin: 4px 2px;
+        cursor: pointer;
+        border-radius: 8px;
+        
+    }
+    .buttons:hover{
+        background-color : #cc071b;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+
+<article class="special_detail_top">
+    <div class="contents">
+        <div class="img_wrap" style="max-width: 800px; max-height: 600px;">
+            <img src="/static/media/special/{{sc.no}}.png" alt="진화된 스크린">
+        </div>
+        <h1 align="center" style="padding: 50px;"><strong>{{ sc.name }}</strong></h1>
+        
+    </div>
+</article>
+<article>
+    <div id="carouselExample" class="carousel carousel-dark slide" align="center" style="padding: 30px;">
+        <div class="carousel-inner">
+          <div class="carousel-item active">
+            <div>
+                {% for i in sc1 %}
+                {% if i.no == sc.no %}
+                <a href="/movies/theater/special/detailview/?no={{i.no}}" class="btn btn-primary" style="border: 1; border-width: 1mm; border-color: #dc3545;">{{i.name}}</a>
+                {% else %}
+                    <a href="/movies/theater/special/detailview/?no={{i.no}}" class="btn btn-primary">{{i.name}}</a>
+                {% endif %}
+                {% endfor %}
+
+            </div>
+          </div>
+          <div class="carousel-item">
+            {% for i in sc2 %}
+            {% if i.no == sc.no %}
+            <a href="/movies/theater/special/detailview/?no={{i.no}}" class="btn btn-primary" style="border: 1; border-width: 1mm; border-color: #dc3545;">{{i.name}}</a>
+            {% else %}
+                <a href="/movies/theater/special/detailview/?no={{i.no}}" class="btn btn-primary">{{i.name}}</a>
+            {% endif %}
+            {% endfor %}
+          </div>
+          <div class="carousel-item">
+            {% for i in sc3 %}
+            {% if i.no == sc.no %}
+            <a href="/movies/theater/special/detailview/?no={{i.no}}" class="btn btn-primary" style="border: 1; border-width: 1mm; border-color: #dc3545;">{{i.name}}</a>
+            {% else %}
+                <a href="/movies/theater/special/detailview/?no={{i.no}}" class="btn btn-primary">{{i.name}}</a>
+            {% endif %}
+            {% endfor %}
+          </div>
+        </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+        </button>
+    </div>
+</article>
+<div align="center" style="padding: 50px;">
+<h3 style="padding: 50px;">{{sc.name}} 극장</h3>
+<div class="button-container1"></div>
+{% for i in hl %}
+    <button class="buttons" type="button" onclick="location.href='/movies/theater/?no={{i.Theater_no_id}}'">{{i.Theater_no.name}}</button>
+{% endfor %}
+</div>
+
+{% endblock %}

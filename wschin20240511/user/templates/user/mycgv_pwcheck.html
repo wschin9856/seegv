@@ -1,0 +1,27 @@
+{% extends 'layout\mycgv_layout.html' %}
+
+{% block body_main_mycgv %}
+
+<h3>비밀번호 확인</h3>
+<form action={{url}} method="post">
+    {% csrf_token %}
+    <div>고객님의 개인정보 보호를 위한 절차이오니, CGV 로그인 시 사용하는 비밀번호를 입력해 주세요.</div>
+    <table>
+        <tr>
+            <td>아이디</td>
+            <td>{{login_id}}</td>
+        </tr>
+        <tr>
+            <td>비밀번호</td>
+            <td><input type="password" name="pw" required></td>
+        </tr>
+        <tr>
+            <td><input type = "submit" value = "확인"></td>
+        </tr>
+    </table>
+</form>
+
+
+
+
+{% endblock %}

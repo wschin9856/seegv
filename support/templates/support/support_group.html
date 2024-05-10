@@ -1,0 +1,165 @@
+{% extends 'layout/layout.html' %}
+{% block script %}
+<script>
+    var login = '{{login}}';
+    $(document).ready(function() {
+        $("#vbtn-radio1").click(function() {
+        window.location.href = "/support/";
+    });
+        $("#vbtn-radio2").click(function() {
+        window.location.href = "/support/frequency";
+        
+    });
+        $("#vbtn-radio3").click(function() {
+        window.location.href = "/support/news";
+    });
+        $("#vbtn-radio4").click(function(){
+        if(login == 'None'){
+                    alert("로그인 해주세요");
+                    window.location.href = "/user/login?returnURL=/support/email";
+        }
+        else{
+                    window.location.href = "/support/email";
+        }
+    });
+        $("#vbtn-radio5").click(function() {
+        window.location.href = "/support/group";
+    });
+       $("#region").change(function(){
+        var regionId = $(this).val(); 
+        $.ajax({
+            url: '/event/get_theaters/', 
+            type: 'GET',
+            data: {'region_id': regionId},
+            success: function(data){
+                $('#theater').empty(); 
+             $.each(data.theaters, function(key, value){
+                $('#theater').append('<option value="'+value.no+'">'+value.name+'</option>');
+          });
+        }
+      });
+    });
+        $("#submit1").click(function(){
+            alert("문의가 완료되었습니다");
+            $("#form1").submit();
+
+        })
+});
+</script>
+{% block style %}
+<style>
+      th, td {
+    border: 1px solid #444444;
+    padding: 10px;
+  }
+</style>
+{% endblock %}
+{% endblock %}
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col-sm-3 d-flex flex-column">
+            <div class="btn-group-vertical" role="group" aria-label="Vertical radio toggle button group">
+                <input type="radio" class="btn-check" name="vbtn-radio" id="vbtn-radio1" autocomplete="off">
+                <label class="btn btn-outline-danger" for="vbtn-radio1">고객센터 메인</label>
+                <input type="radio" class="btn-check" name="vbtn-radio" id="vbtn-radio2" autocomplete="off" >
+                <label class="btn btn-outline-danger" for="vbtn-radio2">자주 찾는 질문</label>
+                <input type="radio" class="btn-check" name="vbtn-radio" id="vbtn-radio3" autocomplete="off">
+                <label class="btn btn-outline-danger" for="vbtn-radio3">공지 뉴스</label>
+                <input type="radio" class="btn-check" name="vbtn-radio" id="vbtn-radio4" autocomplete="off">
+                <label class="btn btn-outline-danger" for="vbtn-radio4">이메일 문의</label>
+                <input type="radio" class="btn-check" name="vbtn-radio" id="vbtn-radio5" autocomplete="off" checked>
+                <label class="btn btn-outline-danger" for="vbtn-radio5">단체/대관 문의</label>
+            </div>
+        </div>
+        <div class="col">
+            <p>단체/대관 문의</p>
+            <p><small>개인이나 단체를 위한 대관서비스로 CGV의 넓고 쾌적한 극장에서 즐거운 추억을 만드실 수 있습니다.
+                단체/대관 문의 외 문의나 불편사항은 이메일 문의로 작성 부탁드립니다.</small></p>
+
+            <hr>
+            <form action="/support/group/result/" method="post" name="form1" id="form1">
+                {% csrf_token %}
+            <div>
+                영화관 선택:
+                <select id="region" name="region">
+                    <option value="None">영화관을 선택해주세요</option>
+                    {% for i in region%}
+                    <option value="{{i.no}}">{{i.name}}</option>
+                    {% endfor %}
+                </select>
+                <select id="theater" name="theater">
+                </select>
+            </div>
+            <hr>
+            <div>
+                관람 희망일 <input type="date" name="date">
+                <select id="time" name="time">
+                    <option value="6">6시 이전</option>
+                    <option value="7">7시</option>
+                    <option value="8">8시</option>
+                    <option value="9">9시</option>
+                    <option value="10">10시</option>
+                    <option value="11">11시</option>
+                    <option value="12">12시</option>
+                    <option value="13">13시</option>
+                    <option value="14">14시</option>
+                    <option value="15">15시</option>
+                    <option value="16">16시</option>
+                    <option value="17">17시</option>
+                    <option value="18">18시</option>
+                    <option value="19">19시</option>
+                    <option value="20">20시</option>
+                    <option value="21">21시</option>
+                    <option value="22">22시</option>
+                    <option value="23">23시</option>
+                    <option value="24">23시 이후</option>
+                </select>
+                희망 인원 <input type="text" name="person" id="person">
+            </div>
+            <hr>
+            <div>
+                내용:
+                <textarea placeholder="정확한 행사내용과 통화가능시간을 남겨주시면 더욱 빠른 답변이 가능합니다." cols="80" rows="5" id="content" name="content"></textarea>
+            </div>
+            <hr>
+            <div>
+                문의자명 <input type="text" name="memberN" id="memberN"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;연락처:&nbsp;<input type="text" id='tel' name='tel' placeholder="'-'없이 입력해주세요">
+            </div>
+            <hr>
+            <div>
+                이메일: <input type="text" name="email" id="email"> *남겨주신 이메일 또는 연락처로 답변 드립니다
+            </div>
+            <hr>
+            <div>
+                개인정보 수집 및 이용에 대한 동의
+                <table style="border: 1px solid; border-collapse: collapse;">
+                    <tr>
+                        <th>항목</th>
+                        <th>이용목적</th>
+                        <th>보유기간</th>
+                        <th>동의여부</th>
+                    </tr>
+                    <tr>
+                        <td>문의자명, 연락처,이메일,
+                            문의내용</td>
+                        <td>·문의 접수 및 회신</td>
+                        <td>
+                            문의 접수 ~ 처리완료 시점으로 부터 6개월간
+                        </td>
+                        <td><input type="radio" name="agree">동의함<input type="radio" name="agree">동의안함</td>
+                    </tr>
+                    <tr>
+                        <td colspan="4">정보주체는 개인정보의 수집 및 이용을 거부할 권리가 있으나,
+                            문의 접수 및 회신을 위한 최소한의 개인정보만을 수집하기 때문에 이를 거부하실 경우에는 서비스 이용에 어려움이 있을 수 있습니다.
+                            그 밖의 사항은 CJ CGV의 개인정보처리방침에 따릅니다.</td>
+                    </tr>
+                </table>
+            </div>
+            
+        </form>
+        <input type="button" name="submit1" id="submit1" value="제출하기">
+    </div>
+    
+</div>
+{% endblock %}

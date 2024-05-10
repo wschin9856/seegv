@@ -1,0 +1,531 @@
+{% extends 'layout/layout.html' %}
+{% block style %}
+<style>
+
+    a {
+        color: black;
+        text-decoration: none;
+        transition: color 0.3s;
+        margin-right: 10px;
+    }
+
+
+    a:hover {
+        color: #0056b3;
+    }
+    .gray-background {
+        background-color: rgb(73, 73, 73);
+        width: 1040px;
+        height: 450px;
+        display: fixed;
+        flex-wrap: wrap;
+        justify-content: center;
+        align-items: center;
+        margin: auto;
+        
+    }
+    .button-container {
+        margin: 5px;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        
+    }
+    .btn {
+        margin: 5px;
+        padding: 10px;
+        min-width: 100px;
+        height: auto;
+        text-align: center;
+        background: none;
+        border: none;
+        position: center;
+    }
+    .container {
+        display: flex;
+        align-items: center;
+        padding: auto;
+    }
+    .container h4 {
+        margin-right: 10px;
+        margin-left: 10px;
+        margin-top: 10px;
+    }
+    .container ul {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        display: flex;
+        align-items: center;
+    }
+    .container ul li {
+        margin-right: 0px;
+        margin-left: 10px;
+        margin-top: 10px;
+    }
+    .container ul li:last-child {
+        margin-right: 0;
+    }
+    .container ul li a {
+        text-decoration: none;
+        color: black;
+    }
+    .container ul li span {
+        border: 1px solid black;
+        padding: 5px 10px;
+        border-radius: 5px;
+    }
+    .movie-item {
+        padding: 20px;
+        margin-top: 20px;
+        margin-bottom: 20px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+    }
+    .movie-item a {
+        text-decoration: none;
+        color: #333;
+    }
+    .movie-item a:hover {
+        color: #cc071b;;
+    }
+    .a-favorite {
+        flex-wrap: wrap;
+        width: 105px;
+        height: 30px;
+        border: 1px solid;
+        border-radius: 5px;
+        border-color: white;
+        box-shadow: 0 0 0 2px white;
+        text-align: center;
+        
+    }
+    #schedule {
+    display: flex;
+    flex-direction: column;
+    align-items: left;
+}
+
+.movie {
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    padding: 10px;
+    border-radius: 5px;
+    width: 80%;
+    max-width: 600px;
+    background-color: #f9f9f9;
+}
+
+.movie h2 {
+    font-size: 1.5rem;
+    margin-bottom: 10px;
+}
+
+.hall {
+    margin-top: 10px;
+}
+
+.hall h3 {
+    font-size: 1.2rem;
+    margin-bottom: 5px;
+}
+
+.button-container1 {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+}
+
+.button-container1 button {
+    margin-right: 10px;
+    padding: 8px 15px;
+    background-color: #dc3545;;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.button-container1 button:last-child {
+    margin-right: 0;
+}
+
+.button-container1 button:hover {
+    background-color: #cc071b;;
+}
+    .expandable-content {
+        padding: 0 465px;
+        margin-bottom: 30px;
+        overflow: hidden;
+        transition: max-height 0.3s ease-out;
+        max-height: 0;
+    }
+    .expandable-content.expanded {
+        max-height: 1000px;
+    }
+    .buttons {
+        background-color: #dc3545;;
+        border: none;
+        color: white;
+        padding: 15px 32px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 16px;
+        margin: 4px 2px;
+        cursor: pointer;
+        border-radius: 8px;
+        
+    }
+    .buttons:hover{
+        background-color : #cc071b;
+    }
+    .datebuttons {
+        background-color: #dc3545;;
+        border: none;
+        color: white;
+        padding: 10px 20px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 16px;
+        margin: 5px;
+        cursor: pointer;
+        border-radius: 5px;
+        transition: background-color 0.3s;
+    }
+    .datebuttons:hover {
+        background-color: #cc071b;;
+    }
+        
+        .custom-link {
+        display: inline-block;
+        padding: 10px 20px;
+        background-color: #dc3545;;
+        color: #fff;
+        text-decoration: none;
+        border-radius: 5px;
+        transition: background-color 0.3s ease;
+    }
+
+
+</style>
+{% endblock %}
+{% block script %}
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script type="text/javascript">
+    $(document).ready(function(){
+        $('button[id^="test2"]').click(function() {
+            var regionId = $(this).attr('name');
+            $.ajax({
+               url : '/movies/get_theaters/',
+               type: 'GET',
+               data : {'region_id':regionId},
+            success: function(data) {
+                var theatersHTML = '<ul>';
+                $.each(data.theaters, function(index, theater) {
+                    theatersHTML += '<a href="/movies/theater/?no='+theater.no+'">' + theater.name + '</a>' + " | ";
+                });
+                theatersHTML += '</ul>';
+                $('#output').html(theatersHTML);
+                
+            }
+               
+            });
+        });
+    });
+</script>
+<script type="text/javascript">
+$(document).ready(function(){
+    var defaultDate = '{{currentdate|date:"Ymd"}}';
+    fetchSchedule(defaultDate);
+    $('button[id="ondate"]').click(function(){
+        var ondate = $(this).attr('name') || defaultDate;
+        fetchSchedule(ondate);
+    });
+    function fetchSchedule(ondate) {
+        var no = "{{ no }}";
+        $.ajax({
+            url: '/movies/get_schedule/',
+            type: 'GET',
+            data: {'ondate': ondate, 'no':no},
+            success: function(data){
+                console.log(data)
+                renderSchedule(data);
+            }
+        });
+    }
+    function renderSchedule(data) {
+        $('#schedule').empty();
+        var movies = {};
+        $.each(data.hslist, function(index, hs){
+            var scheduleHtml = '<a class="custom-link" href="/ticket/?Hallschedule_no='+ hs.no +'">' + hs.stime + '-' + hs.etime +
+                // if ()
+                 '</a>';
+            if (!movies.hasOwnProperty(hs.Movie_no)) {
+                movies[hs.Movie_no] = {};
+            }
+            if (!movies[hs.Movie_no].hasOwnProperty(hs.Hall_no)) {
+                movies[hs.Movie_no][hs.Hall_no] = [];
+            }
+            movies[hs.Movie_no][hs.Hall_no].push(scheduleHtml);
+            
+            
+        });
+        console.log(movies);
+        for (var movieNo in movies) {
+            var movieDivId = 'movie_div_' + movieNo.replace(/\s/g, "");
+            if ($('#' + movieDivId).length === 0) {
+                var newDiv = $('<div id="' + movieDivId + '"></div>');
+                $('#schedule').append(newDiv);
+            }
+            
+            var movieHtml = '<h1>' + movieNo + '</h1><span>' +getMovieView(data.hslist, movieNo)+ '</span>/<span>'+getruntime(data.hslist,movieNo)+'/</span><span>'+getGenre(data.genre,movieNo)+'/</span><span>'+getOpendate(data.hslist,movieNo)+'개봉</span><br><br>';
+            
+            for (var hallNo in movies[movieNo]) {
+                movieHtml += '<div><h5>' + hallNo + '</h5><span>'+getScreen(data.hslist, hallNo)+'   </span><span>'+getFloor(data.hslist,hallNo)+'   </span><span>총 '+getTotseat(data.hslist,hallNo)+'석</span><div class="button-container2">';
+                movies[movieNo][hallNo].sort();
+                $.each(movies[movieNo][hallNo], function(index, button){
+                    movieHtml += button;
+                });
+                movieHtml += '</div></div><br><hr><br>';
+            }
+            
+            $('#' + movieDivId).html(movieHtml);
+            
+        }
+    }
+});
+function getMovieView(hslist, movieNo) {
+    for (var i = 0; i < hslist.length; i++) {
+        if (hslist[i].Movie_no === movieNo) {
+            return hslist[i].Movie_view;
+        }
+    }
+    return None;
+}
+function getruntime(hslist, movieNo) {
+    for (var i = 0; i < hslist.length; i++) {
+        if (hslist[i].Movie_no === movieNo) {
+            return hslist[i].Movie_runtime;
+        }
+    }
+    return None;
+}
+function getGenre(genre, movieNo) {
+    var genres = [];
+    for (var i = 0; i < genre.length; i++) {
+        if (genre[i].Movie_no === movieNo) {
+            genres.push(genre[i].Genre_name);
+        }
+    }
+    return genres;
+}
+function formatDate(dateString) {
+    var dateParts = dateString.split("-");
+    return dateParts[0] + "." + dateParts[1] + "." + dateParts[2];
+}
+function getOpendate(hslist, movieNo) {
+    for (var i = 0; i < hslist.length; i++) {
+        if (hslist[i].Movie_no === movieNo) {
+            opendate = formatDate(hslist[i].Movie_opendate);
+            return opendate;
+        }
+    }
+    return None;
+}
+function getScreen(hslist, hallNo) {
+    for (var i = 0; i < hslist.length; i++) {
+        if (hslist[i].Hall_no === hallNo) {
+            return hslist[i].Screen_name;
+        }
+    }
+    return None;
+}
+function getFloor(hslist, hallNo) {
+    for (var i = 0; i < hslist.length; i++) {
+        if (hslist[i].Hall_no === hallNo) {
+            return hslist[i].Floor;
+        }
+    }
+    return None;
+}
+function getTotseat(hslist, hallNo){
+    for (var i = 0; i < hslist.length; i++){
+        if (hslist[i].Hall_no === hallNo){
+            return hslist[i].Totseat;
+        }
+    }
+    return None;
+}
+</script>
+<script type="text/javascript">
+    window.onload = function() {
+        getBookmarks();
+    };
+
+    function getBookmarks(){
+        $.ajax({
+            type:"GET",
+            url:"/movies/get_bookmark/",
+            success: function(response){
+                var bookmarkCount = response.bm ? response.bm.length : 0;
+                for (var i = 0; i < bookmarkCount; i++){
+                    var bookmark = response.bm[i];
+                    var bookmarkName = bookmark.th_no__name;
+                    var bookmarkLink = "/movies/theater/?no=" + bookmark.th_no;
+                    var bookmarkHtml = "<a class='a-favorite' href='"+bookmarkLink+"'>"+bookmarkName+"</a>";
+                    var bookmarkId = "#bookmark" + (i+1);
+                    $(bookmarkId).html(bookmarkHtml);
+                }
+                
+                for (var j = bookmarkCount + 1; j <= 5; j++) {
+                    var emptyBookmarkId = "#bookmark" + j;
+                    var emptyBookmarkHtml = "<a class='a-favorite' href=''></a>";
+                    $(emptyBookmarkId).html(emptyBookmarkHtml);
+                }
+
+                
+                $(".a-favorite").click(function() {
+                    var href = $(this).attr('href');
+                    if (href && href !== '') {
+                        window.location.href = href;
+                    } else {
+                        $.ajax({
+                            type: "GET",
+                            url: "/user/check_login/",
+                            success: function(response) {
+                                if (response.is_logged_in) {
+                                    alert("자주가는 CGV 등록이 필요합니다.")
+                                    window.location.href = "/user/mycgv/";
+                                } else {
+                                    alert("로그인이 필요합니다.")
+                                    var returnURL = window.location.href
+                                    window.location.href = "/user/login/?returnURL="+returnURL;
+                            }
+                        }
+                        });
+                    }
+                });
+            }
+        });
+    }
+
+
+</script>
+
+
+<script>
+    const content = document.getElementById('content');
+    const toggleButton = document.getElementById('toggleButton');
+    let isExpanded = false;
+
+    toggleButton.addEventListener('click', function() {
+        if (isExpanded) {
+            content.classList.remove('expanded');
+        } else {
+            content.classList.add('expanded');
+        }
+        isExpanded = !isExpanded;
+    });
+</script>
+{% endblock %}
+
+{% block content %}  
+<div class="gray-background" style="margin-bottom: 120px; margin-top: 60px;">
+    <div class="container" style="padding: 20px;">
+        <h4>
+            <img src="/static/media/theater/h4favorite.png" alt="">
+        </h4>
+        <ul class="container ul">
+            <li class="container ul li" id="bookmark1">
+
+                    
+
+            </li>
+            <li class="container ul li" id="bookmark2">
+
+                    
+
+            </li>
+            <li class="container ul li" id="bookmark3">
+
+                    
+
+            </li>
+            <li class="container ul li" id="bookmark4">
+
+                    
+
+            </li>
+            <li class="container ul li" id="bookmark5">
+
+            </li>
+        </ul>
+    </div>
+    <hr>
+    <div class="button-container">
+    {% for i in rl %}
+    <button class="btn btn-primary" id="test2{{i.no}}" name="{{i.no}}">{{i.name}}</button>
+    {% endfor %} 
+    </div>
+    <hr>
+    <div id="output" style="margin-top: 20px;"></div>
+</div>
+<hr>
+<div align="center">  
+    <br>
+    <h3 style="margin-top: 120px; margin-bottom: 20px;">
+        <img src="/static/media/theater/h3theater.gif" alt="...">
+    </h3>
+</div>
+<div >
+    <h2 style="margin-left: 465px;">{{th.name}}</h2>
+    <br>
+    <div align="center">
+        <img src="/media/theater/{{th.no}}.jpg" alt="">
+    </div>
+    <br>
+    <hr>
+    <br>
+    <div style="padding: 0 465px;">
+        <h5>INFO</h5>
+        {{th.address1}}
+        <br>
+        {{th.address2}}
+        <br>
+        {{th.tel}}
+        <br>
+        총 상영관 수 : {{th.tothalls}}
+        <br>
+        총 좌석 수 : {{th.totseats}}
+        <br>
+    </div>
+    <br>
+    <div class="button-container">
+        <button class="buttons" onclick="location.href='#theaterschedule'">상영시간표</button>
+        <button id="toggleButton" class="buttons" align="center">위치/주차안내</button>
+    </div>
+    <div style="padding: 0 465px; margin-bottom: 30px;" id="content" class="expandable-content">
+        
+        <h5><교통안내></h5>
+        
+        {{th.traffic}}
+        <br>
+        <br>
+        <h5><주차안내></h5>
+        {{th.parking}}
+    </div>
+
+
+<div class="button-container" id="theaterschedule">
+    
+    {% for i in datelist %}
+    <button id="ondate" class="datebuttons" name="{{i|date:'Ymd'}}">{{i}}</button>
+    {% endfor %}
+    
+</div>
+<div id="schedule" style="padding: 100px; margin-left: 300px;"></div>
+
+
+{% endblock %}

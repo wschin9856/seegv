@@ -1,0 +1,138 @@
+{% extends 'layout/store_layout.html' %}
+
+<script type="text/javascript">
+
+</script>
+
+{% block body_store %} 
+{% load user_template %}
+
+
+<div>
+  <h4>결제상품 정보</h4>
+
+</div>
+
+<table class="table" style="border-bottom: 20px;">
+
+    <thead class="table-group-divider">
+      <tr>
+        <th colspan="4" >주문일자 : {{storeOrder.order_date}}     주문번호 : {{storeOrder.order_number}} </th>
+      </tr>
+      <tr>
+        <th scope="col">상품명</th>
+        <th scope="col">구매금액</th>
+        <th scope="col">수량</th>
+        <th scope="col">할인받은 금액</th>
+      </tr>
+    </thead>
+
+    <tbody >
+      <tr>
+      <th scope="row">
+            <img src="/media/{{product.sp_image}}" style="height: 150px;;">
+      </th>
+        <td>{{productOrder.order_price}}</td>
+        <td>{{productOrder.order_count}}</td>
+        <td>{{productOrder.order_discount}}</td>
+      </tr>
+    </tbody>
+  </table>
+
+
+<table class="table">
+
+  <thead >
+    <tr>
+      <th  scope="col">총 상품 금액</th>
+      <th></th>
+      <th scope="col">할인 금액</th>
+      <th></th>
+      <th scope="col">총 결제 금액</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <tr>
+
+      <td><!-- 총상품금액 -->
+        {{storeOrder.order_price}}
+      </td>
+      <td>
+        <img src="\static\media\B.png">
+      </td>
+      <td><!-- 할인금액 -->
+        {{storeOrder.order_discount}}
+      </td>
+      <td><!-- 총결제금액 -->
+        <img src="\static\media\R.png">
+      </td>
+      <td>{{storeOrder.order_payment}}</td>
+    </tr>
+  </tbody>
+
+
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+
+
+
+
+  <table class="table">
+  <div>
+    <h5>주문자 정보</h5>
+  </div>    
+
+      <tr>
+
+        <th>이름: {{member.member_name}}</th>
+
+        <th>휴대전화번호 : 010 - {{member.member_tel2}} - {{member.member_tel3}}</th>
+
+      </tr>
+
+    </table>
+
+    <table class="table">
+      <div>
+        <h5>수취자 정보</h5>
+      </div>    
+    
+          <tr>
+    
+            <th>이름: {{user.userName}}</th>
+    
+            <th>휴대전화번호 : {{usertel}}</th>
+    
+          </tr>
+    
+        </table>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+
+    
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+
+{% endblock %}

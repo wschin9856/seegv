@@ -1,0 +1,1331 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!-- saved from url=(0081)http://www.cgv.co.kr/culture-event/event/detailViewUnited.aspx?seq=30021&menu=006 -->
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="ko" lang="ko"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta http-equiv="Expires" content="-1">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Cache-Control" content="No-Cache">
+    <meta http-equiv="imagetoolbar" content="no">
+    <meta name="viewport" content="width=1024">
+    <meta name="keywords" content="CGV, 시지브이, 영화관, 극장, 영화, 티켓, 박스오피스, 극장, Movie, Theater, Cinema, Cgv, cgv, 예매, 상영작">
+    <meta name="description" content="영화 그 이상의 다양하고 즐거운 몰입의 경험을 만듭니다. 라이프스타일 플랫폼 CGV">
+    <meta property="og:site_name" content="영화 그 이상의 감동. CGV">
+    <meta id="ctl00_og_title" property="og:title" content="이벤트 상세 &lt; 이벤트 | 영화 그 이상의 감동. CGV">
+
+    <!-- 24.02 네이버 웹 검색 연관 채널 방식 수정 -->
+     <script type="text/javascript" async="" src="./cashC_files/js"></script><script type="text/javascript" async="" src="./cashC_files/analytics.js.다운로드"></script><script type="text/javascript" async="" src="./cashC_files/js(1)"></script><script async="" src="./cashC_files/gtm.js.다운로드"></script><script async="" src="./cashC_files/analytics.js.다운로드"></script><script type="application/ld+json">
+    {
+         "@context": "http://schema.org",
+         "@type": "Organization",
+         "name": "CGV",
+         "url": "https://www.cgv.co.kr",
+         "sameAs": [
+           "https://www.instagram.com/cgv_korea/",
+           "https://www.youtube.com/channel/UCmjUMtUw6wXLrsULdxuXWdg",
+           "https://www.facebook.com/CJCGV",
+           "https://play.google.com/store/apps/details?id=com.cgv.android.movieapp&pli=1" ]
+    }
+    </script>
+    
+    
+    <meta id="ctl00_og_image" property="og:image" content="https://img.cgv.co.kr/WebApp/images/common/logo_new_kakao_prevw.png">
+    <link rel="alternate" href="http://m.cgv.co.kr/">
+    <link rel="shortcut icon" href="https://img.cgv.co.kr/theater_img/favicon.ico" type="image/x-icon">
+    <title id="ctl00_headerTitle">이벤트 상세 &lt; 이벤트 | 영화 그 이상의 감동. CGV</title>
+    <link rel="shortcut icon" type="image/x-icon" href="https://img.cgv.co.kr/R2014/images/favicon.ico">
+    <link rel="stylesheet" media="all" type="text/css" href="./cashC_files/webfont.css">
+	<link rel="stylesheet" media="all" type="text/css" href="./cashC_files/reset.css">
+    <link rel="stylesheet" media="all" type="text/css" href="./cashC_files/layout.css">
+    <link rel="stylesheet" media="all" type="text/css" href="./cashC_files/module.css">
+    <link rel="stylesheet" media="all" type="text/css" href="./cashC_files/content.css">
+    <link rel="stylesheet" media="all" type="text/css" href="./cashC_files/common.css">
+    
+    <link rel="stylesheet" media="all" type="text/css" href="./cashC_files/eggupdate.css">
+    <link rel="stylesheet" media="print" type="text/css" href="./cashC_files/print.css">    
+    <link rel="stylesheet" type="text/css" href="./cashC_files/jquery-ui-1.10.4.custom.min.css">
+    
+    <script type="text/javascript" src="./cashC_files/extraTheaters.js.다운로드"></script>
+    <script type="text/javascript" src="./cashC_files/app.config.js.다운로드"></script>
+    <script type="text/javascript" src="./cashC_files/jquery-1.10.2.min.js.다운로드"></script>
+    <script type="text/javascript" src="./cashC_files/jquery.tmpl.min.js.다운로드"></script>
+    <script type="text/javascript" src="./cashC_files/jquery.validate.js.다운로드"></script>
+    <script type="text/javascript" src="./cashC_files/jquery.paging.min.js.다운로드"></script>
+    <script type="text/javascript" src="./cashC_files/jquery-ui-1.10.4.custom.min.js.다운로드"></script>
+    <script type="text/javascript" src="./cashC_files/jquery.utils.js.다운로드"></script>
+    <script type="text/javascript" src="./cashC_files/app.utils.js.다운로드"></script>
+	<script type="text/javascript" src="./cashC_files/jquery.utils.pageing.js.다운로드"></script>
+    <script type="text/javascript" src="./cashC_files/app.init.js.다운로드"></script>
+
+    <!--[if lte IE 9]><script type="text/javascript" src="https://img.cgv.co.kr/R2014/js/jquery.plugin/jquery.placeholder.js"></script><![endif]-->
+    <script type="text/javascript" src="./cashC_files/jquery.dotdotdot.min.js.다운로드"></script>
+    <script type="text/javascript" src="./cashC_files/silverlight_link.js.다운로드"></script>
+	<script src="./cashC_files/slick.js.다운로드" type="text/javascript" charset="utf-8"></script>
+
+    <link rel="stylesheet" media="all" type="text/css" href="./cashC_files/phototicket.css">
+    <link rel="stylesheet" media="all" type="text/css" href="./cashC_files/slick.css">
+	<link rel="stylesheet" media="all" type="text/css" href="./cashC_files/slick-theme-custom.css">
+
+    <script type="text/javascript" src="./cashC_files/login.timer.js.다운로드"></script>
+    <script src="./cashC_files/icheck.min.js.다운로드" type="text/javascript" charset="utf-8"></script>
+    <link rel="stylesheet" type="text/css" href="./cashC_files/iCheck.css">
+
+	<!-- 2020.05.07 감정지수/프리에그 프로젝트 추가 -->
+    <link rel="stylesheet" media="all" type="text/css" href="./cashC_files/preegg.css">
+
+    <!-- 2023.03.27 홈페이지 스토어 영역 內 배너 영역 미노출의 件 -->
+ <script type="text/javascript" src="./cashC_files/giftstore.js.다운로드"></script>
+<script type="text/javascript" src="./cashC_files/commonstore.js.다운로드"></script>
+<link rel="stylesheet" media="all" type="text/css" href="./cashC_files/giftstore.css"> 
+
+    <!-- 홈페이지 CSS 일원화로 인한 반영 20220721 -->
+    <link rel="stylesheet" type="text/css" href="./cashC_files/cgv.min.css">
+    <script type="text/javascript" src="./cashC_files/cgvUi.js.다운로드"></script>
+
+    <!-- 각페이지 Header Start--> 
+    
+    <!--/각페이지 Header End--> 
+    <script type="text/javascript">
+        //<![CDATA[
+        _TRK_CP = "/이벤트&컬처/이벤트/이벤트 상세";
+
+        app.config('staticDomain', 'https://img.cgv.co.kr/R2014/')
+            .config('imageDomain', 'https://img.cgv.co.kr')
+            .config('isLogin', 'False');
+
+        
+        // AD FLOAT
+        // 암호화 할 문자열과 키값(상수값)을 매개변수로 받는다.
+        function EncryptAD(str, key) {
+            output = new String;
+            Temp = new Array();
+            TextSize = str.length;
+            for (i = 0; i < TextSize; i++) {
+                // key 값을 원하는 대로 연산을 한다
+                output += String.fromCharCode(str.charCodeAt(i) + parseInt(key) + 123 + i);
+            }
+            return output;
+        }
+        // 복호화
+        // 암호화 된 문자열과 키값(상수값)을 매개변수로 받는다.
+        function DecryptAD(str, key) {
+            output = new String;
+            Temp = new Array();
+            TextSize = str.length;
+            for (i = 0; i < TextSize; i++) {
+                // 암호화시 사용한 연산과 같아야 한다.
+                output += String.fromCharCode(str.charCodeAt(i) - (parseInt(key) + 123 + i));
+            }
+
+            return output;
+        }
+
+        function getCookieVal(offset) {
+            var endstr = document.cookie.indexOf(";", offset);
+            if (endstr == -1) endstr = document.cookie.length;
+            return unescape(document.cookie.substring(offset, endstr));
+        }
+        function GetCookieAd(name) {
+            var arg = name + "=";
+            var alen = arg.length;
+            var clen = document.cookie.length;
+            var i = 0;
+            while (i < clen) { //while open
+                var j = i + alen;
+                if (document.cookie.substring(i, j) == arg)
+                    return getCookieVal(j);
+                i = document.cookie.indexOf(" ", i) + 1;
+                if (i == 0) break;
+            } //while close
+            return null;
+        }
+        function setCookieAD(name, value, expiredays) {
+            var todayDate = new Date();
+            todayDate.setTime(todayDate.getTime() + (expiredays * 24 * 60 * 60 * 1000));
+            document.cookie = name + "=" + escape(value) + "; expires=" + todayDate.toGMTString() + "; path=/; domain=cgv.co.kr";
+        }
+        function CloseAD() {
+            var AdUrl = window.location.href;
+            var ArrAdUrl = AdUrl.split("/");
+
+            var CurCookieName = 'CgvPopAd-' + ArrAdUrl[3];
+            var CurCookieUrl = GetCookieAd(CurCookieName);
+            var CookieUrl = ArrAdUrl[3];
+
+            CookieUrl = EncryptAD(CookieUrl, "15442280");
+            setCookieAD(CurCookieName, CookieUrl, '1');
+            $(document).find('#ad_float1').hide();
+        }
+        function OpenAD() {
+            var AdUrl = window.location.href;
+            var ArrAdUrl = AdUrl.split("/");
+            var CookieUrl = ArrAdUrl[3];
+            var CurCookieName = 'CgvPopAd-' + ArrAdUrl[3];
+            var CurCookieUrl = GetCookieAd(CurCookieName);
+
+            if (CurCookieUrl == null) {
+                CurCookieUrl = "";
+            }
+            else {
+                CurCookieUrl = DecryptAD(CurCookieUrl, "15442280");
+            }
+
+            if (CurCookieUrl.indexOf(CookieUrl) != -1) {
+                $(document).find('#ad_float1').hide();
+            }
+
+            //section.cgv.co.kr 매거진 체크
+            var magazineckurl = GetCookieAd("CgvPopAd-magazine");
+            if (magazineckurl != null) {
+                var magazineck = DecryptAD(magazineckurl, "15442280");
+                if (magazineck != null && magazineck == "magazine") {
+                    //값이있는경우 표시하지않음
+                    $(document).find('#ad_float1').hide();
+                }
+            }
+        }
+
+        
+
+        //]]>
+    </script>
+    
+
+    
+<script type="text/javascript" src="./cashC_files/system.packed.js.다운로드"></script></head>
+<body class="" style="">
+
+<div class="skipnaiv">
+	<a href="http://www.cgv.co.kr/culture-event/event/detailViewUnited.aspx?seq=30021&amp;menu=006#contents" id="skipHeader">메인 컨텐츠 바로가기</a>
+</div>    
+<div id="cgvwrap">
+    
+    
+    <div class="cgv-ad-wrap" id="cgv_main_ad">
+        <div id="TopBarWrapper" class="sect-head-ad">
+            <div class="top_extend_ad_wrap">
+                <div class="adreduce" id="adReduce">                    
+                    <iframe src="./cashC_files/sub@TopBar_EX.html" width="100%" height="80" title="" frameborder="0" scrolling="no" topmargin="0" leftmargin="0" marginwidth="0" marginheight="0" name="TopBanner" id="TopBanner"></iframe>
+                </div> 
+                <div class="adextend" id="adExtend"></div>
+            </div><!-- //.top_extend_ad_wrap -->
+        </div>    
+    </div>    
+	
+      <!-- S Header
+        Description
+        - class 'nav' 에 class 'active' 추가시 서브메뉴노출
+        - class 'nav' 에 class 'fixed' 추가시 상단고정되며 스타일 변경됨
+     -->
+	<div class="header">			
+            <!-- 서비스 메뉴 --> 
+            
+<div class="header_content">
+    <div class="contents">
+        <h1 onclick=""><a href="http://www.cgv.co.kr/"><img src="./cashC_files/logoRed.png" alt="CGV"></a><span>CULTUREPLEX</span></h1>
+        <ul class="memberInfo_wrap">
+            <!-- Advertisement -->
+            
+			<div class="ad-partner">
+                <a href="http://www.cgv.co.kr/culture-event/event/detailViewUnited.aspx?seq=31426&amp;menu=006">
+                    <img src="./cashC_files/16758461047540.png" alt="현대M포인트" onerror="this.onerror=null;javascript:;$(&#39;.ad-partner&#39;).hide();">
+                </a>					
+			</div>
+            
+            <!-- /Advertisement -->
+
+            
+            <li><a href="http://www.cgv.co.kr/user/login/?returnURL=http%3a%2f%2fwww.cgv.co.kr%2fculture-event%2fevent%2fdetailViewUnited.aspx%3fseq%3d30021%26menu%3d006"><img src="./cashC_files/loginPassword.png" alt="로그인"><span>로그인</span></a></li>
+            <li><a href="http://www.cgv.co.kr/user/join/"><img src="./cashC_files/loginJoin.png" alt="회원가입"><span>회원가입</span></a></li>
+            
+            
+            <li><a href="http://www.cgv.co.kr/user/mycgv/"><img src="./cashC_files/loginMember.png" alt="MY CGV"><span>MY CGV</span></a></li>
+            <li><a href="http://www.cgv.co.kr/support/default.aspx"><img src="./cashC_files/loginCustomer.png" alt="고객센터"><span>고객센터</span></a></li>
+        </ul>
+    </div>
+</div>
+
+<script>
+    //GA Analytics TopMenu 영역 LOG
+    //빨강 CGV클릭
+    $('.header_content > .contents > h1 > a').on({
+        click: function (e) {
+            gaEventLog('PC_GNB', '홈', '');
+        }
+    });
+    //서비스 메뉴
+    $('.header_content > .contents > ul > li > a').on({
+        click: function (e) {
+            gaEventLog('PC_GNB', '서비스메뉴_'+this.text, '');
+        }
+    });
+
+   
+
+</script>
+            <!-- 서비스 메뉴 -->
+           
+			<!-- 서브 메뉴 -->
+			
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('.nav_menu > li > h2 > a').on({
+            mouseenter: function (e) {
+                var target = e.target;
+                $(target).parents('.nav_menu').find('.nav_overMenu').slideDown(function () {
+                    $('.nav').addClass('active');
+                });
+            },
+            click: function (e) {
+                var target = e.target;
+                if (!$('.nav').hasClass('active')) {
+                    $(this).trigger('mouseenter');
+                } else {
+                    $('.nav').trigger('mouseleave');
+                }
+            }
+        });
+
+        /********************************************************
+        //서브메뉴 구글 GA Analytics 로그 처리 - 2022.01.12 myilsan
+        ********************************************************/
+        //cgv화이트 메뉴클릭
+        $('.nav > .contents > h1 > a').on({
+             click: function (e) {
+                 gaEventLog('PC_GNB', '홈', '');
+            }
+        });
+
+        //주메뉴 클릭
+        $('.nav_menu > li > h2 > a').on({
+            click: function (e) {
+                gaEventLog('PC_GNB', '주메뉴_' + this.text, '');
+            }
+        });
+
+        //주메뉴 하위메뉴 클릭
+        $('.nav_overMenu > dd > h3 > a').on({
+            click: function (e) {
+                var target = e.target;
+                var parText = $(target).parents('.nav_overMenu').find('dt')[0].innerText;
+                gaEventLog('PC_GNB', parText + '_' + this.text, '');
+            }
+        });
+
+        //하위메뉴 최상위 클릭
+        $(".nav_overMenu > dt > h2 > a").on({
+            click: function (e) {
+                gaEventLog('PC_GNB',this.text + '_' + this.text, '');
+            }
+        });
+
+        //------------------end----------------------- [@,.o]>
+
+        $('.nav').on({
+            mouseleave: function (e) {
+                $(this).find('.nav_overMenu').slideUp(200, function () {
+                    $('.nav').removeClass('active');
+                });
+            }
+        });
+
+        $('.totalSearch_wrap input[type=text]').on({
+            focusin: function () {
+                $('.totalSearch_wrap').addClass("active");
+            }
+        });
+
+        $('.btn_totalSearchAutocomplete_close').on({
+            click: function () {
+                $('.totalSearch_wrap').removeClass("active");
+            },
+            focusout: function (e) {
+                //     $('.totalSearch_wrap').removeClass("active");
+
+            }
+        });
+
+        $(this).on({
+            scroll: function (e) {
+                /* S GNB fixed */
+                var headerOffsetT = $('.header').offset().top;
+                var headerOuterH = $('.header').outerHeight(true);
+                var fixedHeaderPosY = headerOffsetT + headerOuterH;
+                var scrollT = $(this).scrollTop();
+                var scrollL = $(this).scrollLeft();
+
+                if (scrollT >= fixedHeaderPosY) {
+                    $('.nav').addClass('fixed');
+                    $('.fixedBtn_wrap').addClass('topBtn');
+                } else {
+                    $('.nav').removeClass('fixed');
+                    $('.fixedBtn_wrap').removeClass('topBtn');
+                }
+
+                /* S > GNB fixed 좌우 스크롤
+                Description
+                - GNB가 fixed 되었을때 좌우 스크롤 되게 처리
+                */
+                if ($('.nav').hasClass('fixed')) {
+                    $('.nav').css({ 'left': -1 * scrollL })
+                } else {
+                    $('.nav').css({ 'left': 0 })
+                }
+                /* E > GNB fixed 좌우 스크롤 */
+                /* S GNB fixed */
+            }
+        });
+
+        $('.btn_gotoTop').on({
+            click: function () {
+                $('html, body').stop().animate({
+                    scrollTop: '0'
+                }, 400);
+            }
+        });
+
+        //통합검색 상단 검색 버튼
+        $('#btn_header_search').on('click', function () {
+           
+            if ($('#header_ad_keyword').val() != "")
+                goSearch($('#header_ad_keyword'));      //광고
+            else
+                goSearch($('#header_keyword'));
+
+            
+            return false;
+        });
+
+        //통합검색 검색어 입력창
+        $('#header_keyword').keyup(function (e) {
+            if (e.keyCode == 13) goSearch($('#header_keyword'));
+        });
+
+         //검색 입력창 클릭 시 광고값 reset
+        $('#header_keyword').on('click', function () {
+            // 24.03 홈페이지 內 검색 영역 광고 텍스트 미노출의 件
+            $(this).val('');
+           // $(this).attr('placeholder', '');
+            $('#header_ad_keyword').val('');
+        });
+
+    });
+
+    //통합검색
+    function goSearch($objKeyword) {
+        alert
+        if ($objKeyword.val() == "") {
+            alert("검색어를 입력해 주세요");
+            $objKeyword.focus();
+            return false;
+        }
+
+        //GA 검색로그
+        gaEventLog('PC_GNB', '검색', $objKeyword.val());
+        location = "/search/?query=" + escape($objKeyword.val());
+    }
+
+   
+
+    //상단 키워드 광고 (S)
+    // 24.03 홈페이지 內 검색 영역 광고 텍스트 미노출의 件 (기존 방식 주석 처리)
+    //function AdSearchExt(txt, SearchText) {
+    //    $('#header_keyword').attr('placeholder', txt);
+    //    $('#header_ad_keyword').val(SearchText);
+    // }
+
+    function hdIcoSet(left, sh) { }
+    //상단 키워드 광고 (E)
+
+    //상단광고닫기
+    function hideCgvTopAd() {
+        $(".cgv-ad-wrap").hide();
+        $('#wrap_main_notice').parent('div').css('top', 280);
+    }
+
+    //비즈스프링 클릭로그
+    function setClickLog(title) {
+        // eval("try{trk_clickTrace('EVT', '" + title + "')}catch(_e){}");
+    }
+
+</script>
+<div class="nav fixed" style="left: 0px;">
+    <div class="contents">
+        <h1><a href="http://www.cgv.co.kr/" tabindex="-1"><img src="./cashC_files/logoWhite.png" alt="CGV"></a></h1>
+        <ul class="nav_menu">
+            <li>
+                <h2><a href="http://www.cgv.co.kr/movies/?lt=1&amp;ft=0">영화</a></h2>
+                <dl class="nav_overMenu" style="">
+                    <dt><h2><a href="http://www.cgv.co.kr/movies/?lt=1&amp;ft=0" tabindex="-1">영화</a></h2></dt>
+                    <dd><h3><a href="http://www.cgv.co.kr/movies/?lt=1&amp;ft=0">무비차트</a></h3></dd>
+                    <dd><h3><a href="http://www.cgv.co.kr/arthouse/">아트하우스</a></h3></dd>
+                    <dd><h3><a href="http://www.cgv.co.kr/culture-event/event/detailViewUnited.aspx?seq=30717">ICECON</a></h3></dd>
+                </dl>
+            </li>
+            <li>
+                <h2><a href="http://www.cgv.co.kr/theaters/">극장</a></h2>
+                <dl class="nav_overMenu" style="">
+                    <dt><h2><a href="http://www.cgv.co.kr/theaters/" tabindex="-1">극장</a></h2></dt>
+                    <dd><h3><a href="http://www.cgv.co.kr/theaters/">CGV 극장</a></h3></dd>
+                    <dd><h3><a href="http://www.cgv.co.kr/theaters/special/defaultNew.aspx">특별관</a></h3></dd>
+                </dl>
+            </li>
+            <li>
+                <h2><a href="http://www.cgv.co.kr/ticket/"><strong>예매</strong></a></h2>
+                <dl class="nav_overMenu" style="">
+                    <dt><h2><a href="http://www.cgv.co.kr/ticket/" tabindex="-1">예매</a></h2></dt>
+                    <dd><h3><a href="http://www.cgv.co.kr/ticket/">빠른예매</a></h3></dd>
+                    <dd><h3><a href="http://www.cgv.co.kr/reserve/show-times/">상영스케줄</a></h3></dd>
+                    <dd><h3><a href="http://www.cgv.co.kr/ticket/eng/newdefault.aspx">English Ticketing</a></h3></dd>
+                    <dd><h3><a href="http://www.cgv.co.kr/reserve/show-times/eng/">English Schedule</a></h3></dd>
+                </dl>
+            </li>
+            <li>
+                <h2><a href="http://www.cgv.co.kr/culture-event/popcorn-store/">스토어</a></h2>
+                <dl class="nav_overMenu" style="">
+                    <dt><h2><a href="http://www.cgv.co.kr/culture-event/popcorn-store/" tabindex="-1">스토어</a></h2></dt>
+                    
+                            <dd><h3><a href="http://www.cgv.co.kr/culture-event/popcorn-store/store-category.aspx?CategoryIdx=1">패키지</a></h3></dd>
+                        
+                            <dd><h3><a href="http://www.cgv.co.kr/culture-event/popcorn-store/store-category.aspx?CategoryIdx=2">영화관람권</a></h3></dd>
+                        
+                            <dd><h3><a href="http://www.cgv.co.kr/culture-event/popcorn-store/store-category.aspx?CategoryIdx=3">기프트카드</a></h3></dd>
+                        
+                            <dd><h3><a href="http://www.cgv.co.kr/culture-event/popcorn-store/store-category.aspx?CategoryIdx=4">콤보</a></h3></dd>
+                        
+                            <dd><h3><a href="http://www.cgv.co.kr/culture-event/popcorn-store/store-category.aspx?CategoryIdx=5">팝콘</a></h3></dd>
+                        
+                            <dd><h3><a href="http://www.cgv.co.kr/culture-event/popcorn-store/store-category.aspx?CategoryIdx=6">음료</a></h3></dd>
+                        
+                            <dd><h3><a href="http://www.cgv.co.kr/culture-event/popcorn-store/store-category.aspx?CategoryIdx=7">스낵</a></h3></dd>
+                        
+                            <dd><h3><a href="http://www.cgv.co.kr/culture-event/popcorn-store/store-category.aspx?CategoryIdx=10">플레이존</a></h3></dd>
+                        
+                    <!-- 2023.05.15 씨네샵 URL 변경 요청 -->
+                    <dd><h3><a href="https://www.cineshop.co.kr/" class="arrowR" target="_blank">씨네샵</a></h3></dd>
+                </dl>
+            </li>
+            <li>
+                <h2 onclick="gaEventLog(&#39;PC_GNB&#39;,&#39;주메뉴_이벤트&#39;,&#39;&#39;)"><a href="http://www.cgv.co.kr/culture-event/event/defaultNew.aspx">이벤트</a></h2>
+                <dl class="nav_overMenu" style="">
+                    <dt><h2><a href="http://www.cgv.co.kr/culture-event/event/defaultNew.aspx?mCode=001" tabindex="-1">이벤트</a></h2></dt>
+                    <dd><h3><a href="http://www.cgv.co.kr/culture-event/event/defaultNew.aspx?mCode=001">SPECIAL</a></h3></dd>
+                    <dd><h3><a href="http://www.cgv.co.kr/culture-event/event/defaultNew.aspx?mCode=004">영화/예매</a></h3></dd>
+                    <dd><h3><a href="http://www.cgv.co.kr/culture-event/event/defaultNew.aspx?mCode=008">멤버십/CLUB</a></h3></dd>
+                    <dd><h3><a href="http://www.cgv.co.kr/culture-event/event/defaultNew.aspx?mCode=005">CGV 극장별</a></h3></dd>
+                    <dd><h3><a href="http://www.cgv.co.kr/culture-event/event/defaultNew.aspx?mCode=006">제휴할인</a></h3></dd>
+                    <dd><h3><a href="http://www.cgv.co.kr/user/mycgv/event/result_list.aspx">당첨자 발표</a></h3></dd>
+                    <dd><h3><a href="http://www.cgv.co.kr/culture-event/event/end-list.aspx">종료된 이벤트</a></h3></dd>
+                </dl>
+            </li>
+            <li>
+                <h2 onclick="gaEventLog(&#39;PC_GNB&#39;,&#39;주메뉴_해택&#39;,&#39;&#39;)"><a href="http://www.cgv.co.kr/discount/discountlist.aspx">혜택</a></h2>
+                <dl class="nav_overMenu" style="">
+                    <dt><h2><a href="http://www.cgv.co.kr/discount/discountlist.aspx" tabindex="-1">혜택</a></h2></dt>
+                    <dd><h3><a href="http://www.cgv.co.kr/discount/discountlist.aspx">CGV 할인정보</a></h3></dd>
+                    <dd><h3><a href="https://www.cgv.co.kr/user/memberShip/ClubService.aspx">CLUB 서비스</a></h3></dd>
+                    <dd><h3><a href="http://www.cgv.co.kr/user/vip-lounge/">VIP 라운지</a></h3></dd>
+                </dl>
+            </li>
+        </ul>
+        <div class="totalSearch_wrap">
+            <!-- 24.03 홈페이지 內 검색 영역 광고 텍스트 미노출의 件 -->
+            <label for="totalSearch">
+                
+                <input name="ctl00$subMenu$header_keyword" type="text" id="header_keyword" value="골드핑거">
+                <input name="ctl00$subMenu$header_ad_keyword" type="hidden" id="header_ad_keyword" value="골드핑거">
+            </label>
+            <button type="button" class="btn_totalSearch" id="btn_header_search">검색</button>
+            <!-- 24.03 홈페이지 內 검색 영역 광고 텍스트 미노출의 件 (iframe 주석 -->
+            <!-- <iframe src="//ad.cgv.co.kr/NetInsight/text/CGV/CGV_201401/main@Search_txt" width="0" height="0" title="" frameborder="0" scrolling="no" marginwidth="0" marginheight="0" allowfullscreen="allowfullscreen" mozallowfullscreen="mozallowfullscreen" msallowfullscreen="msallowfullscreen" oallowfullscreen="oallowfullscreen" webkitallowfullscreen="webkitallowfullscreen"></iframe> -->
+            <!--<div class="totalSearchAutocomplete_wrap">
+                <dl class="totalSearchAutocomplete_list">
+                    <dt>영화</dt>
+                    <dd><a href="#none"><strong>전지</strong>적 작가시점</a></dd>
+                    <dd><a href="#none">내언니 <strong>전지</strong>현과 나</a></dd>
+                    <dd><a href="#none">수호<strong>전지</strong> 영웅본색</a></dd>
+                </dl>
+                <dl class="totalSearchAutocomplete_list">
+                    <dt>인물</dt>
+                    <dd><a href="#none"><strong>전지</strong>현</a></dd>
+                    <dd><a href="#none"><strong>전지</strong>희</a></dd>
+                    <dd><a href="#none">이<strong>전지</strong></a></dd>
+                </dl>
+                <a href="#none" class="btn_totalSearchAutocomplete_close">닫기</a>
+            </div>//-->
+        </div>
+    </div>
+</div>
+            <!-- 서브 메뉴 -->			
+	</div>
+	<!-- E Header -->
+
+	<!-- Contaniner -->
+	<div id="contaniner" class=""><!-- 벽돌 배경이미지 사용 시 class="bg-bricks" 적용 / 배경이미지가 없을 경우 class 삭제  -->
+        
+
+		<!-- Contents Area -->
+		 <div id="contents" class="">
+        
+            
+            <!-- Contents Start -->
+			
+<!--<div class="sect-bcrumb">
+    <div class="sns" clear> 
+        <strong>Share &gt;</strong>
+        <ul>
+            <li><a class="link-facebook" href="#">FaceBook</a></li>
+            <li><a class="link-twitter" href="#">Twitter</a></li>
+        </ul>
+    </div>
+</div>-->
+<!--이벤트 상세 영역 시작-->
+<script type="text/javascript">
+    var eventScriptUrl = "/culture-event/event/detailViewUnited.aspx/";
+    var ip = "112.221.246.165";
+    var channelType = "";
+    var serverDateTime = new Date('2024-04-09 오전 10:48:10');
+    var PollYn = 'N';
+    var couponDownYn = 'N';
+
+    var winYn = "N";
+    var userLevel = "0";
+    var memberSort = "";
+    var clubServe = "";
+    var userAge = "";
+    var userGen = "";
+    var idx = 0;
+    var isShowMktAgrPopup = N;
+
+    //iframe : Event Page에서 호출하는 데가 있음.
+    function ifrm(height) {
+        //alert("높이:"+height);
+        $('#ifrm').attr("height", height + "px");
+    }
+
+
+    //아이프레임 자동제어
+    function ifrmResize() {
+        var olFrame = document.getElementById("ifrmComment");
+        try {
+            var oDoc = olFrame.contentDocument || olFrame.contentWindow.document;
+            var frmHeight = "";
+            if (/MSIE/.test(navigator.userAgent)) {
+                frmHeight = oDoc.body.scrollHeight;
+                document.getElementById("ifrmComment").height = frmHeight;
+            }
+            else {
+                document.getElementById("ifrmComment").height = document.getElementById('ifrmComment').contentWindow.document.body.scrollHeight;
+            }
+        }
+        catch (ex) { }
+    }
+
+</script>
+
+
+<link rel="stylesheet" type="text/css" href="./cashC_files/evt_template_v2.css">
+
+
+
+
+
+<script type="text/javascript" src="./cashC_files/EventCommonUnited.js.다운로드"></script>
+<script type="text/javascript" src="./cashC_files/EventScriptHome.js.다운로드"></script>
+<div class="tbl-viw-head">
+    <h3>
+        <em class="txt-lightblue">PUB이벤트</em>
+        해피캐시로 CGV에서 
+즐거운 문화생활!
+    </h3> 
+    <em class="date"><span>기간: </span>2017.08.29 ~ 2022.04.30</em>
+</div>
+
+<div class="tbl-viw-content">
+    
+
+
+ 
+  <title></title>
+ <link rel="stylesheet" href="./cashC_files/event.css"><!-- CSS -->
+
+
+<div class="evt_wrap ir">
+    <h4>해피머니 X CGV</h4>
+    <p>
+        즐거운 문화생활
+        해피캐시로 CGV에서 언제나 해피하게!
+
+       해피캐시란?
+
+       해피머니상품권을 해피캐시로 충전 후 CGV홈페이지에서  
+       바로 예매할 수 있는 온라인 결제 수단 입니다.
+       (신용카드, 가상계좌와 같은 실결제수단 및 해머로도 충전 가능)
+    </p>
+    <h5>해피캐시로 CGV 예매하기! Step!</h5>
+    <ol>
+        <li>해피머니 홈페이지 or 해피머니APP 에서 해피캐시 전환(충전)</li>
+        <li>CGV 홈페이지 접속 (CGV모바일은 9월중 오픈 예정)</li>
+        <li>영화 / 시간 / 좌석 선택 후 결제</li>
+        <li>포인트 및 기타결제수단  ▶ 기타 포인트  ▶  해피캐시 선택</li>
+        <li>해피머니 ID/PW 입력 후 결제하기!</li>
+    </ol>
+    <div class="btn_area">
+        <a href="https://www.happymoney.co.kr/svc/" target="_blank">
+            <img src="./cashC_files/btn_detail.png" alt="해피 머니 자세히 알아보기">
+        </a>
+    </div>
+</div>
+
+
+    
+</div>
+<div class="tbl-viw-nav">
+    <div class="dir-prev">
+        <a href="http://www.cgv.co.kr/culture-event/event/?menu=6">목록</a>
+    </div>
+</div>
+ 
+
+<!--팝업 선택-->
+<div class="popup_dim" id="evt_pop_select">
+    <div class="popup">
+        <!--팝업 닫기-->       
+        <a href="http://www.cgv.co.kr/culture-event/event/detailViewUnited.aspx?seq=30021&amp;menu=006#" class="btn_close"><i class="sprite sprite_common icon_popup_close"></i></a>                
+        <div class="evt_popup_container">
+            <div class="area_tit">
+                <em class="tit_txt">응모하기</em>
+                <p class="txt2"></p>         
+            </div>                        
+            <div class="area_scroll">
+                    <!--체크 박스-->
+                <div class="select_list" style="display:block" id="eventPoll">
+                       
+                </div>
+            </div>
+            <!-- 응모하기 버튼 -->
+            <a href="http://www.cgv.co.kr/culture-event/event/detailViewUnited.aspx?seq=30021&amp;menu=006#" class="btn_evt">응모하기</a>
+        </div>
+    </div>           
+</div>  
+    
+  <!--<a href="#none" class="btn_evt1">혜택안내수신동의</a>-->
+  <div class="popup_dim" id="evt_pop_agree">
+    <div class="popup">
+      <div class="popup_container_evt">
+        <div class="popup_header">
+            <img src="./cashC_files/txt_event_20210817.png" alt="지금 바로! 마케팅 수신 동의 설정 하시면 이벤트 및 혜택 당청 확률 UP!">
+            <a href="http://www.cgv.co.kr/culture-event/event/detailViewUnited.aspx?seq=30021&amp;menu=006#none" class="btn_close">닫기</a>
+        </div>
+        <div class="popup_contents">
+            <ul class="evtList_toggle_btn_wrap">
+                <li>
+                    <strong>문자 수신 알림 동의</strong>
+                    <p class="evtList_toggle"><input type="checkbox" id="evt_toggle0" onclick="smsAgree()"><label for="evt_toggle0"></label></p>
+                </li>
+                <li>
+                    <strong>PUSH 수신 여부 확인</strong>
+                    <a href="http://www.cgv.co.kr/culture-event/event/detailViewUnited.aspx?seq=30021&amp;menu=006#none" class="btn_appPush"><img src="./cashC_files/btn_click.png" alt="CLICK" onclick="appPush()"></a>
+                    <p class="evtList_comment">잠깐! <strong>휴대폰 설정 &gt; CGV앱 &gt; 알림 허용</strong>도 해주셔야 앱 PUSH를 받으실 수 있어요!</p>
+                </li>
+            </ul>
+            <p class="popup_evt_comment">CGV의 할인정보, 영화개봉 안내 및 이벤트 소식 등을 받을 수 있으며, 당첨 확률이 올라갑니다.</p>
+            <table class="evt_table">
+                <colgroup>
+                    <col style="width:26.4%">
+                    <col style="width:34.4%">
+                    <col style="width:39.2%">
+                </colgroup>
+                <thead>
+                    <tr>
+                        <th scope="col">항목</th>
+                        <th scope="col">이용목적</th>
+                        <th scope="col">보유기간</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>휴대폰번호,
+                            문자 광고 
+                            수신동의
+                        </td>
+                        <td>새로운 서비스 및
+                            신상품이나 이벤트
+                            정보 동의 안내
+                        </td>
+                        <td>별도 동의 철회시까지 
+                            또는 약관철회 후
+                            1주일까지
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    </div>
+  </div>
+<input type="hidden" id="jData" value="">  
+<form name="cgv_targetform1" id="cgv_targetform1" method="post" action="https://www.cgv.co.kr/user/mycgv/myinfo/set-myinfo-Email-Sms-proc.aspx" novalidate="novalidate">
+    <input type="hidden" name="param_rd_sms_yn" id="param_rd_sms_yn">
+    <input type="hidden" name="param_rd_email_yn" id="param_rd_email_yn">
+</form>
+
+<script type="text/javascript">
+//<![CDATA[
+
+
+
+    //로그인 페이지 이동
+
+
+    var userId = "";
+    var isLogin = "False";
+
+    var EVENT_CD = "EVENT_30021"; // 이벤트 타입에 따라서 변경 --'EVENT' + _EVENT_SEQ
+    var EVENT_NM = "해피캐시로 CGV에서 즐거운 문화생활!"; // 이벤트 타이틀 -- TITLE 
+    var EVENT_DESC = ""; // 빈값 
+    var isapply = false; // 그대로
+    var startDate = '201708290000'; // 이벤트 기간 시작시간
+    var endDate = '202204302300'; // 이벤트 기간 종료시간
+    var isSmsEmail = false;
+
+    $("#evt_toggle0").prop("checked", isSmsEmail);    
+
+    function setRegistDesc() {
+
+        var helper = new CgvEventHelper();
+        var type = "M";
+
+    }
+
+    function appPush() {
+        alert("모바일에서 진행 해 주세요.");        
+
+        //$("#evt_toggle1").prop("checked", true);       
+    }
+    
+    function smsAgree() {
+        if (!$("#evt_toggle0").is(":checked")) {
+            $("#evt_toggle0").prop("checked", true);
+            return;
+        }
+       
+        var jsonData = "{userId: '" + userId +"'}";
+        jQuery.ajax({
+    		type: "POST",
+            url: "/culture-event/event/detailViewUnited.aspx/setUserAgree",
+            data : jsonData,
+    		contentType: "application/json; charset=utf-8",
+    		dataType: "json",
+    		async: true,
+    		success: function (data) {
+    			
+    		},
+    		error: function (xhr, status, err) {
+    			var err = eval("(" + xhr.responseText + ")");
+    			alert(err.Message);
+    		}
+    	});
+    }
+
+ 
+    jQuery('.popup_dim .btn_close').click(function () {
+        jQuery('#evt_pop_agree').hide();
+        self.location.reload();
+        return false;
+    });
+
+//]]>
+</script>
+
+<script type="text/javascript">
+    var _TRK_PI = 'EVTP';
+    var _TRK_ICMP = '30021';
+    var _TRK_ICMP_NM = '해피캐시로 CGV에서 즐거운 문화생활!';
+    var _TRK_ICMP_PS = '20170829';
+    var _TRK_ICMP_PE = '20220430';
+
+    var multiYn = 'N';
+    var multiCnt = '0';
+    var pollYn      =  "N";
+    var pollSelectYn      =  "N";
+    var isVip = "False";
+    var isCjone = "False";
+
+    jQuery('.btn_event').click(function () {
+        
+        RegistPopupOpen();
+
+    });
+    
+    
+    jQuery('.popup_dim .btn_close').click(function () {
+        jQuery('#evt_pop_select').hide();
+        return false;
+    });
+
+//    jQuery(":input:radio[name=evt_chk]").click(function(){
+// 
+//        alert("click");
+//        return false;
+//    });
+
+    function addOn()
+    {
+        alert("click");
+        jQuery('.btn_evt').addClass('on');
+        return false;
+    }
+
+    var type = "I";
+    var eventPoll = "";
+    var eventPollNm = "";
+    var eventType = "";
+    var eventName = _TRK_ICMP_NM;
+    var eventDesc = _TRK_ICMP_NM;
+    var eventSeq = 30021;
+
+    var winYn = "N";
+    var userLevel   = "0";
+	var memberSort  = "";
+	var clubServe   = "";
+	var userAge     = "";
+	var userGen     = "";
+	var idx         = 0;
+
+    jQuery('.btn_evt').click(function () {
+        
+        btn_eventClick(type, eventPoll, eventPollNm, eventType
+        , EVENT_CD, eventName, eventDesc, eventSeq, userId, isLogin,
+        winYn, userLevel, memberSort, clubServe, userAge, idx, isShowMktAgrPopup);
+    });
+
+
+    function setParticipationJoin()
+    {
+        var returnVal = "";
+        var jsonData = "{event_seq: '" + _TRK_ICMP + "',channelType: '07'}";
+        jQuery.ajax({
+    		type: "POST",
+    		url: "/culture-event/event/detailViewUnited.aspx/setParticipationJoin",
+    		data: jsonData,
+    		contentType: "application/json; charset=utf-8",
+    		dataType: "json",
+    		async: true,
+    		success: function (data) {
+    			if (data.d == "00000") {
+                        //location.reload();
+                        returnVal = true;
+                    } else {
+                        alert(data.d);
+                        returnVal = false;
+                    }
+    		},
+    		error: function (xhr, status, err) {
+    			var err = eval("(" + xhr.responseText + ")");
+    			alert(err.Message);
+    		}
+    	});
+
+        return returnVal;
+    }
+
+    
+    jQuery('.select_list li').each(function () {
+        jQuery(this).find('input').on('change', function () {
+            var chkdCount = jQuery('.select_list input:checked').length;
+            //var chkdCount = jQuery(".select_list input:radio[name=evt_chk]:checked").length;
+            if (chkdCount > 0) {
+                jQuery('.btn_evt').addClass('on');
+            }
+            else if (chkdCount === 0) {
+                jQuery('.btn_evt').removeClass('on');
+            }
+        });
+    });
+    //ifrmResize();
+    </script>
+
+            
+            <!--/ Contents End -->
+		 </div>
+		<!-- /Contents Area -->
+	</div>
+    <!-- E Contaniner -->
+    
+    <!-- S Popup -->
+    <div class="com_pop_wrap">
+        <div class="com_pop_fog"></div>
+    </div>
+    <div class="pop_wrap">
+    <!-- S > [팝업] 지원 OS 업데이트 유도-->
+        <div id="pop_supportOS" class="popup" style="display:none">
+            <div class="pop_iexp_wrap" style="position:fixed; left:50%; top:50%; width:600px; margin:-165px 0 0 -300px; z-index:1000;">
+                <div class="pi_headline">
+                    <img src="./cashC_files/pop_iexp_headline2.jpg" alt="CGV 홈페이지는 고객님께서 사용중인 MS Windows XP에서 정상적인 서비스 이용이 어려울 수 있으며, OS업데이트를 권장합니다.">
+                </div>
+                <div class="down_app">
+                    <p><img src="./cashC_files/pop_iexp_downtxt.jpg" alt="OS 업데이트가 어려운 경우 모바일앱을 이용하세요!!!"></p>
+                    <a class="btn" href="https://itunes.apple.com/kr/app/id370441190?mt=8" target="_blank"><img src="./cashC_files/btn_down_ios.jpg" alt="Ios down"></a>
+                    <a class="btn" href="https://play.google.com/store/apps/details?id=com.cgv.android.movieapp" target="_blank"><img src="./cashC_files/btn_down_android.jpg" alt="Android down"></a>
+                </div>
+                <a class="btn_close">닫기</a>
+            </div>
+         </div>
+    <!-- S > [팝업] 지원 브라우저 다운로드 유도-->
+         <div id="pop_supportBrower" class="popup" style="display:none">
+            <div class="pop_iexp_wrap" style="position:fixed; left:50%; top:50%; width:600px; margin:-265px 0 0 -300px; z-index:1000;">
+                <div class="pi_headline">
+                    <img src="./cashC_files/pop_iexp_headline1.jpg" alt="CGV 홈페이지는 Internet Explorer 9이상에서 최적의 서비스 이용이 가능합니다. IE9 이하 브라우저에서 이용 시 정상적인 서비스 이용이 어려울 수 있으며, 브라우저 업그레이드 하시기를 권장합니다.">
+                </div>
+                <ul class="down_browser">
+                    <li><a href="https://www.microsoft.com/ko-kr/edge" target="_blank"><img src="./cashC_files/btn_down_ie.jpg" alt="Internet Explorer 다운받기"></a></li>
+                    <li><a href="https://www.google.com/chrome/browser/desktop/index.html" target="_blank"><img src="./cashC_files/btn_down_chrome.jpg" alt="Chrome 다운받기"></a></li>
+                </ul>
+                <div class="down_app">
+                    <p><img src="./cashC_files/pop_iexp_downtxt.jpg" alt="OS 업데이트가 어려운 경우 모바일앱을 이용하세요!"></p>
+                    <a class="btn" href="https://itunes.apple.com/kr/app/id370441190?mt=8" target="_blank"><img src="./cashC_files/btn_down_ios.jpg" alt="Ios down"></a>
+                    <a class="btn" href="https://play.google.com/store/apps/details?id=com.cgv.android.movieapp" target="_blank"><img src="./cashC_files/btn_down_android.jpg" alt="Android down"></a>
+                </div>
+                <a class="btn_close">닫기</a>
+            </div>
+        </div>
+	</div>
+
+    <!-- E Popup -->
+    
+    <!-- S 예매하기 및 TOP Fixed 버튼 -->
+    <div class="fixedBtn_wrap topBtn">
+     
+        <a href="http://www.cgv.co.kr/ticket/" class="btn_fixedTicketing">예매하기</a>
+        
+        <a href="http://www.cgv.co.kr/culture-event/event/detailViewUnited.aspx?seq=30021&amp;menu=006#none" class="btn_gotoTop"><img src="./cashC_files/gotoTop.png" alt="최상단으로 이동"></a>
+    </div>
+    
+    <!-- E 예매하기 및 TOP Fixed 버튼 -->
+	
+    <!-- S Footer -->
+    <footer>
+		<!-- footer_area (s) -->
+		
+<div id="BottomWrapper" class="sect-ad">
+    <iframe src="./cashC_files/sub@Bottom.html" width="100%" height="240" title="" frameborder="0" scrolling="no" marginwidth="0" marginheight="0" name="Bottom" id="Bottom"></iframe>
+</div>
+<ul class="policy_list">
+    <li><a href="http://corp.cgv.co.kr/company/" target="_blank">회사소개</a></li>
+    <li><a href="http://corp.cgv.co.kr/company/sustainabilityStrategy/strategy.aspx" target="_blank">지속가능경영</a></li>
+    <li><a href="http://corp.cgv.co.kr/company/ir/financial/financial_list.aspx" target="_blank">IR</a></li>
+    <li><a href="http://corp.cgv.co.kr/company/recruit/step/default.aspx" target="_blank">채용정보</a></li>
+    <li><a href="http://corp.cgv.co.kr/company/advertize/ad_Default.aspx" target="_blank">광고/제휴/출점문의</a></li>
+    <li><a href="http://www.cgv.co.kr/rules/service.aspx">이용약관</a></li>
+    <li><a href="http://www.cgv.co.kr/rules/organized.aspx">편성기준</a></li>
+    <li><a href="http://www.cgv.co.kr/rules/privacy.aspx"><strong>개인정보처리방침</strong></a></li>
+    <li><a href="http://www.cgv.co.kr/rules/disclaimer.aspx">법적고지</a></li>
+    <li><a href="http://www.cgv.co.kr/rules/emreject.aspx">이메일주소무단수집거부</a></li>
+    <li><a href="http://corp.cgv.co.kr/company/ethicalManagement/ceoMessage.aspx" target="_blank">윤리경영</a></li>
+    <li><a href="http://www.cgv.co.kr/company/cyberAudit.aspx" class="empha-red">사이버감사실</a></li>
+</ul>
+<article class="company_info_wrap">
+    <section class="company_info">
+        <address>(04377)서울특별시 용산구 한강대로 23길 55, 아이파크몰 6층(한강로동)</address>
+        <dl class="company_info_list">
+            <dt>대표이사</dt>
+            <dd>허민회</dd>
+            <dt>사업자등록번호</dt>
+            <dd>104-81-45690</dd>
+            <dt>통신판매업신고번호</dt>
+            <dd>2017-서울용산-0662 <a href="http://www.cgv.co.kr/culture-event/event/detailViewUnited.aspx?seq=30021&amp;menu=006#none" onclick="goFtc()" class="btn_goFtc">사업자정보확인</a><a></a></dd>
+        </dl>
+        <dl class="company_info_list">
+            <dt>호스팅사업자</dt>
+            <dd>CJ올리브네트웍스</dd>
+            <dt>개인정보보호 책임자</dt>
+            <dd>도형구</dd>
+            <dt>대표이메일</dt>
+            <dd>cjcgvmaster@cj.net</dd>
+            
+        </dl>
+        <p class="copyright">© CJ CGV. All Rights Reserved</p>
+    </section>
+    <section class="familysite_wrap">
+        <label for="familysite">CJ그룹 계열사 바로가기</label>
+        <select id="familysite">
+            <option value="" class="familysiteTitle">계열사 바로가기</option>
+            <optgroup label="CJ그룹">
+<option value="http://www.cj.net/">CJ주식회사</option>
+</optgroup><optgroup label="식품 &amp; 식품서비스">
+<option value="https://www.cj.co.kr/kr/index">CJ제일제당</option>
+<option value="https://www.cjfoodville.co.kr/main.asp">CJ푸드빌</option>
+<option value="http://www.cjfreshway.com/index.jsp">CJ프레시웨이</option>
+</optgroup><optgroup label="생명공학">
+<option value="https://www.cj.co.kr/kr/about/business/bio">CJ제일제당 BIO사업부문</option>
+<option value="https://www.cj.co.kr/kr/about/business/bio">CJ Feed&amp;Card</option>
+</optgroup><optgroup label="물류 &amp; 신유통">
+<option value="https://www.cjlogistics.com/ko/main">CJ대한통운</option>
+<option value="http://www.cjenc.co.kr/kr/Default.asp">CJ대한통운 건설부문</option>
+<option value="https://www.oliveyoung.co.kr/store/company/brandStory.do">CJ올리브영</option>
+<option value="https://www.cjolivenetworks.co.kr:449/">CJ올리브네트웍스</option>
+<option value="https://www.cjoshopping.com:9002/index.asp">CJ ENM 커머스부문</option>
+</optgroup><optgroup label="엔터테인먼트 &amp; 미디어">
+<option value="https://www.cjenm.com/ko/">CJ ENM 엔터테인먼트부문</option>
+<option value="http://corp.cgv.co.kr/">CJ CGV</option>
+</optgroup>
+
+        </select>
+        <a href="http://www.cgv.co.kr/culture-event/event/detailViewUnited.aspx?seq=30021&amp;menu=006#none" class="btn_familysite" onclick="goFamilySite()">GO</a>
+    </section>
+</article>
+<script>
+    //footer GA Analytics 영역 LOG
+    $('.policy_list > li > a').on({
+        click: function (e) {
+            gaEventLog('PC_footer', this.text, '');
+        }
+    });
+</script>
+        <!-- footer_area (e) -->
+
+        <div class="adFloat" style="display:block">
+
+            <iframe src="./cashC_files/sub@Popicon.html" width="154" height="182" frameborder="0" scrolling="no" topmargin="0" leftmargin="0" marginwidth="0" marginheight="0" allowtransparency="true" id="ad_float1"></iframe>
+        </div>
+        <script type="text/javascript">            OpenAD();</script>
+        <!-- //Float Ad -->
+	</footer>
+	<!-- E Footer -->
+
+    <!-- Aside Banner :  -->
+    <!--
+	<div id="ctl00_sect_person_right" class="sect-aside-banner" style="padding:0; margin:0; position:fixed; z-index:1;display:none">
+		<div class="aside-content-top">
+			<div class="aside-content-btm">
+				<a href="/theaters/"><img src="https://img.cgv.co.kr/R2014/images/common/btn/btn_person_theater.gif" alt="CGV THEATER" /></a>
+				<a href="/arthouse/"><img src="https://img.cgv.co.kr/R2014/images/common/btn/btn_person_arthouse.gif" alt="CGV arthouse" /></a>
+				<a href="/theaters/special/"><img src="https://img.cgv.co.kr/R2014/images/common/btn/btn_person_special.gif" alt="CGV SPECIAL" /></a>
+
+				<a href="/user/mycgv/reserve/" class="required-login" data-url="/user/mycgv/reserve/"><img src="https://img.cgv.co.kr/R2014/images/common/btn/btn_person_ticket.gif" alt="CGV TICKET INFO" /></a>
+				<a href="/discount/discountlist.aspx"><img src="https://img.cgv.co.kr/R2014/images/common/btn/btn_person_discount.gif" alt="CGV DISCOUNT INFO" /></a>
+			</div>
+		</div>
+		<div class="btn-top">
+            <a href="#" onclick="window.scrollTo(0,0);return false;"><span>최상단으로 이동</span></a>
+		</div>
+	</div>
+    //-->
+	<!-- //Aside Banner -->
+    
+</div>
+
+
+<script type="text/template" id="temp_popup_movie_player">
+<div class="popwrap">
+    <div class="sect-layerplayer">
+        <div class="cols-pop-player">
+            <h1 class="title" id="movie_player_popup_title"></h1>
+            <div class="col-pop-player">
+                <div class="warp-pop-player" style="position: relative;">
+                    <iframe id="ifrm_movie_player_popup" name="ifrm_movie_player_popup" src="about:blank" style="width:800px;height:450px;" frameborder="0" marginheight="0" marginwidth="0" scrolling="no"></iframe>
+					
+					<div class="sect-replay" style="display:none" id="pop_player_relation_wrap">
+						<button class="btn-replay movie_player_inner_popup" type="button" data-gallery-idx="0" id="btn_movie_replay">다시보기</button>
+						<!-- 없어지는 영역 -->
+						<div class="wrap-relationmovie" id="pop_player_relation_item_wrap">
+							<strong class="title">관련영상</strong>
+							<ul id="pop_player_relation_movie">
+                                <li></li>
+                            </ul>
+						</div><!-- .wrap-relationmovie -->
+					</div><!-- .sect-replay -->
+					
+                </div><!-- .warp-pop-player -->
+                <div class="descri-trailer">
+                    <strong class="title">영상설명</strong>
+                    <textarea readonly="readonly" id="movie_player_popup_caption"></textarea>
+                </div>
+            </div><!-- .col-player -->
+            <div class="col-pop-playerinfo">
+                <div id="movie_player_popup_movie_info"></div>
+                <div class="sect-trailer">
+                    <strong class="title">신규영상</strong>
+                    <ul>
+                        
+                    </ul>
+                </div>
+            </div><!-- .col-playerinfo -->
+        </div><!-- .cols-player -->
+        <button type="button" class="btn-close">닫기</button>
+    </div>
+</div>
+</script>
+
+<script id="temp_popup_movie_player_movie_info" type="text/x-jquery-tmpl">
+<div class="box-image">
+    <a href="/movies/detail-view/?midx=${MovieIdx}" title="${Title} 상세보기 새창">
+        <span class="thumb-image">
+            <img src="${PosterImage.MiddleImage}" alt="${Title} 포스터" />
+            <span class="ico-grade ${MovieGrade.StyleClassName}">${MovieGrade.GradeText}</span>
+        </span>
+    </a>   
+</div>
+<div class="box-contents">
+    <a href="/movies/detail-view/?midx=${MovieIdx}" title="${Title} 상세보기 새창">
+        <strong class="title">${Title}</strong>
+    </a>
+    <span class="txt-info" style="margin-bottom:2px;">
+        <em class="genre">${GenreText}</em>
+        <span>
+            <i>${OpenDate}</i>
+            <strong>${OpenText}</strong>
+            {{if D_Day > 0}}
+                <em class="dday">D-${D_Day}</em>
+            {{/if}}
+        </span>
+    </span>
+{{if IsTicketing }}
+    <a class="link-reservation" href="/ticket/?MOVIE_CD=${CGVCode}&MOVIE_CD_GROUP=${CGVCode}">예매</a> 
+{{/if}}
+</div>
+</script>
+
+<script id="temp_popup_movie_player_relation_movie_item" type="text/x-jquery-tmpl">
+<li>
+    <div class="box-image">
+        <a href="#" title="${Title} 영상보기" class="movie_player_inner_popup" data-gallery-idx="${GalleryIdx}">
+            <span class="thumb-image">
+                <img src="${ImageUrl}" 
+                alt="${Title}_트레일러" />
+                <span class="ico-play">영상보기</span>
+            </span>
+        </a>
+    </div>
+</li>
+</script>
+
+<script type="text/javascript" src="./cashC_files/crypto.js.다운로드"></script>
+
+<script type="text/javascript">
+    //<![CDATA[
+    function closeBanner(){        
+        $('#cgv_main_ad').remove();     
+        for(var i = 0; i < 2; i++) {
+            window.setTimeout(function(){
+                $(window).resize()                
+            }, 30)
+        }
+    }
+    function showPlayEndEvent() {
+        $('#pop_player_relation_wrap').show();
+        $('#btn_movie_replay').focus();
+    }
+
+    (function ($) {
+        $(function () {
+
+        
+            $('.movie_player_popup').moviePlayer();     //동영상플레이어
+
+            //노원타운
+            $('.special5_pop').on('click', function () {
+                openNowonTown();
+                return false;
+            });           
+            // 검색 auto validate version.
+            $('.btn-go-search').on('click', function () {
+                var $frmSearch = $(this).parent().parent('form');
+                $frmSearch.submit();
+                return false;
+            });
+
+            //메인스킵네비
+            $('#skipHeader').on('click', function(){
+                var $ctn = $('#contents');
+                $ctn.attr({
+                    tabIndex : -1
+                }).focus();				
+                return false;
+            });
+
+            //현재 URL 해당파라미터 교체
+            function updateQueryStringParameter(uri, key, value) {
+                var re = new RegExp("([?|&])" + key + "=.*?(&|#|$)", "i");
+                if (uri.match(re)) {
+                    return uri.replace(re, '$1' + key + "=" + value + '$2');
+                } else {
+                    var hash =  '';
+                    var separator = uri.indexOf('?') !== -1 ? "&" : "?";    
+                    if( uri.indexOf('#') !== -1 ){
+                        hash = uri.replace(/.*#/, '#');
+                        uri = uri.replace(/#.*/, '');
+                    }
+                    return uri + separator + key + "=" + value + hash;
+                }
+            }
+            //모바일버전 가기
+            $('.go-mobile').on('click', function() {
+                location.replace(updateQueryStringParameter(location.href, "IsMobile", "N"));
+                return false;
+            });
+        });
+    })(jQuery);
+	
+    function goFamilySite() {
+        var famulySiteURL = $(familysite).val();
+        if (famulySiteURL != "") {
+            var win = window.open(famulySiteURL, 'winFamilySite')
+            win.focus();
+        }
+    }
+    function goFtc() {
+        var ftcUrl = "http://www.ftc.go.kr/bizCommPop.do?wrkr_no=1048145690";
+        window.open(ftcUrl, "bizCommPop", "width=750, height=700, scrollbars=1;");        
+    }    
+    //]]>
+</script>
+
+<!-- 앱다운로드 레이어 팝업 -->
+<script type="text/javascript">
+    //appDownInfoPop();
+</script>
+
+<script language="javascript" type="text/javascript">
+
+    //GA 에널리스트 이벤트LOG 함수- 2022.01.12: MYILSAN
+    function gaEventLog(pCategroy, pAction, pLabel) {
+        ga('send', {
+            hitType: 'event', eventCategory: pCategroy, eventAction: pAction, eventLabel: pLabel
+            , hitCallback: function () {
+            }
+            , hitCallbackFail: function () { 
+            }
+        });
+    }
+
+    //201402 SYH GA추가
+    (function (i, s, o, g, r, a, m) {
+        i['GoogleAnalyticsObject'] = r; i[r] = i[r] || function () {
+            (i[r].q = i[r].q || []).push(arguments)
+        }, i[r].l = 1 * new Date(); a = s.createElement(o), m = s.getElementsByTagName(o)[0]; a.async = 1; a.src = g; m.parentNode.insertBefore(a, m)
+    })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+
+    ga('create', 'UA-47126437-1', 'cgv.co.kr'); //지주사
+    ga('create', 'UA-47951671-5', 'cgv.co.kr', { 'name': 'cgvTracker' }); //디마팀
+    ga('create', 'UA-47951671-7', 'cgv.co.kr', { 'name': 'rollup' }); //추가
+
+</script>
+
+
+<!-- Google Tag Manager -->
+<noscript><iframe src="//www.googletagmanager.com/ns.html?id=GTM-NNNFR3"height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<script>    (function (w, d, s, l, i) {
+        w[l] = w[l] || []; w[l].push({ 'gtm.start':
+            new Date().getTime(), event: 'gtm.js'
+        }); var f = d.getElementsByTagName(s)[0],
+            j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src =
+            '//www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f);
+    })(window, document, 'script', 'dataLayer', 'GTM-NNNFR3');
+</script>
+<!-- End Google Tag Manager -->
+
+
+</body></html>

@@ -1,0 +1,128 @@
+{% extends 'layout\mycgv_layout.html' %}
+
+{% block head_mycgv %}
+
+    
+
+{% endblock %}
+
+
+{% block body_main_mycgv %}
+
+
+        <form action="/user/mycgv/profile/result" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <table>
+                <tr>
+                    <td>이름</td>
+                    <td>{{name}}</td>
+                </tr>                
+                <tr>
+                    <td>아이디</td>
+                    <td>{{id}}</div>
+                    </td>
+                </tr>
+                <tr>
+                    <td ROWSPAN="2">닉네임</td>
+                    <td>한글, 영문, 숫자 혼용 가능 (한글 기준 10자 이내)</td>
+                </tr>
+                <tr>
+
+                    <td><input type="text" name="mynickname" value="{{profile.nickname}}" maxlength="10"></td>
+                </tr>
+                <tr>
+                    <td ROWSPAN="4">프로필 이미지</td>
+                    <td>
+                        각 서비스(이벤트, 매거진, 영화리뷰 등)의 리뷰 및 덧글작성시<br>등록하신 대표이미지가 노출됩니다.
+                        프로필 이미지 종류를 선택해 주세요.
+                    </td>
+                </tr>
+                <tr>
+                    <td>jpg, gif, BMP 파일만 등록 가능합니다. (최대 3M)</td>
+                </tr>                 
+                <tr>
+                    <td>
+                        <div>
+                            {% if profile.profileimage == ""  or profile.profileimage == None %}
+                                <img name = 'default' src="http://img.cgv.co.kr/R2014/images/common/default_profile.gif" width="100px">
+
+                            {% else %}
+                                <img id = 'user_image' src="..{{profile.profileimage.url}}" width="100px" >
+                                <button name="profileimage_remove"  type="button" onclick="javascript:clickHandler()">x</button>
+                                <input type="hidden" id="image_check" name="image_check" value="{{profile.profileimage}}">    
+                            {% endif %}
+                                <input type="file" id = 'myprofile' name="myprofile">                      
+                        </div>
+                    </td>
+                </tr> 
+                            
+
+            <!--        약관동의 항목       -->
+            {% for term in terms %}
+                {% if term.terms_no in pp %}
+                    <table style="width: 600px; height: auto;" >
+                        <div style="height: 100px ;"></div>
+                        <th>
+                            <tr colspan="3">{{term.terms_title}}
+                                {% if term.terms_required == 0 %}
+                                    (필수) 비동의 가입 불가
+                                {% else %}
+                                    (선택)
+                                {% endif %}
+                            </tr>
+                                                
+                        </th>
+                        <tr>
+                            <td style="width: 25%;">약관제목</td>
+                            <td style="width: 50%;">약관항목</td>
+                            <td style="width: 25%;">이용목적</td>
+                        </tr>
+                        <tr>
+                            <td>{{term.terms_item}}</td>
+                            <td>{{term.terms_purpose}}</td>
+                            <td>{{term.terms_period}}</td>
+                        </tr>
+                        <td colspan="3" align="right">
+                            <label><input type="radio" name="terms{{term.terms_no}}" value="1" checked>동의</label>
+                            <label><input type="radio" name="terms{{term.terms_no}}" value="0">비동의</label>
+                            
+                        </td>
+                    </table>
+                    <br><br><br>
+                {%else%}
+
+                {% endif %}
+            {% endfor %}
+
+                <tr>
+                    <td><input type = "submit" id = "submit" value = "저장하기"></td>
+                </tr>
+            </table>
+        </form>
+
+
+
+
+
+<script type="text/javascript">
+
+
+    function clickHandler(){
+        const user_image = document.getElementById('user_image')
+        const image_check =document.getElementById('image_check')
+
+        user_image.src = "http://img.cgv.co.kr/R2014/images/common/default_profile.gif";
+        image_check.value = "";
+    };
+   
+
+
+
+</script>
+
+
+
+
+
+{% endblock %}
+

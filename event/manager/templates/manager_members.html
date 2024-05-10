@@ -1,0 +1,124 @@
+{% extends 'layout\manager_layout.html' %}
+
+{% block head_mycgv %}
+
+
+
+{% endblock %}
+
+
+{% block body_main_mycgv %}
+
+<div>
+    <h4>회원정보</h4>
+  </div>
+    <form  method="GET">
+    {% for i in memberType %}
+      {% if i.memberType_no == int_type %}
+        <label><input type="radio" name="type" value="{{i.memberType_no}}" checked>{{i.member_type}}</label>
+      {% else %}
+        <label><input type="radio" name="type" value="{{i.memberType_no}}" >{{i.member_type}}</label>
+      {% endif %}
+    {% endfor %}
+    <input type="submit" value="확인">  
+    <a href="/manager/members"><button type="button">전체보기</button>  </a>
+    </form>
+
+
+
+  <table class="table" style="border-bottom: 20px;">
+      <thead class="table-group-divider">
+        <tr>
+          
+          <th scope="col">회원 NO</th>
+          <th scope="col">type</th>
+          <th scope="col">이름</th>
+          <th scope="col">아이디</th>
+          <th scope="col">생년월일</th>
+          <th scope="col">성별</th>
+          <th scope="col">현재상태</th>
+          <th scope="col">VIP등급</th>
+          
+        </tr>
+      </thead>
+  
+      <tbody >
+          {% for m in members %}
+          
+          <tr>
+           
+          <td>{{m.member_no}}</td>
+          <td>{{m.memberType_no.member_type}}</td>
+          <td><a href="/manager/members/detail?no={{m.member_no}}">{{m.member_name}}</a></td>
+          <td>{{m.member_id}}</td>
+          <td>{{m.member_years}}년 {{m.member_month}}월 {{m.member_day}}일</td>
+          {% if m.member_gender == 0 %}
+          <td>남자</td>
+          {% else %}
+          <td>여자</td>
+          {% endif %}
+
+          {% if m.memberInfo_no_id == 1 %}
+          <td>이용중</td>
+          {% elif m.memberInfo_no_id == 2 %}
+          <td>휴먼계정</td>
+          {% elif m.memberInfo_no_id == 3 %}
+          <td>탈퇴회원</td>
+          {% endif %}
+          <td>{{m.member_class.vipgo_name}}</td>
+          </tr>
+        {% empty %}
+          <tr>
+            <td colspan="7" align="center" >회원이 없습니다.</td>
+          </tr>
+        {% endfor %}  
+      </tbody>
+    </table>
+
+
+
+
+
+    <div style="text-align: center; margin-top: 10px;">
+      <!-- 첫페이지 이전페이지 -->
+      {% if members.has_previous %}  <!-- 이전이 있으면 true -->
+          <a href="/manager/members=1{% if type != None %}&type={{type}}{% endif %}">[&lt;&lt;]</a>
+          <a href="/manager/members?page={{members.previous_page_number}}{% if type != None %}&type={{type}}{% endif %}">[&lt;]</a>
+      {% else %}
+          [&lt;&lt;]
+          [&lt;]
+      {% endif %}
+
+
+      <!-- 숫자창 -->
+      {% for page_number in members.paginator.page_range %}
+          {% if start_page <= page_number and end_page >= page_number %}
+              {% if page_number == members.number %}
+                  <span style="font-weight: bolder; color: black;">[{{ page_number }}]</span>
+              {% else %}
+                  <a href="/manager/members?page={{page_number}}{% if type != None %}&type={{type}}{% endif %}">[{{ page_number }}]</a>
+                  <input type="hidden" name = 'search' value="{{search}}" >
+              {% endif %}
+          {% endif %}
+      {% endfor %}
+
+
+      <!-- 마지막페이지 다음페이지 -->
+      {% if members.has_next %}<!-- 이후가 있으면 true -->
+          <a href="/manager/members?page={{ members.next_page_number}}{% if type != None %}&type={{type}}{% endif %}">[&gt;]</a>
+          <a href="/manager/members?page={{last_page}}{% if type != None %}&type={{type}}{% endif %}">[&gt;&gt;]</a>
+      {% else %}
+          [&gt;]
+          [&gt;&gt;]
+      {% endif %}
+  </div> 
+
+
+
+
+
+
+
+
+{% endblock %}
+

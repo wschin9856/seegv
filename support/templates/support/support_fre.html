@@ -1,0 +1,160 @@
+{% extends 'layout/layout.html' %}
+{% block style %}
+<style>
+.tb1{
+    position:relative;
+    border-bottom:1px solid gray;
+    border-top:1px solid gray;
+}
+
+</style>
+{% endblock %}
+{% block script %}
+<script>
+    
+    $(document).ready(function() {
+        var login = '{{login}}';
+        $("#vbtn-radio1").click(function() {
+        window.location.href = "/support/";
+    });
+        $("#vbtn-radio2").click(function() {
+        window.location.href = "/support/frequency";
+    });
+        $('button[id^="btm_"]').click(function(){
+        var a = $(this).val();
+        window.location.href = "/support/frequency?code="+a;
+    });
+        $('#searchtitle').click(function(){
+        var text1 = $("#text1").val();
+        window.location.href ="/support/frequency?code=0&searchtext="+text1;
+    });
+       $("[id^='sample']").click(function(){
+        var sample = $(this).text();
+            $('#text1').val(sample);
+            $('#searchtitle').click();
+    });
+    $("#vbtn-radio3").click(function() {
+        window.location.href = "/support/news";
+    });
+    $("#vbtn-radio4").click(function(){
+        if(login == 'None'){
+                    alert("로그인 해주세요");
+                    window.location.href = "/user/login?returnURL=/support/email";
+        }
+        else{
+                    window.location.href = "/support/email";
+        }
+    });
+        $("#vbtn-radio5").click(function() {
+        window.location.href = "/support/group";
+    });
+    
+});
+</script>
+{% endblock %}
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col-sm-3 d-flex flex-column">
+            <div class="btn-group-vertical" role="group" aria-label="Vertical radio toggle button group">
+                <input type="radio" class="btn-check" name="vbtn-radio" id="vbtn-radio1" autocomplete="off">
+                <label class="btn btn-outline-danger" for="vbtn-radio1">고객센터 메인</label>
+                <input type="radio" class="btn-check" name="vbtn-radio" id="vbtn-radio2" autocomplete="off" checked>
+                <label class="btn btn-outline-danger" for="vbtn-radio2">자주 찾는 질문</label>
+                <input type="radio" class="btn-check" name="vbtn-radio" id="vbtn-radio3" autocomplete="off">
+                <label class="btn btn-outline-danger" for="vbtn-radio3">공지 뉴스</label>
+                <input type="radio" class="btn-check" name="vbtn-radio" id="vbtn-radio4" autocomplete="off">
+                <label class="btn btn-outline-danger" for="vbtn-radio4">이메일 문의</label>
+                <input type="radio" class="btn-check" name="vbtn-radio" id="vbtn-radio5" autocomplete="off">
+                <label class="btn btn-outline-danger" for="vbtn-radio5">단체/대관 문의</label>
+            </div>
+        </div>
+        <div class="col">
+            <p>자주찾는 질문</p>
+            <p>회원님들께서 가장 자주하시는 질문을 모았습니다<br>
+            궁금하신 내용에 대해 검색해 보세요</p>
+            {% if searchtext != None %}
+            <p><input type="text" placeholder="검색어를 입력해주세요" id="text1" value="{{searchtext}}"><button id="searchtitle">검색하기</button>
+            {% else %}  
+            <p><input type="text" placeholder="검색어를 입력해주세요" id="text1"><button id="searchtitle">검색하기</button>
+            {% endif %}
+                추천검색어: <a href="#" class="mx-1 text-decoration-none" id="sample5" text="현금영수증">현금영수증</a>
+                |<a href="#" class="mx-1 text-decoration-none" id="sample1" text="관람권">관람권</a>
+                |<a href="#" class="mx-1 text-decoration-none" id="sample2" text="예매">예매</a>
+                |<a href="#" class="mx-1 text-decoration-none" id="sample3" text="환불">환불</a>
+                |<a href="#" class="mx-1 text-decoration-none" id="sample4" text="취소">취소</a></p>
+            <div class="button_group">
+                <button class="btn btn-secondary" id='btm_99' value="0">전체</button>
+                <button class="btn btn-secondary" id="btm_1" value="예매/매표">예매/매표</button>
+                <button class="btn btn-secondary" id="btm_2" value="관람권/결제수단">관람권/결제수단</button>
+                <button class="btn btn-secondary" id="btm_3" value="VIP관련">VIP관련</button>
+                <button class="btn btn-secondary" id="btm_4" value="할인혜택">할인혜택</button>
+                <button class="btn btn-secondary" id="btm_5" value="영화관이용">영화관이용</button>
+            </div>
+            {% if searchtext != None %}
+                <div id="textresult"><span style="color: red;">"{{searchtext}}"</span>검색결과 {{fqcount}}건이 검색되었습니다. </div>
+            {% else %}  
+                <div id="textresult"> 총{{fqcount}}건이 검색되었습니다</div>
+            {% endif %}
+            <div>
+                <div>
+                <table class="tb1" style="width: 100%;">
+                    <tr style="margin-left: 5px;">
+                        <th style="text-align: center;">번호</th>
+                        <th style="padding-left: 13px;">구분</th>
+                        <th>제목</th>
+                        <th>조회수</th>
+                    </tr>
+                    {% for f in fq %}
+                    <tr style="margin-top: 3px;">
+                        <td style="text-align: center;">{{forloop.counter}}</td>
+                        <td style="padding-left: 13px;">{{f.fqo_name}}</td>
+                        <td><a href="/support/detail?no={{f.fq_no}}">{{f.fq_title}}</a></td>
+                        <td style="text-align: center;">{{f.fq_hit}}</td>
+                    </tr>
+                    {% endfor %}
+                </table>
+            </div>        
+        </div>
+
+    </div>
+</div>
+<div style="margin-left: 50%;">
+    <nav aria-label="...">
+        <ul class="pagination">
+
+            {% if fq.has_previous %}
+                <li class="page-item">
+                    <a class="page-link" href="?page={{ fq.previous_page_number }}{% if searchtext != None%}&searchtext={{searchtext}}&code=0{% elif code != None %}&code={{code}}{% endif %}">이전</a>
+                </li>
+            {% else %}
+                <li class="page-item disabled">
+                    <span class="page-link">이전</span>
+                </li>
+            {% endif %}
+
+            {% for page in fq.paginator.page_range %}
+                {% if fq.number == page %}
+                    <li class="page-item active" aria-current="page">
+                        <span class="page-link">{{ page }}</span>
+                    </li>
+                {% else %}
+                    <li class="page-item">
+                        <a class="page-link" href="?page={{ page }}{% if searchtext != None%}&searchtext={{searchtext}}&code=0{% elif code != None %}&code={{code}}{% endif %}">{{ page }}</a>
+                    </li>
+                {% endif %}
+            {% endfor %}
+
+            {% if fq.has_next %}
+                <li class="page-item">
+                    <a class="page-link" href="?page={{ fq.next_page_number }}{% if searchtext != None %}&searchtext={{searchtext}}&code=0{% elif code != None %}&code={{code}}{% endif %}">다음</a>
+                </li>
+            {% else %}
+                <li class="page-item disabled">
+                    <span class="page-link">다음</span>
+                </li>
+            {% endif %}
+        </ul>
+    </nav>
+</div>
+{% endblock %}

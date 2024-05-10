@@ -1,0 +1,166 @@
+{% extends 'layout\mycgv_layout.html' %}
+
+{% block head_mycgv %}
+
+
+
+{% endblock %}
+
+
+{% block body_main_mycgv %}
+
+<div>
+    <h4>결제상세 내역</h4>
+</div>
+  
+<table class="table" style="border-bottom: 20px;">
+    <thead class="table-group-divider">
+      <tr>
+        <th colspan="2">주문 NO : {{storeOrder.order_number}}</th>
+        <th colspan="3">주문일자 : {{storeOrder.order_date}}</th>
+      </tr> 
+      <tr>
+        <th scope="col">주문 NO</th>
+        <th scope="col">주문상품</th>
+        <th scope="col">상품금액</th>
+        <th scope="col">수량</th>
+        <th scope="col">상품할인액</th>
+
+      </tr>
+    </thead>
+
+    <tbody >
+        {% for order in productOrder %}
+
+        <tr>
+        <td>{{order.Productorder_no}}</td>
+        <td>
+          <img src="/media/{{order.sp_no.sp_image}}" style="height: 150px;;">
+          {{order.sp_no.sp_name}}</td>
+        <td>{{order.order_price}}</td>
+        <td>{{order.order_count}}</td>
+        <td>{{order.order_discount}}</td>
+
+        </tr>
+      {% endfor %}  
+    </tbody>
+  </table>
+
+<br>
+<br>
+<br>
+<br>
+<br>
+
+
+<table class="table">
+
+  <thead >
+    <tr>
+      <th  scope="col">총 상품 금액</th>
+      <th></th>
+      <th scope="col">할인 금액</th>
+      <th></th>
+      <th scope="col">총 결제 금액</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <tr>
+      <td><!-- 총상품금액 -->
+        {{storeOrder.order_price}}
+      </td>
+      <td>
+        <img src="\static\media\B.png">
+      </td>
+      <td><!-- 할인금액 -->
+        {{storeOrder.order_discount}}
+      </td>
+      <td><!-- 총결제금액 -->
+        <img src="\static\media\R.png">
+      </td>
+      <td>{{storeOrder.order_payment}}</td>
+    </tr>
+  </tbody>
+</table>
+
+      <br>
+      <br>
+      <br>
+      <br>
+      <br>
+
+<table class="table">
+  <div>
+    <h5>주문자 정보</h5>
+  </div>    
+  <tr>
+    <th>이름: {{storeOrder.member_no.member_name}}</th>
+    <th>휴대전화번호 : 010 - {{storeOrder.member_no.member_tel2}} - {{storeOrder.member_no.member_tel3}}</th>
+  </tr>
+  </table>
+
+<table class="table">
+  <div>
+    <h5>수취자 정보</h5>
+  </div>    
+  <tr>
+    <th>이름: {{giftconUser.userName}}</th>
+    <th>휴대전화번호 : {{giftconUser.userTel}}</th>
+  </tr>
+ 
+
+</table>
+
+
+
+<br>
+<table class="table">
+  
+ 
+  {% if ch == 2 %}
+  <div>
+    <h5>기프트 카드 정보</h5>
+  </div>   
+  <tr>
+    <th> 기프트카드 이름 : {{List.name}}</th>
+    <th> 기프트 카드 번호 : {{List.number}}</th>
+    <th> 비밀번호 : {{List.card_pw}}</th>         
+    <th> 기프트콘 상태 : {{List.now}}</th>
+
+  </tr>
+  
+  {% elif ch == 1 %}
+    <div>
+      <h5>기프트콘 정보</h5>
+    </div>     
+    {% for i in List %}  
+
+      <tr>
+        <th> 기프트카드 이름 : {{i.name}}</th>
+        <th> 기프트 카드 번호 : {{i.number}}</th>
+        <th> 기프트콘 상태 : {{i.now}}</th>
+      </tr>      
+    {% endfor %}
+  {% endif %}     
+</table>
+
+{% if storeOrder.order_state == 1 %}
+
+<br>
+<form action="/user/mycgv/refund" method="post">
+
+  {% csrf_token %}
+  <input type="hidden" name="order_no" value="{{order_no}}">
+
+  <input type="submit" value="결제취소/환불하기">
+</form>
+{% endif %}
+
+<br>
+<br>
+<br>
+<br>
+<br>
+  {% endblock %}
+

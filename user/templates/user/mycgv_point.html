@@ -1,0 +1,112 @@
+{% extends 'layout\mycgv_layout.html' %}
+
+{% block head_mycgv %}
+
+
+
+{% endblock %}
+
+
+{% block body_main_mycgv %}
+
+<div>
+    <h4>포인트 내역</h4>
+</div>
+
+
+  <table class="table"  style="border-bottom: 20px; width: 50%;">
+      <thead class="table-group-divider">
+        <tr>
+          <th scope="col">구분</th>
+          <th scope="col">내용</th>
+        </tr>
+      </thead>
+  
+      <tbody >
+        {% for p in point %}
+          <tr>
+            <td>{{p.pc_no.pointCategory}}</td>
+            <td>{{p.point}}</td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+
+
+    <table class="table"  style="border-bottom: 20px; width: 70%;">
+      <thead class="table-group-divider">
+        <tr>
+          <th scope="col">포인트 종류</th>
+          <th scope="col">날짜</th>
+          <th scope="col">장소</th>
+          <th scope="col">적립포인트</th>
+          <th scope="col">사용포인트</th>
+             
+        </tr>
+      </thead>
+  
+      <tbody >
+        {% for pu in pointUse %}
+          <tr>
+            <td>{{pu.pc_no.pointCategory}}</td>
+            <td>{{pu.pointUse_date}}</td>
+            <td>{{pu.pointUse_place}}</td>
+            <td>{{pu.savepoint}}</td>
+            <td>{{pu.usepoint}}</td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+
+
+
+    <div style="text-align: center; margin-top: 10px;">
+      <!-- 첫페이지 이전페이지 -->
+      {% if pointUse.has_previous %}  <!-- 이전이 있으면 true -->
+          <a href="/user/mycgv/point?page=1{% if category != None %}&category={{category}}{% endif %}{% if state != None %}&state={{state}}{% endif %}">[&lt;&lt;]</a>
+          <a href="/user/mycgv/point?page={{pointUse.previous_page_number}}{% if category != None %}&category={{category}}{% endif %}{% if state != None %}&state={{state}}{% endif %}">[&lt;]</a>
+      {% else %}
+          [&lt;&lt;]
+          [&lt;]
+      {% endif %}
+  
+  
+      <!-- 숫자창 -->
+      {% for page_number in pointUse.paginator.page_range %}
+          {% if start_page <= page_number and end_page >= page_number %}
+              {% if page_number == pointUse.number %}
+                  <span style="font-weight: bolder; color: black;">[{{ page_number }}]</span>
+              {% else %}
+                  <a href="/user/mycgv/point?page={{page_number}}{% if category != None %}&category={{category}}{% endif %}{% if state != None %}&state={{state}}{% endif %}">[{{ page_number }}]</a>
+                  <input type="hidden" name = 'search' value="{{search}}" >
+              {% endif %}
+          {% endif %}
+      {% endfor %}
+  
+  
+      <!-- 마지막페이지 다음페이지 -->
+      {% if pointUse.has_next %}<!-- 이후가 있으면 true -->
+          <a href="/user/mycgv/point?page={{ pointUse.next_page_number}}{% if category != None %}&type={{category}}{% endif %}{% if state != None %}&state={{state}}{% endif %}">[&gt;]</a>
+          <a href="/user/mycgv/point?page={{last_page}}{% if category != None %}&type={{category}}{% endif %}{% if state != None %}&state={{state}}{% endif %}">[&gt;&gt;]</a>
+      {% else %}
+          [&gt;]
+          [&gt;&gt;]
+      {% endif %}
+  </div> 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+{% endblock %}
+

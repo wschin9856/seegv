@@ -1,0 +1,75 @@
+{% extends 'layout/store_layout.html' %}
+
+{% block head_store %}
+
+
+
+<style>
+    .box1 { 			
+        width:300px;
+        height:500px;
+        display:block;
+    } 
+
+    .box2 { 			
+        width:200px;
+        height:300px;
+        display:inline;
+    } 
+
+</style>
+<script>
+    $(document).ready(function(){
+        var a = $("#price").val()
+        var b = $("#discount").val()
+        var c = a-b;
+    });
+</script>
+
+{% endblock %}
+
+
+
+
+{% block body_store %} 
+{% load user_template %}
+
+<div id="Package">
+    <h5>패키지</h5>
+    <hr size="5" color="#000000" >
+
+
+    <ul style="list-style:list-item;">
+        
+        {% for sp in storeProduct %}
+            <a href="product?sp_no={{sp.sp_no}}"><li style="display: inline-block;">
+                <div class="box1" id="pack" >
+                    <img src="{{sp.sp_image.url}}" width="300px" style="display: block;">
+                    <div style="text-align: center;">{{sp.sp_name}}</div>
+                    <div style="text-align: center;">{{sp.sp_items}}</div>
+                    {% if sc_no == '1' %}
+                        <input type="hidden" id="price" value="{{sp.spp_price}}"/>
+                        <input type="hidden" id="discount" value="{{sp.spp_discount}}"/>
+                    {% elif sc_no == '3' %}
+                        <p style="text-align: center;">금액 충전형</p>
+                    {% else %}
+                        <p style="text-align: center;">{{sp.spp_price}}</p>
+                    {% endif %}
+                </div>
+            </li></a>
+        {% endfor %}
+    </ul>
+</div>
+
+
+
+
+
+{% endblock %}
+
+
+
+
+
+
+

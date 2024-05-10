@@ -1,0 +1,226 @@
+{% extends 'layout/layout.html' %}
+{%block style%}
+<style>
+    body {
+        font-family: Arial, sans-serif;
+    }
+
+    form {
+        max-width: 600px;
+        margin: 0 auto;
+    }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+
+    table td {
+        padding: 10px;
+        vertical-align: top;
+    }
+
+    label {
+        font-weight: bold;
+        margin-bottom: 5px;
+        display: block;
+    }
+
+    input[type="text"],
+    textarea {
+        width: 100%;
+        padding: 8px;
+        margin-bottom: 10px;
+        box-sizing: border-box;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        resize: vertical;
+    }
+
+    input[type="checkbox"],
+    input[type="radio"] {
+        margin-right: 5px;
+    }
+
+    input[type="file"] {
+        margin-top: 5px;
+    }
+
+    input[type="submit"] {
+        background-color: #4CAF50;
+        color: white;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        float: right;
+    }
+
+    input[type="submit"]:hover {
+        background-color: #45a049;
+    }
+
+    .clearfix::after {
+        content: "";
+        display: table;
+        clear: both;
+    }
+</style>
+{% endblock %}
+
+{% block script %}
+
+<script type="text/javascript">
+    function checkUpdate(event){
+        var movie_no = document.getElementById('movie_no').value;
+        var status = document.getElementById("status").value;
+        var krname = document.getElementById("krname").value;
+        var ername = document.getElementById("ername").value;
+        var genre = document.querySelector('input[name="genre"]:checked');
+        var country = document.querySelector('input[name="country"]:checked');
+        var runtime = document.getElementById("runtime").value;
+        var story = document.getElementById("story").value;
+        var opendate = document.getElementById("opendate").value;
+        var viewable = document.querySelector('input[name="viewable"]:checked');
+        var movie_image = document.getElementById("movie_image").value;
+        alert(movie_no);
+        if(movie_no==""){
+            alert("영화를 선택해주세요")
+            return false;
+        }
+        else if(krname == ""){
+            alert("영화제목을 입력해주세요.");
+            return false;
+        }else if(ername == ""){
+            alert("영화 영문제목을 입력해주세요.");
+            return;
+        }else if(genre == ""){
+            alert("영화 장르를 선택해주세요.");
+            return;
+        }else if(country == ""){
+            alert("국가를 선택해주세요.");
+            return;
+        }else if(runtime == ""){
+            alert("런타임을 입력해주세요.");
+            return;
+        }else if(story == ""){
+            alert("줄거리를 입력해주세요.");
+            return;
+        }else if(opendate == ""){
+            alert("개봉일을 입력해주세요.");
+            return;
+        }else if(viewable == ""){
+            alert("관람가 연령을 선택해주세요.");
+            return;
+        }else if(movie_image == ""){
+            alert("포스터를 선택해주세요.");
+            return;
+        }
+    }
+</script>
+{% endblock %}
+{% block content %}
+
+
+<div>
+    <form action="/movies/update/check/" method="post" enctype="multipart/form-data" onsubmit="return checkUpdate(event)">
+        {% csrf_token %}
+
+        <table>
+            <div>
+                <select id="movie_no" name="movie_no">
+                    {% for i in onmovie %}
+                    <option  value="{{i.no}}">{{i.krname}}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <tr>
+                <td>
+                    <label for="movie_status">영화 상영 상태</label>
+                    <input type="radio" id="status" name="status" value="">상영중
+                    <input type="radio" id="status" name="status" value="1">상영종료
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label for="movie_krname">영화 한글제목</label>
+                    <input type="text" id="krname" name="krname">
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label for="movie_ername">영화 영문제목</label>
+                    <input type="text" id="ername" name="ername">
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label for="movie_genre">영화 장르</label>
+                    {% for i in genre %}
+                        <input type="checkbox" id="genre_{{ i.no }}" name="genre" value="{{ i.no }}">{{ i.name }}
+                    {% endfor %}
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label for="movie_country">국가</label>
+                    {% for i in country %}
+                        <input type="checkbox" id="country_{{ i.no }}" name="country" value="{{ i.no }}">{{ i.name }}
+                    {% endfor %}
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label for="movie_type">영화종류</label>
+                    {% for i in type %}
+                        <input type="radio" id="type_{{i.no}}" name="type" value="{{i.no}}">{{i.name}}
+                    {% endfor %}
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label for="movie_story">줄거리</label>
+                    <textarea name="story" id="story" cols="30" rows="10"></textarea>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label for="movie_runtime">런타임</label>
+                    <input type="text" id="runtime" name="runtime">
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label for="movie_opendate">개봉일</label>
+                    <input type="text" id="opendate" name="opendate">
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label for="movie_site">사이트</label>
+                    <input type="text" id="site" name="site">
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label for="movie_viewable">관람가 연령</label>
+                    {% for i in Viewable %}
+                        <input type="radio" id="viewable_{{ i.no }}" name="viewable" value="{{ i.no }}">{{ i.name }}
+                    {% endfor %}
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label for="movie_image">포스터</label>
+                    <input type="file" id="movie_image" name="movie_image" accept="image/*">
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <button type="submit">수정</button>
+                </td>
+            </tr>
+        </table>
+    </form>
+</div>
+{% endblock %}

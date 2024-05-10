@@ -1,0 +1,279 @@
+{% extends 'layout/store_layout.html' %}
+
+{% block head_store %}
+
+
+<script type="text/javascript">
+
+
+    function clickHandler1(){
+
+        const price = document.getElementById('price1');
+        const f_price =  document.getElementsByName('f_price1');
+
+        f_price[0].innerText = price.value + "원"
+        f_price[1].innerText = price.value + "원"
+
+    }
+
+    function clickHandler2(){
+
+        const price = document.getElementById('price');
+        const count = document.getElementById('count2');
+        const f_price =  document.getElementsByName('f_price2');
+
+
+        f_price[0].innerText = price.value * count.value + "원"
+        f_price[1].innerText = price.value * count.value + "원"
+
+    }
+
+    function clickHandler3(){
+
+        const price = document.getElementById('price');
+        const count = document.getElementById('count3');
+        const f_price =  document.getElementsByName('f_price3');
+
+
+        f_price[0].innerText = price.value * count.value + "원"
+        f_price[1].innerText = price.value * count.value + "원"
+
+        }
+
+
+
+        function purchase1(){  // 구매하기
+
+        const next = document.getElementById("next");
+        next.action = "/store/purchase?method=1";
+
+
+        }
+
+        function purchase2(){  // 선물하기
+
+        const next = document.getElementById("next");
+        next.action = "/store/userGift?method=1";
+
+
+        }
+
+        function purchase3(){  // 장바구니
+
+        const next = document.getElementById("next");
+        next.action = "/store/product_add";
+
+ 
+
+        }
+
+        function login(){  // 로그인
+
+        const next = document.getElementById("next");
+        next.action = "/user/login?returnURL=/store/product?sp_no={{sp_no}}";
+
+
+
+        }
+
+
+</script>
+
+
+
+
+
+{% endblock %}
+
+
+
+
+{% block body_store %} 
+
+
+<div>
+    <h5>{{storeProduct.sp_name}}</h5>
+    <hr size="5" color="#000000" >
+
+    <div id="image" style="float:left; height: 500px; width:40%; margin-top:0px;">
+        <img src="{{storeProduct.sp_image.url}}" style="display: block;" width="400px">
+    </div>
+
+    <div id="" style="float:left; height: 500px; width:60%; margin-top:50px;">
+               
+                <!-- javascript를 사용하기위한 데이터 -->
+                    {% if storeProduct.sp_discount == None %}
+                    <input type="hidden" id= "price" name="price" value="{{storeProduct.sp_price}}">
+                    {% else %}
+                    <input type="hidden" id= "price" name="price" value="{{storeProduct.sp_discount}}">
+                    {% endif %}
+
+                <div>
+                    <!--상품 가격-->
+                    {% if storeProduct.sc_no_id == 1 %}
+                        <p>{{storeProduct.sp_discount}}<strike>{{storeProduct.sp_price}}</strike></p>    
+                    {% elif storeProduct.sc_no_id == 3 %}
+                        <p>금액 충전형</p>
+                    {% else %}
+                        <p>{{storeProduct.sp_price}}</p>
+                    {% endif %}                    
+                    <hr>
+                        
+                    <table >
+                        
+                        <tr>
+                            <td><b>상품구성</b></td>
+                            <td>{{storeProduct.sp_items}}</td>
+                        </tr>
+                        <tr>
+                            <td><b>유효기간</b></td>
+                            <td>{{storeProduct.sp_period}}</td>
+                        </tr>
+                    {% if storeProduct.sp_origin != "null" %}    
+                        <tr>
+                            <td><b>원산지</b></td>
+                            <td>{{storeProduct.sp_origin}}</td>
+                        </tr>
+                    {% endif %}
+                        <tr>
+                            <td><b>상품교환</b></td>
+                            <td>미완성</td>
+                        </tr>
+
+                    </table>
+
+                    <hr>
+                    
+                    <!-- 금액/수량 선택-->
+                    <form id="next" action="" method="post">
+                        {% csrf_token %}
+                    <input type="hidden" name="sp_no" value="{{storeProduct.sp_no}}">
+                        {% if storeProduct.sc_no_id == 3 %}     <!-- 기프트카드 -->     
+                            <div style="display: inline;">
+                                <select id="price1" name="price1" onclick ="javascript:clickHandler1()" >
+                                    <option value="10000" selected>10,000원</option>
+                                    <option value="20000">20,000원</option>
+                                    <option value="30000">30,000원</option>
+                                    <option value="50000">50,000원</option>
+                                    <option value="70000">70,000원</option>
+                                    <option value="100000">100,000원</option>
+                                </select>
+                            </div>
+                            <div name = "f_price1"  style="display: inline;" >10,000원</div>
+                            <hr>
+                            <div style="display: inline;">최종금액</div>
+                            <div name = "f_price1" style="display: inline;">10,000원</div>
+                            
+                        {% elif storeProduct.sp_discount != None%}     <!-- 패키지상품 -->
+                            <input type="number" id="count2" name="count2" value="1" min="1" max="10" step="1" onclick ="javascript:clickHandler2()">
+                            <div name = "f_price2" style="display: inline;">{{storeProduct.sp_discount}}원</div>
+                            <hr>
+                            <div style="display: inline;">최종금액</div>
+                            <div name = "f_price2" style="display: inline;">{{storeProduct.sp_discount}}원</div>           
+
+                        {% else %}      <!-- 일반상품 -->
+                            <input type="number" id="count3" name="count3" value="1" min="1" max="10" step="1" onclick ="javascript:clickHandler3()">
+                            <div name = "f_price3" style="display: inline;">{{storeProduct.sp_price}}원</div>
+                            <hr>
+                            <div style="display: inline;">최종금액</div>
+                            <div name = "f_price3" style="display: inline;">{{storeProduct.sp_price}}원</div>
+                        {% endif %}
+
+
+
+
+                            <div>
+                                {% if login != None %}
+                                    {% if storeProduct.sc_no_id == 3 %}
+                                    <button onclick ="javascript:purchase2()">선물하기</button>
+                                    <button onclick ="javascript:purchase1()">구매하기</button>
+                                    {% else %}
+                                    <button onclick ="javascript:purchase3()">장바구니</button>
+                                    <button onclick ="javascript:purchase2()">선물하기</button>
+                                    <button onclick ="javascript:purchase1()">구매하기</button>
+                                    {% endif %}
+                                {% elif login == None %}
+                                    {% if storeProduct.sc_no_id == 3 %}
+                                    <a href="/user/login?returnURL=/store/product?sp_no={{sp_no}}"><button type="button">선물하기</button></a>
+                                    <a href="/user/login?returnURL=/store/product?sp_no={{sp_no}}"><button type="button">구매하기</button></a>
+
+                                    {% else %}
+                                    <a href="/user/login?returnURL=/store/product?sp_no={{sp_no}}"><button type="button">장바구니</button></a>
+                                    <a href="/user/login?returnURL=/store/product?sp_no={{sp_no}}"><button type="button">선물하기</button></a>
+                                    <a href="/user/login?returnURL=/store/product?sp_no={{sp_no}}"><button type="button">구매하기</button></a>
+                                    {% endif %}
+                                {% endif %}    
+                            </div>
+                    </form>
+                </div>
+
+    </div>
+    <hr size="5" color="#000000" >
+</div>
+<div>
+    {% if storeProduct.sp_txt != 'null' %}
+
+        {{storeProduct.sp_txt}}
+    {% else %}
+        공백    
+    {% endif %}
+</div>
+<hr size="5" color="#000000" >
+<pre>
+
+            이용안내
+            • 영화관람권 기프트콘은 CGV모바일, 홈페이지, 오프라인 극장에서 영화를 예매할 수 있는 온라인 상품권입니다.
+            • 구매 후 전송받으신 기프트콘은,
+            - 사용가능한 CGV에서 지정된 상영타입의 영화만 예매 가능합니다.(ex. 3D 관람권으로는 3D 영화만 예매 가능합니다)
+            - 금액권이 아니므로 차액 환급이 불가합니다. (ex.조조영화/청소년 관람 시 차액환급 불가)
+            - 영화 상영 후 환불 및 반품은 불가합니다.
+            • 관람권 기프트콘을 온라인에 등록하시는 경우,
+            - 모바일 : MY > 관람권/카드 > 기프트콘에서 '기프트콘 등록' 버튼 선택하여 수신받은 쿠폰번호 입력
+            - 홈페이지(PC) : ‘MyCGV > 스토어 > 내 기프트콘'에서 [기프트콘 등록]버튼 선택하여 수신받은 쿠폰번호 입력
+            . 
+            • 매점상품 기프트콘은 오프라인 매점에서 실제 상품으로 교환할 수 있는 온라인 상품권입니다.
+            • 구매 후 전송받으신 기프트콘은,
+            - 사용가능한 CGV의 매점에서 지정된 해당 상품으로만 교환이 가능합니다.
+            - 해당 상품 내에서 팝콘 혹은 음료, 스낵 변경 시 추가 비용이 발생합니다.
+            - 교환 완료한 상품의 환불 및 반품은 불가합니다.
+            • 유효기간 연장을 신청하는 경우,
+            - 유효기간은 발급일로부터 5년 이내 횟수 제한 없이 기간 연장 가능하며, 1회 연장 시 3개월(92일) 단위로 유효기간이 연장됩니다. 
+            - 단, 이벤트 경품 및 프로모션 상품의 경우 유효기간 연장이 불가할 수 있습니다.
+            - 유효기간 만료 이후에는 결제금액의 90% 환불이 가능합니다. 
+            • 매점상품 기프트콘은 극장 매점에서 상품 교환시 CJ ONE 적립이 가능합니다.
+            • 상기 이미지는 실제와 다를 수 있습니다.
+            
+            취소/환불
+            • 구매자는 최초 유효기간 이내에 결제금액의 100%에 대해 결제취소/환불이 가능하며, 최초 유효기간 만료 후에는 수신자가 결제금액의 90%에 대해 환불 요청 가능합니다.
+            • 단, 이미 사용된 기프트콘에 대해서는 결제취소/환불 신청이 불가합니다.
+            • 결제취소/환불 방법
+            결제취소는 모바일App,웹 > MY > 결제내역조회 > 스토어 or 홈페이지 > My CGV > 스토어 > 결제내역의 해당 주문 상세내역에서 가능합니다.
+            (기프트콘은 구매일로부터 60일 이내 결제취소 가능하며, 카드 결제취소 가능 기간이 경과하였을 경우, 고객센터로 연락주시면 됩니다)
+            환불은 모바일App,웹 > MY > 기프트콘 or 홈페이지 > My CGV > 스토어 > 내 기프트콘에서 환불을 원하는 기프트콘 등록 후 진행 가능하며, 비회원의 경우 고객센터로 신청 가능합니다.
+            단 이 때, 본인 확인 및 계좌 확인 절차가 진행됩니다.
+            • 수신자는 선물받은 기프트콘의 수신거절을 요청할 수 있으며, 이 경우 구매자에게 취소 및 환불에 대한 안내가 이루어집니다.
+            • 결제취소 가능 기간이 경과한 후 수신자가 수신거절을 요청할 경우 구매자에게 기프트콘이 재발송됩니다.
+            • CGV고객센터 1544-1122
+            
+            미성년자 권리보호 안내
+            미성년자인 고객께서 계약을 체결하시는 경우 법정대리인이 그 계약에 동의하지 아니하면 미성년자 본인 또는 법정대리인이 그 계약을 취소할 수 있습니다.
+            분쟁 해결
+            1) 회사는 이용자가 제기하는 정당한 의견이나 불만을 반영하고 그 피해의 보상 등에 관한 처리를 위하여
+            CGV고객센터(1544-1122)를 설치 운영하고 있습니다.
+            2) 회사는 고객센터를 통하여 이용자로부터 제출되는 불만사항 및 의견을 처리합니다.
+            다만, 신속한 처리가 곤란한 경우에는 이용자에게 그 사유와 처리일정을 즉시 통보합니다.
+            3) 전자상거래 분쟁(청약철회등)과 관련한 이용자의 피해구제는 이용약관 및 전자상거래법 등 관련 법령에 따릅니다.
+
+
+
+    </pre>
+
+
+{% endblock %}
+
+
+
+
+
+
+

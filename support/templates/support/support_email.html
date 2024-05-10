@@ -1,0 +1,123 @@
+{% extends 'layout/layout.html' %}
+{% block script %}
+<script>
+    $(document).ready(function() {
+        var login = '{{login}}';
+        $("#vbtn-radio1").click(function() {
+        window.location.href = "/support/";
+    });
+        $("#vbtn-radio2").click(function() {
+        window.location.href = "/support/frequency";
+        
+    });
+        $("#vbtn-radio3").click(function() {
+        window.location.href = "/support/news";
+    });
+        $("#vbtn-radio4").click(function(){
+        if(login == 'None'){
+                    alert("로그인 해주세요");
+                    window.location.href = "/user/login?returnURL=/support/email";
+        }
+        else{
+                    window.location.href = "/support/email";
+        }
+    });
+        $("#vbtn-radio5").click(function() {
+        window.location.href = "/support/group";
+    });
+        $("#rg").prop("disabled", true);
+    $('#theaterselect').prop("disabled", true);
+       $("#rg").change(function(){
+        var regionId = $(this).val(); 
+        $.ajax({
+            url: '/event/get_theaters/', 
+            type: 'GET',
+            data: {'region_id': regionId},
+            success: function(data){
+                $('#theaterselect').empty(); 
+             $.each(data.theaters, function(key, value){
+                $('#theaterselect').append('<option value="'+value.no+'">'+value.name+'</option>');
+          });
+        }
+      });
+    });
+        $("[id^='theater_sel']").change(function(){
+        var checking = $(this).val()
+        if (checking != "check") {
+            $("#rg").prop("disabled", true);
+            $('#theaterselect').prop("disabled", true);
+        } else {
+            $("#rg").prop("disabled", false);
+            $('#theaterselect').prop("disabled", false);
+        }
+        });
+        $("#changemember").click(function(){
+            window.location.href="/user/mycgv/pwcheck?url=/user/mycgv/myInfo";
+        });
+        $("#submit1").click(function(){
+            alert("문의가 등록되었습니다");
+            $("form").submit();
+        })
+
+ });
+</script>
+{% endblock %}
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col-sm-3 d-flex flex-column">
+            <div class="btn-group-vertical" role="group" aria-label="Vertical radio toggle button group">
+                <input type="radio" class="btn-check" name="vbtn-radio" id="vbtn-radio1" autocomplete="off">
+                <label class="btn btn-outline-danger" for="vbtn-radio1">고객센터 메인</label>
+                <input type="radio" class="btn-check" name="vbtn-radio" id="vbtn-radio2" autocomplete="off" >
+                <label class="btn btn-outline-danger" for="vbtn-radio2">자주 찾는 질문</label>
+                <input type="radio" class="btn-check" name="vbtn-radio" id="vbtn-radio3" autocomplete="off">
+                <label class="btn btn-outline-danger" for="vbtn-radio3">공지 뉴스</label>
+                <input type="radio" class="btn-check" name="vbtn-radio" id="vbtn-radio4" autocomplete="off" checked>
+                <label class="btn btn-outline-danger" for="vbtn-radio4">이메일 문의</label>
+                <input type="radio" class="btn-check" name="vbtn-radio" id="vbtn-radio5" autocomplete="off">
+                <label class="btn btn-outline-danger" for="vbtn-radio5">단체/대관 문의</label>
+            </div>
+        </div>
+        <div class="col">
+            <form action="/support/email/result/" method="post" enctype="multipart/form-data" >
+                {% csrf_token %}
+            <p> 이름 : {{member.member_name}}</p>
+            <hr>
+            <p> 휴대전화 : {{member.member_tel1}}-{{member.member_tel2}}-{{member.member_tel3}} 이메일 : {{member.member_mailAddress}}</p>
+            <p> * 문의에 대한 빠른 답변을 위해 회원 가입 시 입력하신 연락처를 확인해주세요 <input type="button" id="changemember" value="수정"></p>
+            <br>
+            <hr>
+            <p>문의 유형 
+                <input type="radio" name="askvalue" id="askvalue" value="문의" checked>문의
+                <input type="radio" name="askvalue" id="askvalue" value="불만">불만
+                <input type="radio" name="askvalue" id="askvalue" value="칭찬">칭찬
+                <input type="radio" name="askvalue" id="askvalue" value="제안">제안
+                <input type="radio" name="askvalue" id="askvalue" value="분실물">분실물
+            </p>
+            <p>
+                영화관 선택 
+                <input type="radio" name="theaters" id="theater_sel1" value="None" checked> 선택하지않음
+                <input type="radio" name="theaters" id="theater_sel2" value="check"> 선택함
+                <select id="rg">
+                    <option value="None" >영화관을 선택해주세요</option>
+                    {% for op in region %}
+                    <option value="{{op.no}}" >{{op.name}}</option>
+                    {% endfor %}
+                </select>
+                <select name="theaterselect" id="theaterselect">
+                </select>
+                
+            </p>
+            <p>
+                제목<input type="text" name="title" id="title">
+            </p>
+            <p>내용 <textarea  rows="5" cols="80" name="content" id="content" placeholder="문의 내용 및 첨부 파일 내에 개인정보가 포함되지 않도록 유의하시기 바랍니다."></textarea></p>
+            <p>첨부파일 <input type="file" id="files" name="files"></p>
+            <p>*첨부가능 확장자: 이미지(jpg, gif, bmp, png, jpeg) ,워드문서(hwp, ppt, pptx, xls, xlsx, doc, docx, zip, pdf, txt)</p>
+            <input type="button" value="제출" id="submit1">
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

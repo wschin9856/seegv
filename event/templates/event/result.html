@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    {% for apply in apply_member %}
+    이벤트 응모자 seq:{{apply.aM_no}}
+    <br>
+    이벤트번호: {{apply.event_no.event_name}}
+    <br>
+    회원 seq: {{apply.member_no.member_name}}
+    <br>
+    응모일시: {{apply.aM_date}}
+    <br>
+    당첨여부: {{apply.aM_win}}
+    <br>    <br>
+    {% endfor %}
+</body>
+</html>

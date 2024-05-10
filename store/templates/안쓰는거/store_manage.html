@@ -1,0 +1,92 @@
+{% extends 'layout/store_layout.html' %}
+
+{% block body_store %} 
+
+<div id="Package">
+<h5>패키지</h5>
+<hr size="5" color="#000000" >
+<div style="display: inline;" id="pack">
+
+    <div>
+        <form action="manage/result" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+            <input type="hidden" name="sp_no" value="{{storeProduct.sp_no}}">
+            no : {{storeProduct.sp_no}}
+            name : {{storeProduct.sp_name}}
+            url : {{ storeProduct.sp_image.url }}
+            
+            <input type="file" id = 'file' name="file">
+        
+            <input type="submit" name="submit" value="전송">
+        </form>      
+
+    <img id = 'user_image' src="media/{{ storeProduct.sp_image}}" width="100px">
+
+    </div>
+</div>
+
+</div>
+
+
+
+style="float:left; height: max-content; width:20%; margin-top:50px;"
+
+
+
+
+
+
+<div id="Package">
+    <h5>영화관람권</h5>
+    <hr size="5" color="#000000" >
+    <div style="display: inline;" id="pack">
+    
+        <div>
+            <form action="manage/result" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+                <input type="hidden" name="sp_no" value="{{storeProduct.sp_no}}">
+                no : {{storeProduct.sp_no}}
+                name : {{storeProduct.sp_name}}
+                url : {{ storeProduct.sp_image.url }}
+                
+                <input type="file" id = 'file' name="file">
+            
+                <input type="submit" name="submit" value="전송">
+            </form>      
+    
+        <img id = 'user_image' src="media/{{ storeProduct.sp_image}}" width="100px">
+    
+        </div>
+    </div>
+    
+    </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+{% endblock %}

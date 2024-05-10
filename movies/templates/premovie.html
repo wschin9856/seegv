@@ -1,0 +1,148 @@
+{% extends 'layout/layout.html' %}
+{% block style %}
+<style>
+          .navigation-button {
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        z-index: 999;
+      }
+
+      
+      .navigation-button {
+          background-color: grey;
+          color: #fff;
+          border: none;
+          padding: 10px 20px;
+          border-radius: 5px;
+          font-size: 16px;
+          cursor: pointer;
+          
+      }
+      .top-button {
+    position: fixed;
+    bottom: 20px;
+    right: 150px;
+    z-index: 999;
+}
+
+.bottom-button {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 999;
+}
+.buttons {
+        background-color: #dc3545;;
+        border: none;
+        color: white;
+        padding: 10px 20px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 16px;
+        margin: 2px 2px;
+        cursor: pointer;
+        border-radius: 8px;
+        
+    }
+    .buttons:hover{
+        background-color : #cc071b;
+    }
+</style>
+
+{% endblock %}
+{% block script %}
+<script type="text/javascript">
+function scrollToTop() {
+    window.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
+}
+function scrollToBottom() {
+    window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
+}
+
+window.addEventListener('scroll', function() {
+    var topButton = document.querySelector('.top-button');
+    var bottomButton = document.querySelector('.bottom-button');
+    if (window.scrollY > 0) {
+        topButton.style.display = 'block';
+        bottomButton.style.display = 'block';
+    } else {
+        topButton.style.display = 'none';
+        bottomButton.style.display = 'none';
+    }
+});
+
+</script>
+{% endblock %}
+
+{% block content %}
+
+
+<main>
+
+    <section class="py-5 text-center container">
+      <div class="row py-lg-5" align="left">
+        <h1 class="fw-light"><strong>상영예정작</strong></h1>
+        <div align="right">
+          <button type="button" class="buttons" onclick="location.href='/movies/'">무비차트</button>  <button type="button" class="buttons" onclick="location.href='/movies/pre-movies/'">상영예정작</button> 
+        </div>
+
+  
+      </div>
+    </section>
+    <div>
+      <button class="navigation-button top-button" onclick="scrollToTop()">최상단으로</button>
+      <button class="navigation-button bottom-button" onclick="scrollToBottom()">최하단으로</button>
+    </div>
+  
+  
+  </div>
+    <div class="album py-5 bg-body-tertiary">
+      <div class="container">
+        
+        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+          
+          {% for i in ml %}
+          {% if i.opendate >= currentdate %}
+          
+          <div class="col">
+            <p align="center">이 달의 추천영화</p>
+            <div class="card shadow-sm">
+              <svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: صورة مصغرة" preserveAspectRatio="xMidYMid slice" focusable="false">
+                <title>Placeholder</title>
+                <rect width="100%" height="100%" fill="#55595c"/>
+                <a href="/movies/detailview?no={{i.no}}">
+                  <image xlink:href="{{i.image.url}}" width="100%" height="100%" />
+                </a>
+              </svg>
+              <div class="card-body">
+                <a href="/movies/detailview?no={{i.no}}"><strong>{{i.krname}}</strong></a>
+                <p class="card-text">{{i.ViewableAge_no.name}}</p>
+                <p class="card-text">{{i.opendate}} 개봉</p>
+                <div class="d-flex justify-content-between align-items-center">
+                  <div class="btn-group">
+                    <button type="button" class="btn btn-sm btn-outline-secondary" onclick="document.location.href='/tiket/no?={{i.no}}'">예매하기</button>
+                    <button type="button" class="btn btn-sm btn-outline-secondary" onclick="document.location.href='/movies/detailview?no={{i.no}}'">상세정보</button>
+                  </div>
+                  <small class="text-body-secondary">
+
+                      상영예정 D-{{i.d_day}}
+
+                  </small>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          {%endif%}
+          {% endfor %}
+        </div>
+        
+      </div>
+  
+    </div>
+
+  </main>
+
+  {% endblock %}

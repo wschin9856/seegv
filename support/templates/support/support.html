@@ -1,0 +1,182 @@
+{% extends 'layout/layout.html' %}
+{% block style %}
+<style>
+    .custom-button {
+        width: 100%;
+        height: 93px;
+    }
+</style>
+{% endblock %}
+{% block script %}
+<script>
+    $(document).ready(function() {
+        var login = '{{login}}';
+        $("#vbtn-radio1").click(function() {
+        window.location.href = "/support/";
+    });
+        $("#vbtn-radio2").click(function() {
+        window.location.href = "/support/frequency";
+    });
+        $("[id^='sample']").click(function(){
+            var a = $(this).text();
+            $('#search').val(a);
+            $('#searchbutton').click();
+    });
+        $("#searchbutton").click(function(){
+            var b = $("#search").val();
+            window.location.href ="/support/frequency?code=0&searchtext="+b;
+    });
+        $("#vbtn-radio3").click(function() {
+        window.location.href = "/support/news";
+    });
+    $("[id='vbtn-radio4'],[id='gotoemail']").click(function(){
+        if(login == 'None'){
+                    alert("로그인 해주세요");
+                    window.location.href = "/user/login?returnURL=/support/email";
+        }
+        else{
+                    window.location.href = "/support/email";
+        }
+    });
+        $("#vbtn-radio5").click(function() {
+        window.location.href = "/support/group";
+    });
+    
+});
+</script>
+{% endblock %}
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col-sm-3 d-flex flex-column">
+            <div class="btn-group-vertical" role="group" aria-label="Vertical radio toggle button group">
+                <input type="radio" class="btn-check" name="vbtn-radio" id="vbtn-radio1" autocomplete="off" checked>
+                <label class="btn btn-outline-danger" for="vbtn-radio1">고객센터 메인</label>
+                <input type="radio" class="btn-check" name="vbtn-radio" id="vbtn-radio2" autocomplete="off">
+                <label class="btn btn-outline-danger" for="vbtn-radio2">자주 찾는 질문</label>
+                <input type="radio" class="btn-check" name="vbtn-radio" id="vbtn-radio3" autocomplete="off">
+                <label class="btn btn-outline-danger" for="vbtn-radio3">공지 뉴스</label>
+                <input type="radio" class="btn-check" name="vbtn-radio" id="vbtn-radio4" autocomplete="off">
+                <label class="btn btn-outline-danger" for="vbtn-radio4">이메일 문의</label>
+                <input type="radio" class="btn-check" name="vbtn-radio" id="vbtn-radio5" autocomplete="off">
+                <label class="btn btn-outline-danger" for="vbtn-radio5">단체/대관 문의</label>
+            </div>
+        </div>
+        <div class="col-sm-9">
+            <div class="row">
+                <div class="col-sm-4">
+                    <div class="card h-100 bg-danger">
+                        <div class="card-body d-flex flex-column justify-content-between ">
+                            <h5 class="card-title text-white">자주찾는 질문 빠른검색</h5>
+                            <p class="card-text" style="font-size: 13px;"><br><input type="text" id="search" placeholder="검색어를 입력해주세요" style="width:80%" ><button id="searchbutton">검색</button></p>
+                            <div class="d-flex justify-content-center mb-2 mt-3" style="font-size: 10px;">
+                                <a href="#" class="mx-1 text-decoration-none" id="sample5" text="현금영수증">현금영수증</a>
+                                |<a href="#" class="mx-1 text-decoration-none" id="sample1" text="관람권">관람권</a>
+                                |<a href="#" class="mx-1 text-decoration-none" id="sample2" text="예매">예매</a>
+                                |<a href="#" class="mx-1 text-decoration-none" id="sample3" text="환불">환불</a>
+                                |<a href="#" class="mx-1 text-decoration-none" id="sample4" text="취소">취소</a></p>
+                            </div>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <div class="card h-100">
+                        <div class="card-body d-flex flex-column justify-content-between">
+                            <h5 class="card-title">이메일 문의</h5>
+                            <p class="card-text">24시간 365일 언제든지 문의해주세요</p>
+                            <a href="/support/email/" class="btn btn-secondary mt-auto" id="gotoemail">문의하기</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <div class="card h-100">
+                        <div class="card-body">
+                            <h5 class="card-title">내 상담 내역 확인</h5>
+                            <p class="card-text">문의하신 내용을 확인할 수 있습니다.</p>
+                            <a href="/user/mycgv/ask" class="btn btn-secondary mt-auto">문의내역 조회</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+                <div class="row">
+                    <div class="col">
+                        <p style="text-align: center;">자주찾는 서비스</p>
+                        <div class="row">
+                            <div class="col"><input type="button" value="신용카드 영수증출력" class="custom-button"></div>
+                            {% if login == None %}
+                            <div class="col"><input type="button" value="아이디/비밀번호 찾기" class="custom-button" onclick="location.href='/user/login/findID'"></div>
+                            {% else %}
+                            <div class="col"><input type="button" value="아이디/비밀번호 찾기" class="custom-button" disabled></div>
+                            {% endif %}
+                        </div>
+                        <div class="row">
+                            <div class="col"><input type="button" value="예매/취소내역 확인" class="custom-button"></div>
+                            {% if login == None %}
+                            <div class="col"><input type="button" value="비회원 예매/취소" class="custom-button"></div>
+                            {% else %}
+                            <div class="col"><input type="button" value="비회원 예매/취소" class="custom-button" disabled></div>
+                            {% endif %}
+                        </div>
+                        <div class="row">
+                            <div class="col"><input type="button" value="멤버십포인트 사용안내" class="custom-button"></div>
+                            <div class="col"><input type="button" value="관람권 할인쿠폰 등록" class="custom-button"></div>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <p style="text-align: center;">공지/뉴스</p>
+                        {% for i in news %}
+                        <div class="row">
+                            <div class="col" style="font-size: 13px;">
+                                <small><a href="/support/detail2?no={{i.nw_no}}">{{i.nw_title}}</a></small>
+                            </div>
+                            <div class="col" style="font-size: 7px;">
+                            {{i.nw_date}}  
+                            </div>
+                        </div>
+                        {% endfor %}  
+                        <div class="row">
+                            <div class="col">
+                                <br>
+                                <button type="button" style="width: 140px; height: 80px;" onclick="location.href='/event/?code=1'"><p>CGV PREVIEW</p>
+                                        <small>시사회/무대인사</small>
+                                </button>
+                            </div>
+                            <div class="col" style="margin-right:80px;">
+                                <br>
+                                <button type="button" style="width:140px; height: 80px;" onclick="location.href='/event/benefit/?code=6'"><p>DISCOUNT INFO</p>
+                                        <small>할인카드 및 혜택안내</small>
+                                </button>
+                            </div>
+                        </div>      
+                        <br><br> 
+                    </div>
+                </div>
+                <div class="row">
+                    <hr>
+                    <div class="col">
+                        <p>단체/대관 서비스</p>
+                        <small>CGV에서 진행하는 우리만의 특별한 이벤트 색다른 문화행사</small>
+                        <input type="button" value="바로가기" onclick="location.href='/support/group'">
+                    </div>
+                    <div class="col">
+                        <p>VIP 안내</p>
+                        <small>영화를 사랑하는 당신에게 드리는 특별한 CGV만의 VIP혜택</small>
+                        <input type="button" value="바로가기" onclick="location.href='/event/vip'">
+                    </div>
+                        
+                    <div class="col">
+                    <p>VIP 고객센터</p>
+                        <small>VIP 고객님들께 알려드리는 VIP 혜택 제대로 활용하는 방법</small>
+                        <input type="button" value="바로가기" onclick="location.href='/event/vip/faq/'">
+                    </div>
+                </div>
+                <br><hr><br>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+{% endblock %}

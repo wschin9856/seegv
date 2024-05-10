@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+
+    <h3> 첫 페이지 </h3>
+
+    
+    {% if login != None %}
+
+        <div>
+            <form action="/user/logout/" method="post">
+            {% csrf_token %}            
+                {{login}}님 안녕하세요!
+                <input type = "submit" value="로그아웃">
+            </form>
+        </div>
+        
+    {% else %}
+
+        <button type="button" name = "next" onclick="location.href='/login'">로그인하기</button>
+    
+    {% endif %}
+
+</body>
+</html>

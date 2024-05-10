@@ -1,0 +1,91 @@
+
+{% extends 'layout\layout.html' %}
+{% block style %}
+    {% block head_mycgv %}{% endblock %}
+{% endblock %}
+{% block body %}
+
+ {% block body_top_mycgv %}{% endblock %}
+<!--상단-->
+<!-- <fieldset>
+<div id="1">
+    <div style="float: left; width:30%; height:200px;">프로필이미지</div>
+    <div style="float: left; width:70%; height:200px;">
+        <span>{{login_name}}님</span><span>{{login_id}}</span><span>닉네임</span>
+        <hr>
+        <div>고객등급</div>
+        <div><button>MY 지난 등급이력 보기</button></div>
+    </div>
+</div> -->
+
+
+<!-- <div id="2">
+    <div style="float: left; width:33%; height:200px">
+        <div>MY COUPON</div>
+        <div>CGV VIP에 도전하세요!</div>
+        <div>CGV 할인쿠폰</div>
+        <div>영화관람권</div>
+    </div>
+    <div style="float: left; width:33%; height:200px">
+        <div>CJ ONE POINT</div>
+        <div>CJ ONE 사용가능 포인트</div>
+        <div>VIP 점수</div>
+        <div>VIP 누적 점수</div>
+    </div>
+    <div style="float: left; width:33%; height:200px">
+        자주가는 CGV설정
+    </div>
+</div>
+</fieldset> -->
+<!---->
+<!---->
+<!--네비게이션 바-->
+<div id="3" style="float:left; width:30%; margin-top:50px;">
+    <div>MY CGV HOME</div>
+    <div>나의 예매내역</div>
+    <div>관람권/할인쿠폰 관리</div>
+    <div>이벤트 참여내역</div>
+    <div>기프트샵</div>
+    <div>   내 기프트콘</div>
+    <div>   결제내역</div>
+    <div>회원정보</div>
+    <div><a href="/user/mycgv/pwcheck?url=/user/mycgv/myInfo">   개인정보 변경</a></div>
+    <div>   간편로그인 설정</div>
+    <div><a href="/user/mycgv/pwcheck?url=/user/mycgv/terms">   CGV 서비스 이용동의 설정</a></div>
+    <div>   Email/SMS 수신설정</div>
+    <div><a href="/user/mycgv/pwcheck?url=/user/mycgv/leave">   회원탈퇴</a></div>
+    <div>프로필 관리</div>
+    <div>나의 문의내역</div>
+    <div>   1:1 문의</div>
+    <div>   분실물 문의</div>
+<div></div>
+<div></div>
+<div></div>
+<div></div>
+<div></div>
+<div></div>
+<div></div>
+<div></div>
+<div></div>
+<div></div>
+<div></div>
+<div></div>
+
+
+</div>
+
+
+<div id="4" style="float:left; width:70%; margin-top:50px;">
+
+    {% block body_main_mycgv %}{% endblock %}
+    
+</div>
+
+{% endblock %}
+
+
+{% block body_script_mycgv %}{% endblock %}
+
+
+</body>
+</html>

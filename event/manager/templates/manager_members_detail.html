@@ -1,0 +1,121 @@
+{% extends 'layout\manager_layout.html' %}
+
+{% block head_mycgv %}
+
+<style type="text/css">
+  .hidden {
+      display: none;
+  }
+</style>
+
+
+
+{% endblock %}
+
+
+{% block body_main_mycgv %}
+
+<div style="display: block; width: 30%;">
+
+</div>
+
+<div style="display: block; width: 60%;">
+
+
+  <div>
+    <h4>회원정보</h4>
+  </div>
+  <form id="formtable" action="" method="post">
+    {% csrf_token %}
+
+    <table class="table" style="border-bottom: 20px; ">
+      <input type="hidden" name="member_no" value="{{member.member_no}}">
+          <tr>
+            <th scope="col">회원번호</th>
+            <td>{{member.member_no}}</td>
+          </tr>
+
+          <tr>
+            <th scope="col">회원 이름</th>
+            <td>{{member.member_name}}</td>
+          </tr>
+          
+          <tr>
+            <th scope="col">회원 아이디</th>
+            <td>{{member.member_id}}</td>
+          </tr>
+
+          <tr>
+            <th scope="col">회원 타입</th>
+            <td>
+              <select name="type">
+                {% for t in memberType %}
+                  {% if member.memberType_no_id == t.memberType_no %}
+                    <option value="{{t.memberType_no}}" selected>{{t.member_type}}</option>
+                  {% else %}
+                    <option value="{{t.memberType_no}}">{{t.member_type}}</option>
+                  {% endif %}
+                {% endfor %}
+              </select>
+            </td>
+          </tr>
+
+          <tr>
+            <th scope="col">회원 상태</th>
+              <td>
+                <select name="info">
+                {% for i in memberInfo %}
+                  {% if member.memberInfo_no_id == i.memberInfo_no %}
+                    <option value="{{i.memberInfo_no}}" selected>{{i.memberInfo}}</option>
+                  {% else %}
+                    <option value="{{i.memberInfo_no}}">{{i.memberInfo}}</option>
+                  {% endif %}
+                {% endfor %}
+              </select>
+
+            </td>
+          </tr>
+
+          <tr>
+            <th scope="col">VIP 등급</th>
+            <td></td>
+          </tr>
+
+
+
+      </table>
+        <button onclick="javascript:change()">변경</button>
+        <button onclick="javascript:remove()">삭제</button>
+    
+
+    </form>
+
+
+
+
+
+</div>
+
+<script type="text/javascript">
+
+  function remove(){
+  
+  const formtable = document.getElementById("formtable");
+  formtable.action = "/manager/members/detail/remove";
+  
+  
+  }
+  
+  function change(){
+  
+  const formtable = document.getElementById("formtable");
+  formtable.action = "/manager/members/detail/change";
+  
+  
+  }
+</script>
+
+
+
+{% endblock %}
+

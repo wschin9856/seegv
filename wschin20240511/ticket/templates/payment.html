@@ -1,0 +1,432 @@
+{% extends 'layout/layout.html' %}
+
+{% block style %} 
+    <style>
+        #full {
+            display: flex;
+            flex-direction : row
+        }
+        .disp1 {
+            display: flex;
+            width: 1000px;
+            flex-direction : row;
+            align-content:center;  
+        }
+
+        #screen_movie {
+            width: 100px;
+            height: 600px;
+            margin: 10px;
+            background-color: rgb(230, 218, 218);
+        }
+
+        #screen_date {
+            width: 700px;
+            height: 600px;
+            margin: 10px;
+            background-color: rgba(255, 251, 0, 0.148);
+        }
+
+        #pay_detail {
+            width: 200px;
+            height: 600px;
+            margin: 10px;
+            background-color: rgba(102, 255, 0, 0.208);
+        }
+
+
+        #info0 {
+            float: left; /* 필수, 왼쪽 정렬*/
+            width : 1%;
+            height : 130px;
+        }
+        #info0_1, #info0_2 {
+            float: left; /* 필수, 왼쪽 정렬*/
+            width : 25%;
+            height : 130px;
+            background-color: rgb(243, 218, 228);
+        }
+        #info0_3 {
+            float: left; /* 필수, 왼쪽 정렬*/
+            width : 25%;
+            height : 130px;
+            background-color: rgb(243, 218, 228);
+        }
+        #info0_4 {
+            float: left; /* 필수, 왼쪽 정렬*/
+            width : 8%;
+            height : 130px;
+            background-color: rgb(243, 218, 228);
+        }
+        #info0_5 {
+            float: left; /* 필수, 왼쪽 정렬*/
+            width : 8%;
+            height : 130px;
+            background-color: rgb(243, 218, 228);
+        }
+
+        .hrline {width:50px; border:1px; }
+    </style>
+{% endblock %}
+
+
+{% block script %}
+    <script type="text/javascript">
+        
+        function input_Coupon() {
+            document.location.href='input_Coupon?page_name="payment"';
+        }
+
+        function unescapeHtml(str) {
+            if (str == null) {
+            return "";
+            }
+            return str
+            .replace(/&amp;/g, '&')
+            .replace(/&lt;/g, '<')
+            .replace(/&gt;/g, '>')
+            .replace(/&quot;/g, '"')
+            .replace(/&#039;/g, "'")
+            .replace(/&#39;/g, "'");
+        }
+
+        var screentime_no =0; //클릭한 상영스케줄 시퀀스 번호
+        // 서버에서 받은 screentime_no 데이터 변환 추출
+        var imsi1 = "{{screentime_no}}";
+        screentime_no = Number(imsi1);
+        console.log("screentime_no");
+        console.log(screentime_no);
+
+        // 서버에서 받은 hallseat_dict 데이터 변환 추출 jjj
+        var imsi1 = "{{hallseat_dict}}";
+        const hallseat_dict = JSON.parse(unescapeHtml(imsi1));
+        console.log("hallseat_dict");
+        console.log(hallseat_dict);
+        const hallseat_dict_info = document.getElementById('hallseat_dict_info');
+        hallseat_dict_info.value = JSON.stringify(hallseat_dict);
+        console.log("hallseat_dict_info.value");
+        console.log(hallseat_dict_info.value);
+
+
+        var movie_no =0; //클릭한 영화 시퀀스 번호
+        imsi1 = "{{movie_no}}";
+        movie_no = Number(imsi1);
+        console.log("movie_no");
+        console.log(movie_no);
+
+        var movie_no =0; //결제할금액
+        imsi1 = "{{info4}}";
+        console.log("imsi1");
+        console.log(imsi1);
+        var pos1 = imsi1.indexOf('원');
+        let info4_money = Number(imsi1.substr(0, pos1));
+        console.log("info4_money");
+        console.log(info4_money);
+        const pay_money = document.getElementById('pay_money');
+        pay_money.innerText = info4_money;
+        var tot_discount = 0; //할인쿠폰 전역변수
+        var last_paymoney = info4_money; //총금액
+        const last_money = document.getElementById('last_money');
+        last_money.innerText = last_paymoney;
+
+        // 신용카드 종류 데이터 처리 
+        imsi1 = "{{myCard_Arr}}";
+        // console.log(imsi1);
+        const imsi2 = unescapeHtml(imsi1);
+        // console.log(imsi2);
+        const myCard_Array = JSON.parse(imsi2);
+        // console.log(" myCard_Arr");
+        // console.log( myCard_Arr);
+        // console.log(CouponInfo_dict[0]);
+        // console.log(CouponInfo_dict[1]);
+        const card_type_no = document.getElementById('card_type_no');
+        card_type_no.innerHTML = ""; 
+
+        for (let i =0; i < myCard_Array.length; i++) {  
+            // console.log(myCard_Array[i]);
+            card_type_no.innerHTML += '<option value="' + myCard_Array[i][0] + '" >' + myCard_Array[i][1] + '</option>';
+        }
+
+        imsi1 = "{{CouponInfo_Arr}}";
+        // console.log(imsi1);
+        const imsi_str = unescapeHtml(imsi1);
+        // console.log(imsi_str);
+        const CouponInfo_dict = JSON.parse(imsi_str);
+        // console.log("CouponInfo_dict");
+        // console.log(CouponInfo_dict);
+        // console.log(CouponInfo_dict[0]);
+        // console.log(CouponInfo_dict[1]);
+
+        const coupon1_clickHandler = (event)=>{
+            let remain_money = last_paymoney;
+            let coupon_total = document.getElementById('coupon_total');
+            const coupon1BoxList1 = document.querySelectorAll('.coupon1'); 
+            const last_money = document.getElementById('last_money');
+            // console.log("coupon1BoxList1");
+            // console.log(coupon1BoxList1);
+            tot_discount = 0;
+            for (let i = 0; i < coupon1BoxList1.length; i++) {
+                if (coupon1BoxList1[i].checked) {
+                    tot_discount += parseInt(coupon1BoxList1[i].value);
+                }
+                coupon_total.innerText = '쿠폰점수 : ' + tot_discount;
+            }
+            if (tot_discount > remain_money){
+                alert("쿠폰점수가 초과되었습니다.");
+                return;                
+            }
+            remain_money -= tot_discount;
+            last_money.innerText = remain_money;
+        }
+        const tbody1 = document.getElementById('tbody1');
+        tbody1.innerHTML = ""; //사용가능 할인쿠폰 내용 전부 삭제
+
+        for (let i =0; i < CouponInfo_dict.length; i++) {  
+            let newTr1 = document.createElement("tr");  // 새 줄
+            let newTd1 = document.createElement("td");  // 1 오른쪽 여백
+            let newTd2 = document.createElement("td");  // 2 체크박스
+            let newTd3 = document.createElement("td");  // 3쿠폰유형
+            let newTd4 = document.createElement("td");  // 4 쿠폰번호
+            let newTd5 = document.createElement("td");  // 5유효기간
+            let newTd6 = document.createElement("td");  // 6 할인포인트 점수
+            console.log("CouponInfo_dict[i].ci_no, CouponInfo_dict[i].coupon_name");
+            console.log(CouponInfo_dict[i].ci_no, CouponInfo_dict[i].coupon_name);
+            newTd1.innerHTML = '<td width="20px;">&nbsp;</td>';
+            newTd2.innerHTML = '<input id="' + CouponInfo_dict[i].ci_no + '" value="' + CouponInfo_dict[i].coupon_discount 
+                                + '" type="checkbox" class="coupon1">';
+            newTd3.innerText = CouponInfo_dict[i].coupon_name; // 쿠폰유형
+            newTd4.innerText = CouponInfo_dict[i].coupon_no; // 쿠폰번호
+            newTd5.innerText = CouponInfo_dict[i].mci_date; // 유효기간
+            newTd6.innerText = CouponInfo_dict[i].coupon_discount; // 할인포인트 점수
+            newTr1.appendChild(newTd1);
+            newTr1.appendChild(newTd2);
+            newTr1.appendChild(newTd3);
+            newTr1.appendChild(newTd4);
+            newTr1.appendChild(newTd5);
+            newTr1.appendChild(newTd6);
+            tbody1.appendChild(newTr1);
+        }
+        let coupon1BoxList = document.querySelectorAll('.coupon1'); 
+        coupon1BoxList.forEach(c1box => c1box.onclick = coupon1_clickHandler);
+
+        function lastPayImg() {
+            const HallSchedule_no = document.getElementById('HallSchedule_no');
+            const ticket_totalcnt = document.getElementById('ticket_totalcnt');
+            const ticket_totalprice = document.getElementById('ticket_totalprice');
+            const TicketSeat = document.getElementById('TicketSeat');
+            const TicketCoupon = document.getElementById('TicketCoupon');
+            const PayCard = document.getElementById('PayCard');
+            const info2_2 = document.getElementById('info2_2');
+            const info2_4 = document.getElementById('info2_4');
+            const info4 = document.getElementById('info4');
+            const info3 = document.getElementById('info3');
+            const info3_2 = document.getElementById('info3_2');
+            const info3_3 = document.getElementById('info3_3');
+            const info3_4 = document.getElementById('info3_4');
+            const card_type_no = document.getElementById('card_type_no');
+            // const hallseat_dict_info = document.getElementById('hallseat_dict_info'); 첫화면에서 바로 처리함
+            
+            let pos1 = info2_2.innerText.indexOf(','); 
+            if (pos1 < 15){
+                console.log("Error!! HallSchedule_no")
+            }
+            HallSchedule_no.value = info2_2.innerText.substring(15, pos1);
+            ticket_totalcnt.value = info2_4.innerText;
+            ticket_totalprice.value = info4.innerText;
+            TicketSeat.value = info3.innerText + info3_2.innerText + info3_3.innerText + info3_4.innerText;
+            // hallseat_dict_info.innerText = JSON.stringify(hallseat_dict);
+            
+            // 체크한 할인쿠폰 번호만 서버로 전송 처리 
+            TicketCoupon.value ='';
+            const coupon1BoxList1 = document.querySelectorAll('.coupon1'); 
+            console.log("coupon1BoxList1");
+            console.log(coupon1BoxList1);
+            var mycoupon_arr = [];
+            for (let i = 0; i < coupon1BoxList1.length; i++) {
+                if (coupon1BoxList1[i].checked) {
+                    mycoupon_arr.push(coupon1BoxList1[i].id);
+                    console.log("coupon1BoxList1[i].id");
+                    console.log(coupon1BoxList1[i].id);
+                    // TicketCoupon.value += coupon1BoxList1[i].id + ',';
+                }
+            }
+            if (mycoupon_arr.length == 0) {
+                mycoupon_arr = ['0'];
+            }
+            console.log("mycoupon_arr");
+            console.log(mycoupon_arr);
+            TicketCoupon.value = JSON.stringify(mycoupon_arr);
+            PayCard.value = card_type_no.value;
+            // console.log("HallSchedule_no.value,ticket_totalcnt.value, ticket_totalprice.value, TicketSeat.value, TicketCoupon.value,PayCard.value");
+            // console.log(HallSchedule_no.value,ticket_totalcnt.value, ticket_totalprice.value, TicketSeat.value, TicketCoupon.value,PayCard.value);
+            document.getElementById('lastpayment').submit();
+        }
+    </script>
+{% endblock %}
+
+
+{% block content %}
+    <form action="lastpayment/" method="post" name="lastpayment" id="lastpayment" enctype="multipart/form-data">
+        {% csrf_token %}
+        
+    <div id ="full">
+        <div id="left" style="width: 50px; margin: 0px auto;"> </div>
+        <div id="screen_movie" >
+            <table style="width: inherit; margin: 5px auto;">
+                <tr align="center">
+                    <th > 광고 </th>
+                </tr>
+            </table>
+        </div>
+        <div id="screen_date" >
+            <table id="table_date" style="width: inherit; margin: 5px auto;">
+                <tr align="center">
+                    <th>결제 단계</th>
+                </tr>
+            </table>
+            <table>
+                <tr>
+                    <th colspan="3">STEP 1. 할인쿠폰 사용</th>
+                    <th colspan="3"></th>
+                </tr>
+                <tr>
+                    <td colspan="5"></td>
+                    <td>
+                        <button type="button" id="button1" onclick="javascript:input_Coupon()"> 쿠폰등록 </button>
+                    </td>
+                </tr>
+                <tr>
+                    <th width="20px;">&nbsp;</th>
+                    <th width="50px;" margin="5px" >선택</th>
+                    <th width="150px;" margin="5px">쿠폰유형</th>
+                    <th width="150px;" margin="5px">쿠폰번호</th>
+                    <th width="150px;" margin="5px">유효기간</th>
+                    <th width="150px;" margin="5px">포인트</th>
+                </tr>
+                <tbody id = "tbody1">
+                    <tr>
+                        <td width="20px;">&nbsp;</td>
+                        <td width="50px;" margin="5px" >
+                            <input type="checkbox" class="coupon1">
+                        </td>  
+                        <td width="150px;" margin="5px"></td>
+                        <td width="150px;" margin="5px"></td>
+                        <td width="150px;" margin="5px">유효기간</td>
+                        <td width="150px;" margin="5px">포인트</td>
+                    </tr>
+                </tbody>
+                <tr> <td colspan="6">&nbsp;</td></tr>
+            </table>
+            <table>
+                    <th>STEP 2.</th>
+                </tr>
+                <tr>
+                    <td>관람권/기프트콘 사용</td>
+                </tr>
+                <tr> <td>.</td> </tr>
+                <tr>
+                    <th>STEP 3.</th>
+                </tr>
+
+                <tr>
+                    <td>포인트 및 기타 결제수단</td>
+                </tr>
+                <tr> <td>.</td> </tr>
+                <tr>
+                    <th>STEP 4.</th>
+                </tr>
+                <tr>
+                    <td>최종결제수단</td>
+                </tr>
+                <tbody id = "tbody4">
+                    <tr> 
+                        <td>
+                            <label><input type="radio" name="pay_type" value="credit" checked>신용카드</label>
+                            <label><input type="radio" name="pay_type" value="mobile">휴대폰결제</label>
+                        </td> 
+                    </tr>
+                    <tr>
+                        <td>
+                            <select name="card_type" id="card_type_no">
+                            </select>
+                        </td> 
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div id="pay_detail" >
+            <table style="width: inherit; margin: 5px auto;">
+                <tr align="center">
+                    <th>결제 내역</th>
+                </tr>
+                <tr align="center">
+                    <th>&nbsp;</th>
+                </tr>
+
+            </table>
+            <table style="width: inherit; margin: 5px auto;">
+                <tr align="center">
+                    <th>결제하실 금액</th>
+                </tr>
+                <tr align="center" >
+                    <td id="pay_money">결제대상 금액</td>
+                </tr>
+                <tr><td>&nbsp;</td></tr>
+                <tr align="center">
+                    <th>할인쿠폰</th>
+                </tr>
+                <tr align="center" id="coupon_total">
+                    <td>점수</td>
+                </tr>
+                <tr><td>&nbsp;</td></tr>
+                <tr align="center">
+                    <th>남은 결제금액</th>
+                </tr>
+                <tr align="center" >
+                    <td id="last_money">최종금액</td>
+                </tr>
+            </table>
+        </div>
+        <div id="right" style="width: 10px; margin: 0px auto;">
+        </div>
+    </div>  <br>
+
+    <div class ="disp1">
+        <div id ="info0"></div> 
+        <div id="info0_1"> 영화선택 
+            <div id="info1" value="{{movie_no}}">{{movie_name}} </div>
+        </div> 
+        <div id="info0_2"> 극장선택 
+            <div id="info2"> {{theater_info}} </div>
+            <div id="info2_2"> {{date_info}}  </div>  
+            <div id="info2_3"> {{screen_info}} </div>
+            <div id="info2_4"> {{count_info}} </div>
+        </div> 
+        <div id="info0_3"> 좌석선택
+            <div id="info3"> {{info3}} </div>
+            <div id="info3_2"> {{info3_2}} </div>
+            <div id="info3_3"> {{info3_3}} </div>
+            <div id="info3_4"> {{info3_4}} </div>
+        </div> 
+        <div id="info0_4"> 결제금액
+            <div id="info4"> {{info4}} </div>
+        </div> 
+        <div id="info0_5"> 선택버튼
+            <div id="info5">  
+                <button type="button" onclick="javascript:lastPayImg()"><img id="select_img" src="/media/ticket/select_pay.jpg"></button>
+            </div>    
+        </div> 
+    </div>   
+    <div> 
+        <input type="hidden" id="HallSchedule_no" name="HallSchedule_no">
+        <input type="hidden" id="ticket_totalcnt" name="ticket_totalcnt">
+        <input type="hidden" id="ticket_totalprice" name="ticket_totalprice">
+        <input type="hidden" id="TicketSeat" name="TicketSeat">
+        <input type="hidden" id="TicketCoupon" name="TicketCoupon">
+        <input type="hidden" id="PayCard" name="PayCard">
+        <input type="hidden" id="hallseat_dict_info" name="hallseat_dict_info">
+    </div>
+    </form>
+
+{% endblock %}
+

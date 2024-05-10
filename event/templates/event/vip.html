@@ -1,0 +1,297 @@
+{% extends 'layout/layout.html' %}
+{% block style %}
+<style>
+    table {
+      width: 100%;
+      border: 1px solid #444444;
+      border-collapse: collapse;
+    }
+    th, td {
+      border: 1px solid #444444;
+      height: 50px; 
+      width: 100px; 
+    }
+</style>
+{% endblock %}
+
+{% block script %}
+<script>
+    $(document).ready(function(){
+    $("[data-bs-toggle='popover']").popover({
+        html:true
+    });
+    var a = "{{member.member_class.vipgo_name}}";
+    $.ajax({
+        url:"/event/get_grade/",
+        type:"POST",
+        data: {
+            'nowgrade' : a,
+            csrfmiddlewaretoken: '{{ csrf_token }}',
+        },
+        success:function(data){
+            var nowpoint = "{{member.member_vipPoint}}";
+            console.log(nowpoint);
+            var widths= Math.round((nowpoint/data.grade[0].vipgo_score)*100);
+            console.log(widths);
+            $("#nextgrade").html(data.grade[0].vipgo_name);
+            $("#nextscore").html(data.grade[0].vipgo_score);
+            $(".progress-bar").css({"width":widths+"%"});
+        }
+    })
+    $("#gocoupon").click(function(){
+        if(a<2){
+            alert("vip 회원이상만 사용하실수 있습니다.")
+        }
+        else{
+            window.location.href='/event/vip/coupons'
+        }
+    })
+});
+</script>
+ 
+
+{% endblock %}
+{% block content %}
+<h2>VIP LOUNGE</h2>
+<hr>
+<div class="container">
+    <div class="row"> 
+        <img src="/static/media/vip/vip_hdinfo_img.jpg">
+    </div>
+    <div class="row">
+        <div class="col-4">         
+        <br>
+            <div style="text-align: center;">
+                <button class="btn btn-outline-success" style="width: 200px; height: 150px;" disabled>{{member.member_class.vipgo_name}}</button >
+            </div>
+        </div>
+        <div class="col-8">
+            <br> 
+            <p style="text-align: center;">{{member.member_id}}님은  {{member.member_class.vipgo_name}} 등급 입니다.</p>
+            <div style="display: flex; justify-content: space-between;">
+                <span>{{member.member_class.vipgo_name}}</span>
+                <span id="nextgrade" name="nextgrade"></span>
+            </div>
+            <div class="progress" role="progressbar" aria-label="Basic example" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">
+                <div class="progress-bar" style="width: 50%"></div>
+            </div>
+            <div style="display: flex; justify-content: space-between;">
+                <span>0</span>
+                <span id="nextscore" name="nextscore"></span>
+            </div>
+            <p style="text-align: center;">{{member.member_vipPoint}}</p>  
+        </div>
+    </div>
+    <div class="row" style="margin-top: 1%;">
+        <div class="col"><button type="button" class="btn btn-secondary"
+            data-bs-toggle="popover" data-bs-placement="right"
+            data-bs-custom-class="custom-popover"
+            data-bs-title="VIP 연간 혜택"
+            data-bs-content="VIP D.I.Y 쿠폰북 <a href='#'>혜택보기</a><br>
+            VIP반값 할인 <a href='/event/content/?no=42'>혜택보기</a><br>
+            만원의 행복  <a href='/event/content/?no=40'>혜택보기</a><br>
+            스페셜 데이  <a href='vip/special/'>혜택보기</a><br>
+            원데이 프리패스 <a href='/event/content/?no=36'>혜택보기</a><br>
+            VIP더블적립 <a href='/event/content/?no=37'>혜택보기</a><br>
+            VIP리필적립 <a href='/event/content/?no=38'>혜택보기</a><br>
+            생일콤보 <a href='/event/content/?no=39'>혜택보기</a><br>
+            스페셜 기프트 <a href='/event/content/?no=36'>혜택보기</a><br>
+            예매 오픈 알림 <a href='/event/content/?no=41'>혜택보기</a>"
+            style="height: 70px; width: 100%;">
+      VIP 연간 혜택
+    </button></div>
+        <div class="col"><button style="height: 70px; width: 100%;" onclick="location.href='/event/vip/mycoupon/'">사용 가능한 나의 VIP 쿠폰 ></button></div>
+        <div class="col"><button style="height: 70px; width: 100%;" onclick="location.href='/event/vip/faq/'" >VIP 고객센터를 통해 궁금증을 해결하세요 ></button></div>
+    </div>
+    <div style="text-align: center;">
+        <hr>
+        <image src="/static/media/vip/vip_event_tag.gif" alt="이벤트줄"></image>
+        <hr>
+        <div class="row">
+            <div class="col">
+                <button type="button" id="gocoupon" name="gocoupon" onclick="" style="width: 50%;height: 50px;">쿠폰북 받기</button>
+            </div>
+            <div class="col">
+                <button type="button" id="gobenefit" name="gobenefit" onclick="location.href='/event/vip/benefitset/'" style="width: 50%;height: 50px;">혜택 관리</button>
+            </div>
+        </div>
+        <hr>
+        <table>
+            <tr>
+                <th>고객등급</th>
+                <th><image src="/static/media/vip/SVIPC.jpg" alt="svip사진"></image></th>
+                <th><image src="/static/media/vip/VVIPC.jpg" alt="vvip사진"></image></th>
+                <th><image src="/static/media/vip/RVIPC.jpg" alt="Rvip사진"></image></th>
+                <th><image src="/static/media/vip/VIPC.jpg" alt="vip사진"></image></th>
+                <th>상세설명</th>
+            </tr>
+            <tr>
+                <td>
+                    온라인 쿠폰북(A형 쿠폰 기준)
+                </td>
+                <td>
+                    {% for i in ocb1 %}
+                        <p>{{i.onco_name}} : 매</p>
+                    {% endfor %}
+                </td>
+                <td>
+                    {% for i in ocb1 %}
+                        <p>{{i.onco_name}} : 매</p>
+                    {% endfor %}
+                </td>
+                <td>
+                    {% for i in ocb1 %}
+                        <p>{{i.onco_name}} : 매</p>
+                    {% endfor %}
+                </td>
+                <td>
+                    {% for i in ocb1 %}
+                        <p>{{i.onco_name}} : 매</p>
+                    {% endfor %}
+                </td>
+                <td><small>VIP고객님 취향에 따라
+                    쿠폰 선택이 가능한
+                    CGV만의 맞춤형 온라인 쿠폰북 <p><a>자세히보기 ></a></p></small></td>
+            </tr>
+            <tr>
+                <td>{{vipstamp1.0.vso2_no.vso_no.vs_name}}</td>
+                {% for i in groupV %}
+                <td>{{i.0}}%/{{i.1}}%</td>
+                {% endfor %}
+                <td><small>
+                    상영일 이전 예매 5%
+                    상영일 당일 예매 3%
+                    매주 수요일 영화 관람 시 추가 포인트 적립 <p><a>자세히보기 ></a></p></small>
+                </td>
+            </tr>
+            <tr>
+                <td>{{vipstamp2.0.vso2_no.vso_no.vs_name}}</td>
+                {% for i in vipstamp2 %}
+                <td>{{i.vips_number}}%</td>
+                {% endfor %}
+                <td><small>선정기준(12,000점)달성 시
+                    다음 달초 부터
+                    영화 관람 추가 포인트 적립 <p><a>자세히보기 ></a></p>
+                    </small>
+                </td>
+            </tr>
+            <tr>
+                <td>{{vbo.0.vboo_no.vboo_name}}</td>
+                {% for i in vbo %}
+                <td>
+                    등급 기간 내 {{i.vbo_price}}매
+                </td>
+                {% endfor %}
+                <td>
+                    <small>전국 CGV에서 CJ ONE 포인트로
+                    2D/3D 일반 영화 관람시 50% 할인
+                    <p><a>자세히보기 ></a></p></small>
+                </td>
+            </tr>
+            <tr>
+                <td>{{vbo.0.vboo_no.vboo_name}}</td>
+                {% for i in vbo %}
+                <td>
+                    등급 기간 내 {{i.vbo_price}}매
+                </td>
+                {% endfor %}
+                <td>
+                    <small>전국 CGV에서 CJ ONE 포인트로
+                    2D/3D 일반 영화 관람시 50% 할인
+                    <p><a>자세히보기 ></a></p></small>
+                </td>
+            </tr>
+            <tr>
+                <td>{{vbo.0.vboo_no.vboo_name}}</td>
+                {% for i in vbo %}
+                <td>
+                    등급 기간 내 {{i.vbo_price}}매
+                </td>
+                {% endfor %}
+                <td>
+                    <small>전국 CGV에서 CJ ONE 포인트로
+                    2D/3D 일반 영화 관람시 50% 할인
+                    <p><a>자세히보기 ></a></p></small>
+                </td>
+            </tr>
+            <tr>
+                <td>{{vbo2.0.vboo_no.vboo_name}}</td>
+                {% for i in vbo2 %}
+                <td>
+                    {{i.vbo_price}}
+                </td>
+                {% endfor %}
+                <td>
+                    <small>VIP 고객님이 직접 설정한 기념일에
+                        영화 관람 시 혜택 증정
+                        <p><a>자세히보기 ></a></p></small>
+                </td>
+            </tr>
+            <tr>
+                <td>{{vbo3.0.vboo_no.vboo_name}}</td>
+                {% for i in vbo3 %}
+                <td>
+                    {{i.vbo_price}}
+                </td>
+                {% endfor %}
+                <td>
+                    <small>VIP 고객님의
+                        법적 생년월일 기준 혜택 증정
+                        <p><a>자세히보기 ></a></p></small>
+                </td>
+            </tr>
+            <tr>
+                <td>{{vbo4.0.vboo_no.vboo_name}}</td>
+                {% for i in vbo4 %}
+                <td>
+                    {{i.vbo_price}}
+                </td>
+                {% endfor %}
+                <td>
+                    <small>VVIP, SVIP 고객님을 위한
+                        특별한 선물
+                        <p><a>자세히보기 ></a></p></small>
+                </td>
+            </tr>
+            <tr>
+                <td>{{vbo5.0.vboo_no.vboo_name}}</td>
+                {% for i in vbo5 %}
+                <td>
+                    {{i.vbo_price}}
+                </td>
+                {% endfor %}
+                <td>
+                    <small>SVIP 고객님께 드리는
+                        특별관 만원 관람 혜택
+                        <p><a>자세히보기 ></a></p></small>
+                </td>
+            </tr>
+            <tr>
+                <td>vip 전용 이벤트</td>
+                {% for _ in "1234" %}
+                <td>참여가능</td>
+                {% endfor %}
+                <td>
+                    <small>매월 VIP 시사회, 타사 할인 혜택 등
+                        VIP 고객님만을 위한
+                        다양한 이벤트 진행
+                        <p><a>자세히보기 ></a></p></small>
+                </td>
+            </tr>
+        </table>
+        <hr>
+
+        <div class="row">
+            {% for i in vipg %}
+            {% if not forloop.first %}
+                <div class="col">
+                    <p>{{ i.vipgo_name }}</p>
+                    <p>달성방법: {{ i.vipgo_score }} 달성 고객</p>
+                </div>
+            {% endif %}
+        {% endfor %}
+                <hr>
+        </div>
+</div>
+
+{% endblock %}

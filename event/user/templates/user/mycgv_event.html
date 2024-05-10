@@ -1,0 +1,69 @@
+{% extends 'layout\mycgv_layout.html' %}
+{% block style %}
+<style>
+</style>
+{% endblock %}
+{% block body_script_mycgv %}
+<script>
+    $(document).ready(function(){
+        $('#btnradio1').click(function(){
+            alert("응모내역 입니다!");
+            window.location.href = "/user/mycgv/myevent";
+        });
+        $('#btnradio2').click(function(){
+            window.location.href = "/user/mycgv/myevent/result";
+        });
+        $("button[id^='btnradio3_']").click(function(){
+            var a = $(this).attr('value');
+            $.ajax({
+                url:'/user/get_win/',
+                type:'GET',
+                data:{'code':a},
+                success: function(data){
+                    if(data.indata){
+                        alert("당첨되었습니다");
+                    }
+                    else{
+                        alert("당첨되지않았습니다.");
+                    }
+                }
+            });
+        });
+    });
+</script>
+{% endblock %}
+{% block body_main_mycgv %}
+<div class="container">
+<p><strong>이벤트 참여내역</strong></p>
+<div class="btn-group btn-group-lg" role="group" aria-label="Basic radio toggle button group">
+    <input type="radio" class="btn-check" name="btnradio" id="btnradio1" au tocomplete="off" checked>
+    <label class="btn btn-outline-danger" for="btnradio1">응모내역</label>
+  
+    <input type="radio" class="btn-check" name="btnradio" id="btnradio2" autocomplete="off">
+    <label class="btn btn-outline-danger" for="btnradio2">당첨자 발표</label>
+</div>
+    <hr>
+    {% for event in apevent %}
+
+    <div class="row mb-3">
+        <div class="col-md-3">
+            <img src="{{ event.event_no.event_faceimg.url }}" style="width: 80%; height: auto; margin-right: 0;" alt="{{ event.ebc_name }}">
+        </div>
+        <div class="col-md-9 d-flex align-items-center justify-content-between">
+            <div>
+                <p class="mb-0">{{ event.event_no.ebc_name }}</p>
+                <p class="mb-0">기간: {{ event.event_no.event_start }} ~ {{ event.event_no.event_end }}</p>
+            </div>
+            {% if event.event_no.event_Announce <= nowdate %}
+            <div style="margin-right: 20%;">
+                <button type="button" class="btn btn-danger mb-3" id="btnradio3_{{event.event_no.event_no}}" style="width:180%; height: 40px;" value="{{event.event_no.event_no}}">당첨확인 </button>
+            </div>
+            {% endif %}
+
+        </div>
+    </div>
+    <hr>
+    {% endfor %}
+</div>
+{% endblock %}
+

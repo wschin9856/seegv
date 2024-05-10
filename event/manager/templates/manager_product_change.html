@@ -1,0 +1,370 @@
+{% extends 'layout\manager_layout.html' %}
+
+{% block head_mycgv %}
+
+<style type="text/css">
+  .hidden {
+      display: none;
+  }
+</style>
+
+
+
+
+{% endblock %}
+
+
+{% block body_main_mycgv %}
+
+
+<div>
+  <h4>상품 수정</h4>
+</div>
+
+
+
+{% if category == None %}
+
+{% elif category == 1 %}
+  <form  action="/manager/product/change/result" method="post"  enctype="multipart/form-data" >
+    {% csrf_token %}
+    <table class="table" style="border-bottom: 20px; width: 80%; ">
+      
+      <tr>
+        <th scope="col">상품카테고리</td>
+        <td colspan="3">{{sp.sc_no.sc_category}}</td>
+      </tr>
+
+      <tr>
+        <th scope="col">기프트콘 이름</th>
+        <td colspan="3"><input type="text" name="sp_name" value="{{sp.sp_name}}">*필수입력항목</td>
+      </tr>
+      
+   
+    <input type="hidden" name="pp_no1" value="{{pp1.pp_no}}">
+      <tr>
+        <td>&nbsp&nbsp&nbsp&nbsp구성상품 명 :</td>
+        <td><input type="text" name="pp_name1" value="{{pp1.pp_name}}" ></td>
+        <td>구성상품 가격 :</td>
+        <td><input type="text" name="pp_price1" value="{{pp1.pp_price}}"></td>
+      </tr>
+      <tr>
+        <td>&nbsp&nbsp&nbsp&nbsp구성상품 갯수 :</td>
+        <td><input type="text" name="pp_count1" value="{{pp1.pp_count}}" ></td>
+        <td>구성상품 사용기한(개월) :</td>
+        <td><input type="text" name="pp_periodNumber1" value="{{pp1.pp_periodNumber}}" ></td>
+      </tr>
+        <td>&nbsp&nbsp&nbsp&nbsp구성상품 원산지 :</td>
+        <td><input type="text" name="pp_origin1" value="{{pp1.pp_origin}}" ></td>
+        <td>구성상품 기프티콘 카테고리 :</td>
+        <td>
+          <select name="gg_category1">
+            {% for g in giftconCategory %}         
+              {% if g.pp_no_id == pp1.pp_no %}            
+                  {% if g.gc_categoryNo == '1' %}
+                  <option value="2">영화관람권</option>
+                  <option value="1" selected>매점상품권</option>
+                  {% elif g.gc_categoryNo == '2' %}
+                  <option value="2" selected>영화관람권</option>
+                  <option value="1" >매점상품권</option>
+                  {% endif %}
+              {% endif %}
+            {% endfor %}
+          </select>
+        </td>
+
+  
+      <input type="hidden" name="pp_no2" value="{{pp2.pp_no}}">
+      <tr>
+        <td>&nbsp&nbsp&nbsp&nbsp구성상품 명 :</td>
+        <td><input type="text" name="pp_name2" value="{{pp2.pp_name}}" ></td>
+        <td>구성상품 가격 :</td>
+        <td><input type="text" name="pp_price2" value="{{pp2.pp_price}}"></td>
+      </tr>
+      <tr>
+        <td>&nbsp&nbsp&nbsp&nbsp구성상품 갯수 :</td>
+        <td><input type="text" name="pp_count2" value="{{pp2.pp_count}}" ></td>
+        <td>구성상품 사용기한(개월) :</td>
+        <td><input type="text" name="pp_periodNumber2" value="{{pp2.pp_periodNumber}}" ></td>
+      </tr>
+        <td>&nbsp&nbsp&nbsp&nbsp구성상품 원산지 :</td>
+        <td><input type="text" name="pp_origin2" value="{{pp2.pp_origin}}" ></td>
+        <td>구성상품 기프티콘 카테고리 :</td>
+        <td>
+          <select name="gg_category2">
+            {% for g in giftconCategory %}         
+              {% if g.pp_no_id == pp2.pp_no %}            
+                  {% if g.gc_categoryNo == '1' %}
+                  <option value="2">영화관람권</option>
+                  <option value="1" selected>매점상품권</option>
+                  {% elif g.gc_categoryNo == '2' %}
+                  <option value="2" selected>영화관람권</option>
+                  <option value="1" >매점상품권</option>
+                  {% endif %}
+              {% endif %}
+            {% endfor %}
+          </select>
+        </td>
+      <tr>
+        <th scope="col">금액</th>
+        <td colspan="3"><input type="text" name="sp_price" value="{{sp.sp_price}}">*필수입력항목</td>
+      </tr>
+
+      <tr>
+        <th scope="col">할인가</th>
+        <td colspan="3"><input type="text" name="sp_discount" value="{{sp.sp_discount}}">*필수입력항목</td>
+      </tr>
+      <tr>
+        <th scope="col">제공되는 상품</th>
+        <td colspan="3"><input type="text" name="sp_items" value="{{sp.sp_items}}">*필수입력항목</td>
+      </tr>
+      <tr>
+        <th scope="col">유효기간(문자)</th>
+        <td colspan="3"><input type="text" name="sp_period" value="{{sp.sp_period}}">*필수입력항목</td>
+      </tr>
+      <tr>
+        <th scope="col">유효기간(개월수)</th>
+        <td colspan="3"><input type="text" name="sp_periodNumber" value="{{sp.sp_periodNumber}}">*필수입력항목</td>
+      </tr>
+      <tr>
+        <th scope="col">원산지</th>
+        <td colspan="3"><input type="text" name="sp_origin" value="{{sp.sp_origin}}"></td>
+      </tr>
+      <tr>
+        <th scope="col">상품 설명</th>
+        <td colspan="3"><textarea name="sp_txt" value="{{sp.sp_txt}}"></textarea></td>
+      </tr>
+      <tr>
+        <th scope="col" cols="20" rows="5">판매상태</th>
+        <td colspan="3">
+          <select name="sps_no">
+            {% for i in storeproductstate %}
+              {% if sp.sps_no_id == i.sps_no %}
+              <option value="{{i.sps_no}}" selected>{{i.sps}}</option>
+              {% else %}
+              <option value="{{i.sps_no}}">{{i.sps}}</option>
+              {% endif %}
+            {% endfor %}
+          </select>
+          *필수입력항목
+        </td>
+      </tr>
+      <tr>
+        <th scope="col">상품 이미지</th>
+        <td colspan="3">
+          <input type="file" id = 'file' name="file" value="{{sp.sp_image}}"> *필수입력항목
+        </td>      
+      </tr>
+ 
+      </table>
+      <input type="hidden" name="sc_no" value="{{category}}">
+      <input type="hidden" name="sp_no" value="{{sp.sp_no}}">
+      
+    <button>수정하기</button>
+  </form>
+
+
+
+
+
+{% elif category == 3 %} <!--기프트 카드-->
+
+<form  action="/manager/product/change/result" method="post"  enctype="multipart/form-data" >
+  {% csrf_token %}
+  <table class="table" style="border-bottom: 20px; width: 60%;">
+    
+    <tr>
+      <th scope="col">상품카테고리</td>
+      <td colspan="3">{{sp.sc_no.sc_category}}</td>
+    </tr>
+
+    <tr>
+      <th scope="col">기프트콘 이름</th>
+      <td colspan="3"><input type="text" name="sp_name" value="{{sp.sp_name}}">*필수입력항목</td>
+    </tr>
+    
+      <tr>
+        <th scope="col">제공되는 상품</th>
+        <td colspan="3"><input type="text" name="sp_items" value="{{sp.sp_items}}">*필수입력항목</td>
+      </tr>
+      <tr>
+        <th scope="col">유효기간(문자)</th>
+        <td colspan="3"><input type="text" name="sp_period" value="{{sp.sp_period}}">*필수입력항목</td>
+      </tr>
+      <tr>
+        <th scope="col">유효기간(개월수)</th>
+        <td colspan="3"><input type="text" name="sp_periodNumber" value="{{sp.sp_periodNumber}}">*필수입력항목</td>
+      </tr>
+      <tr>
+        <th scope="col">원산지</th>
+        <td colspan="3"><input type="text" name="sp_origin" value="{{sp.sp_origin}}"></td>
+      </tr>
+      <tr>
+        <th scope="col">상품 설명</th>
+        <td colspan="3"><textarea name="sp_txt" value="{{sp.sp_txt}}"></textarea></td>
+      </tr>
+      <tr>
+        <th scope="col" cols="20" rows="5">판매상태</th>
+        <td colspan="3">
+          <select name="sps_no">
+            {% for i in storeproductstate %}
+              {% if sp.sps_no_id == i.sps_no %}
+              <option value="{{i.sps_no}}" selected>{{i.sps}}</option>
+              {% else %}
+              <option value="{{i.sps_no}}">{{i.sps}}</option>
+              {% endif %}
+            {% endfor %}
+          </select>
+          *필수입력항목
+        </td>
+      </tr>
+      <tr>
+        <th scope="col">상품 이미지</th>
+        <td colspan="3">
+          <input type="file" id = 'file' name="file" value="{{sp.sp_image}}"> *필수입력항목
+        </td>      
+      </tr>
+  
+      </table>
+      <input type="hidden" name="sc_no" value="{{category}}">
+      <input type="hidden" name="sp_no" value="{{sp.sp_no}}">
+    
+  <button>추가하기</button>
+</form>
+
+
+
+{% else %} <!--일반상품-->
+<form  action="/manager/product/change/result" method="post"  enctype="multipart/form-data" >
+  {% csrf_token %}
+  <table class="table" style="border-bottom: 20px; width: 60%;">
+    
+    <tr>
+      <th scope="col">상품카테고리</td>
+      <td colspan="3">{{sp.sc_no.sc_category}}</td>
+    </tr>
+
+    <tr>
+      <th scope="col">기프트콘 이름</th>
+      <td colspan="3"><input type="text" name="sp_name" value="{{sp.sp_name}}">*필수입력항목</td>
+    </tr>
+      
+      <tr>
+        <th scope="col">금액</th>
+        <td colspan="3"><input type="text" name="sp_price" value="{{sp.sp_price}}">*필수입력항목</td>
+      </tr>
+
+      <tr>
+        <th scope="col">할인가</th>
+        <td colspan="3"><input type="text" name="sp_discount" value="{{sp.sp_discount}}">*필수입력항목</td>
+      </tr>
+      <tr>
+        <th scope="col">제공되는 상품</th>
+        <td colspan="3"><input type="text" name="sp_items" value="{{sp.sp_items}}">*필수입력항목</td>
+      </tr>
+      <tr>
+        <th scope="col">유효기간(문자)</th>
+        <td colspan="3"><input type="text" name="sp_period" value="{{sp.sp_period}}">*필수입력항목</td>
+      </tr>
+      <tr>
+        <th scope="col">유효기간(개월수)</th>
+        <td colspan="3"><input type="text" name="sp_periodNumber" value="{{sp.sp_periodNumber}}">*필수입력항목</td>
+      </tr>
+      <tr>
+        <th scope="col">원산지</th>
+        <td colspan="3"><input type="text" name="sp_origin" value="{{sp.sp_origin}}"></td>
+      </tr>
+      <tr>
+        <th scope="col">상품 설명</th>
+        <td colspan="3"><textarea name="sp_txt" value="{{sp.sp_txt}}"></textarea></td>
+      </tr>
+      <tr>
+        <th scope="col" cols="20" rows="5">판매상태</th>
+        <td colspan="3">
+          <select name="sps_no">
+            {% for i in storeproductstate %}
+              {% if sp.sps_no_id == i.sps_no %}
+              <option value="{{i.sps_no}}" selected>{{i.sps}}</option>
+              {% else %}
+              <option value="{{i.sps_no}}">{{i.sps}}</option>
+              {% endif %}
+            {% endfor %}
+          </select>
+          *필수입력항목
+        </td>
+      </tr>
+      <tr>
+        <th scope="col">상품 이미지</th>
+        <td colspan="3">
+          <input type="file" id = 'file' name="file" value="{{sp.sp_image}}"> *필수입력항목
+        </td>      
+      </tr>
+  
+      </table>
+      <input type="hidden" name="sc_no" value="{{category}}">
+      <input type="hidden" name="sp_no" value="{{sp.sp_no}}">
+  
+  <button>추가하기</button>
+</form>
+{% endif %}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script type="text/javascript">
+
+function remove(){
+
+const formtable = document.getElementById("formtable");
+formtable.action = "/manager/members/detail/remove";
+
+
+}
+
+function change(){
+
+const formtable = document.getElementById("formtable");
+formtable.action = "/manager/members/detail/change";
+
+
+}
+</script>
+
+
+
+
+
+
+
+{% endblock %}
+

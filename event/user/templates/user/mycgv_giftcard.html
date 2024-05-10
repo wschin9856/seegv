@@ -1,0 +1,100 @@
+{% extends 'layout\mycgv_layout.html' %}
+
+{% block head_mycgv %}
+
+
+
+
+
+
+
+
+{% endblock %}
+
+
+{% block body_main_mycgv %}
+
+<div>
+    <h4>내 기프트 카드</h4>
+  
+  </div>
+  <div><a href="/user/mycgv/giftcard/register"><button>내 기프트카드 추가하기</button></a></div>
+  <table class="table" style="border-bottom: 20px;">
+    <tr>
+      <th scope="col">기프트카드 NO</th>
+      <th scope="col">사용기간</th>
+      <th scope="col">기프트카드 잔액</th>
+      <th scope="col">기프트카드 상태</th>
+ 
+    </tr>
+
+
+    {% for card in card %}
+      <tr>
+        <td>{{card.giftcard_number}}</td>
+        <td>{{card.giftcard_period}}</td>
+        <td>{{card.giftcard_balance}}</td>
+        <td>{{card.gs_no.giftcon_state}}</td>
+      </tr>
+    {% empty %}
+    <tr>
+      <td colspan="3">보유 중인 기프트카드가 없습니다.</td>
+    </tr>
+    {% endfor %}
+  </form>  
+
+</table>
+<br>
+<br>
+
+<!-- 
+
+
+
+  <table class="table" style="border-bottom: 20px;">
+      <thead class="table-group-divider">
+        <tr>
+          <th scope="col">기프트콘 NO</th>
+          <th scope="col">상품명</th>
+          <th scope="col">보내신분</th>
+          <th scope="col">선물수신일</th>
+          <th scope="col">유효기간</th>
+          <th scope="col">상태</th>
+          <th scope="col">관리</th>
+
+        </tr
+      </thead>
+  
+      <tbody >
+        {% for g in giftcon %}
+          <tr>
+          <td>{{g.giftcon_number}}</td>
+
+          {% if g.pp_no == None %}
+            <td>{{g.sp_no.sp_name}}</td>
+
+          {% elif g.pp_no != None %}
+                <td>{{g.pp_no.pp_name}}</td>
+          {% endif %}
+
+
+          <td>{{g.order_no.giftconUser_no.userName}}</td>
+          <td>{{g.order_no.order_date}}</td>
+          <td>{{g.giftcon_period}}</td>
+          <td>{{g.gs_no.giftcon_state}}</td>
+          <td></td>
+          <td></td>
+          </tr>
+        {% empty %}
+          <tr>
+            <td colspan="7" align="center" >보유한 기프티콘이 없습니다.</td>
+          </tr>
+        {% endfor %}  
+      </tbody>
+    </table> -->
+
+
+
+
+{% endblock %}
+

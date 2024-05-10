@@ -1,0 +1,172 @@
+{% extends 'layout\mycgv_layout.html' %}
+
+{% block head_mycgv %}
+
+
+
+{% endblock %}
+
+
+{% block body_main_mycgv %}
+
+<div>
+    <h4>내 기프트 콘</h4>
+  
+  </div>
+  <div><a href="/user/mycgv/giftcon/register"><button>내 기프트콘 추가하기</button></a></div>
+  
+
+  <table class="" style="border-bottom: 20px;">
+
+  <form action="/user/mycgv/giftcon" method="get">
+    <!-- {% csrf_token %} -->
+
+
+    <tr> 
+      <th>
+      {% if ck_type == '0' or ck_type == None %}
+        <label><input type="radio" name="type" value="0" checked >전체</label>
+      {% else %}
+        <label><input type="radio" name="type" value="0">전체</label>
+      {% endif %}
+      
+      {% if ck_type == '2' %}
+      <label><input type="radio" name="type" value="2" checked>영화관람권</label>
+      {% else %}
+      <label><input type="radio" name="type" value="2">영화관람권</label>
+      {% endif %}
+
+      {% if ck_type == '1' %}
+      <label><input type="radio" name="type" value="1"checked>매점상품</label>
+      {% else %}
+      <label><input type="radio" name="type" value="1" >매점상품</label>
+      {% endif %}
+
+      </th>
+    </tr>
+
+    <tr> 
+      <td>
+      {% if mode == '1'%}  
+        <label><input type="radio" name="mode" value="1" checked>사용가능</label>
+      {% else %}
+        <label><input type="radio" name="mode" value="1" >사용가능</label>
+      {% endif %}
+
+      {% if mode == '2'%}  
+      <label><input type="radio" name="mode" value="2" checked>사용완료</label>
+      {% else %}
+      <label><input type="radio" name="mode" value="2">사용완료</label>
+      {% endif %}
+
+      {% if mode == '3'%}  
+      <label><input type="radio" name="mode" value="3" checked>기간만료</label>
+      {% else %}
+      <label><input type="radio" name="mode" value="3">기간만료</label>      
+      {% endif %}
+
+      {% if mode == '4'%}  
+      <label><input type="radio" name="mode" value="4" checked>취소/환불</label>
+      {% else %}
+      <label><input type="radio" name="mode" value="4">취소/환불</label>      
+      {% endif %}
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <button>검색</button>
+      </td>
+    </tr>
+  </form>  
+
+</table>
+<br>
+<br>
+
+
+
+  <table class="table" style="border-bottom: 20px;">
+      <thead class="table-group-divider">
+        <tr>
+          <th scope="col">기프트콘 NO</th>
+          <th scope="col">상품명</th>
+          <th scope="col">보내신분</th>
+          <th scope="col">선물수신일</th>
+          <th scope="col">유효기간</th>
+          <th scope="col">상태</th>
+          <th scope="col">관리</th>
+
+        </tr>
+      </thead>
+  
+      <tbody >
+        {% for g in giftcon %}
+          <tr>
+          <td>{{g.giftcon_number}}</td>
+
+          {% if g.pp_no == None %}
+            <td>{{g.sp_no.sp_name}}</td>
+
+          {% elif g.pp_no != None %}
+                <td>{{g.pp_no.pp_name}}</td>
+          {% endif %}
+
+
+          <td>{{g.order_no.member_no.member_name}}</td>
+          <td>{{g.order_no.order_date}}</td>
+          <td>{{g.giftcon_period}}</td>
+          <td>{{g.gs_no.giftcon_state}}</td>
+          <td></td>
+          <td></td>
+          </tr>
+        {% empty %}
+          <tr>
+            <td colspan="7" align="center" >보유한 기프티콘이 없습니다.</td>
+          </tr>
+        {% endfor %}  
+      </tbody>
+    </table>
+
+
+    <div style="text-align: center; margin-top: 10px;">
+      <!-- 첫페이지 이전페이지 -->
+      {% if giftcon.has_previous %}  <!-- 이전이 있으면 true -->
+          <a href="/user/mycgv/giftcon?page=1&type={{ck_type}}&mode=1">[&lt;&lt;]</a>
+          <a href="/user/mycgv/giftcon?page={{giftcon.previous_page_number}}&type={{ck_type}}&mode=1">[&lt;]</a>
+      {% else %}
+          [&lt;&lt;]
+          [&lt;]
+      {% endif %}
+
+
+      <!-- 숫자창 -->
+      {% for page_number in giftcon.paginator.page_range %}
+          {% if start_page <= page_number and end_page >= page_number %}
+              {% if page_number == giftcon.number %}
+                  <span style="font-weight: bolder; color: black;">[{{ page_number }}]</span>
+              {% else %}
+                  <a href="/user/mycgv/giftcon?page={{page_number}}&type={{ck_type}}&mode=1">[{{ page_number }}]</a>
+                  <input type="hidden" name = 'search' value="{{search}}" >
+              {% endif %}
+          {% endif %}
+      {% endfor %}
+
+
+      <!-- 마지막페이지 다음페이지 -->
+      {% if giftcon.has_next %}<!-- 이후가 있으면 true -->
+          <a href="/user/mycgv/giftcon?page={{ giftcon.next_page_number}}&type={{ck_type}}&mode=1">[&gt;]</a>
+          <a href="/user/mycgv/giftcon?page={{last_page}}&type={{ck_type}}&mode=1">[&gt;&gt;]</a>
+      {% else %}
+          [&gt;]
+          [&gt;&gt;]
+      {% endif %}
+  </div> 
+
+
+
+
+
+
+
+{% endblock %}
+

@@ -1,0 +1,52 @@
+{%load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Payment coupon registration Page</title>
+  <link rel="stylesheet" href="{% static 'css/imagecontainer.css' %}">
+</head>
+
+<style>
+  ul {
+    display: block;
+    list-style-type: disc;
+    margin-top: 1em;
+    margin-bottom: 1 em;
+    margin-left: 0;
+    margin-right: 0;
+    padding-left: 40px;
+  }
+</style>
+
+<body>
+  <hr>
+  <div>
+    <form>
+      <ul>
+        <li>
+          <label for="coupon_no">쿠폰번호</label>
+          <input type="text" id="coupon_no">
+        </li>
+        <li>
+          <input type="button" id="coupon_no_btn">
+        </li>
+        <li>
+          <label for="cc_no">쿠폰 카테고리</label>
+          <input type="text" id="cc_no">
+        </li>
+        <li>
+          <label for="mci_date">쿠폰 유효기간</label>
+          <input type="text" id="mci_date">
+        </li>
+        <li>
+          <label for="coupon_discount">쿠폰 금액</label>
+          <input type="text" id="coupon_discount">
+        </li>
+      </ul>
+      <input type="submit" value="쿠폰 등록하기">
+    </form>
+    <hr>
+</body>
+</html>

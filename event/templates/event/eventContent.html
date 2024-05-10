@@ -1,0 +1,80 @@
+{% extends 'layout/layout.html' %}
+{% block style %}
+{% endblock %}
+{%block script %}
+<script>
+$(document).ready(function() {
+    $("#mb_{{content.event_no}}").click(function() {
+        window.location.href = "{{urln.urlname}}";
+    });
+    
+});
+$(document).ready(function() {
+    var login = '{{login}}';
+    var member = '{{member.member_class.vipgo_no}}';
+    var member2 = '{{member.member_class.vipgo_name}}';
+    var grade = '{{content.vipgo_no.vipgo_no}}';
+    var grade_name = '{{content.vipgo_no.vipgo_name}}';
+    var event_no = '{{content.event_no}}';
+    var member_no = '{{member.member_no}}';
+
+    if (login != 'None') { 
+        if (member >= grade) {
+            $("#ab_{{content.event_no}}").click(function() {
+                $.ajax({
+                    url: '/event/check_apply/',
+                    type: 'POST',
+                    data: {
+                        'member_no': member_no,
+                        'event_no': event_no,
+                        csrfmiddlewaretoken: '{{ csrf_token }}'
+                    },
+                    success: function(data) {
+                        if (data.indata) {
+                            alert("이미 응모한 이벤트입니다.");
+                        } else {
+                            alert("응모가 완료되었습니다.");
+                            window.location.href = "/event/apply_events?no={{content.event_no}}";
+                        }
+                    }
+                });
+            });
+        } else {
+            $("#ab_{{content.event_no}}").click(function() {
+                alert(grade_name + " 등급부터 응모가 가능합니다. 당신의 등급은 " + member2);
+            });
+        }
+    } else {
+        $("#ab_{{content.event_no}}").click(function() {
+            alert("로그인 해주세요");
+            window.location.href = "/user/login?returnURL=/event/content?no={{content.event_no}}";
+        });
+    }
+});
+</script>
+{% endblock %}
+{% block content %} 
+        <div class="d-flex justify-content-center">
+            <div style="margin-left: 1%;">
+                <div class="hstack gap-1">
+                    <div class="p-2 me-3">{{ option.0.ek_no2.ek_name2 }}</div>
+                    <div class="p-2"><h3>{{content.ebc_name}}</h3></div>
+                    <div class="p-2"> 기간 : {{content.event_start}}~{{content.event_end}}</div>
+                </div>
+            </div>
+        </div>
+        <hr>
+        <div style="text-align:center;">
+            <div class="image-container">
+                <img src="{{content.ebc_content.url}}" style="max-width: 100%; height: auto;">
+                {% if content.eM_no.eM_name == '응모기능' %}
+                    <button class="btn btn-light" id="ab_{{content.event_no}}"><span style="font-size:35px">응모하기</span></button>
+                {% elif content.eM_no.eM_name == '쿠폰발급' %}
+                    <button class="btn btn-light" id="cb_{{content.event_no}}"><span style="font-size:35px">쿠폰발급</span></button>
+                {% elif content.eM_no.eM_name == 'url이동' %}
+                    <button class="btn btn-light" id="mb_{{content.event_no}}"><span style="font-size:35px">URL이동</span></button>
+                
+                {% endif %}
+            </div>
+        </div>
+{% endblock %}

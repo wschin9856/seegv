@@ -1,0 +1,59 @@
+{% extends 'layout/layout.html' %}
+{% block style %}
+<style>
+
+</style>
+{% endblock %}
+{% block script %}
+<script>
+  $(document).ready(function(){
+    $('#loginplease2').click(function(){
+        alert("로그인이 필요합니다.");
+        window.location.href = '/user/login?returnURL=/user/mycgv/myevent/';
+    });
+  });
+</script>
+{% endblock %}
+{% block content %}  
+<div class="container">
+    <div class="row">
+      <div class="col">
+        <h2>EVENT</h2>
+      </div>
+     
+      <div class="col text-end">
+        {% if login != None %}
+        <button type="button" class="btn btn-danger" onclick="location.href='/user/mycgv/myevent/'">당첨자 발표</a></li>
+        {% else %}
+        <button type="button" class="btn btn-danger" id="loginplease2">당첨자 발표</a></li>
+        {% endif %}
+      </div>
+    </div>
+</div>
+<hr style="height: 3px; background-color: black;">
+종료된 이벤트
+<br>
+<hr>
+<br>
+<div class="container">
+    {% for event in list %}
+    <div class="row mb-3">
+      <div class="col-md-3">
+        <img src="{{ event.event_faceimg.url }}" style="width: 50%; height: auto;" alt="{{ event.ebc_name }}">
+      </div>
+      <div class="col-md-9 d-flex flex-column justify-content-between">
+        <div>
+          <p class="mb-0">{{ event.ebc_name }}</p>
+          {% for category in event.eventcategory_set.all %}
+          <p class="mb-0">{{ category.ek_no2.ek_name2 }}</p>
+          {% endfor %}
+        </div>
+        <div class="text-end">
+          <p class="mb-0">기간: {{ event.event_start }} ~ {{ event.event_end }}</p>
+        </div>
+      </div>
+    </div>
+    <hr>
+    {% endfor %}
+</div>
+{% endblock %}

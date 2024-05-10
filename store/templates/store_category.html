@@ -1,0 +1,64 @@
+{% extends 'layout/store_layout.html' %}
+
+{% block head_store %}
+
+
+
+
+
+
+{% endblock %}
+
+
+
+
+{% block body_store %} 
+
+<style>
+    .bbbbox1 { 			
+        width:300px;
+        height:500px;
+        display:block;
+    } 
+
+</style>
+
+<div id="Package">
+    <h5>{{sc_category.sc_category}}</h5>
+    <hr size="5" color="#000000" >
+
+
+    <ul style="list-style:list-item;">
+        
+        {% for sp in storeProduct %}
+            <a href="product?sp_no={{sp.sp_no}}"><li style="display: inline-block;">
+                <div class="bbbbox1" id="pack" >
+                    <img src="{{sp.sp_image.url}}" width="300px" style="display: block;">
+                    <div style="text-align: center;">{{sp.sp_name}}</div>
+                    <div style="text-align: center;">{{sp.sp_items}}</div>
+                    {% if sc_no == '1' %}
+                        <p style="text-align: center;">{{sp.sp_discount}}<strike>{{sp.sp_price}}</strike></p>    
+                    {% elif sc_no == '3' %}
+                        <p style="text-align: center;">금액 충전형</p>
+                    {% else %}
+                        <p style="text-align: center;">{{sp.sp_price}}</p>
+                    {% endif %}
+                </div>
+            </li></a>
+        {% endfor %}
+
+    </ul>
+</div>
+
+
+
+
+
+{% endblock %}
+
+
+
+
+
+
+

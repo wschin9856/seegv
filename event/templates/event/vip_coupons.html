@@ -1,0 +1,129 @@
+{% extends 'layout/layout.html' %}
+{% block style %}
+
+{% endblock %}
+
+{% block script %}
+<script>
+ $(document).ready(function(){
+    var a = "{{member.member_class.vipgo_name}}";
+    var temp = "{{member.member_class.vipgo_no}}";
+    $.ajax({
+        url:"/event/get_grade/",
+        type:"POST",
+        data: {
+            'nowgrade' : a,
+            csrfmiddlewaretoken: '{{ csrf_token }}',
+        },
+        success:function(data){
+            var nowpoint = "{{member.member_vipPoint}}";
+            //console.log(nowpoint);
+            var widths= Math.round((nowpoint/data.grade[0].vipgo_score)*100);
+            //console.log(widths);
+            $("#nextgrade").html(data.grade[0].vipgo_name);
+            $("#nextscore").html(data.grade[0].vipgo_score);
+            $(".progress-bar").css({"width":widths+"%"});
+        }
+    })
+    $("[id^='submit_button']").click(function(){
+        if(temp<2){
+            alert("vip등급 이상만 사용 가능합니다.");
+        }
+        else{
+            var temp2 = $(this).val()
+            alert(temp2+"가 발급되었습니다");
+            window.location.href="/event/vip/coupon/set/?code="+temp2;
+        }
+    });
+});
+
+</script>
+
+{% endblock %}
+{% block content %}  
+<h2>VIP LOUNGE</h2>
+<hr>
+<div class="container">
+    <div class="row"> 
+        <img src="/static/media/vip/vip_hdinfo_img.jpg">
+    </div>
+    <div class="row">
+        <div class="col-4">         
+        <br>
+            <div style="text-align: center;">
+                <button class="btn btn-outline-success" style="width: 200px; height: 150px;" disabled>{{member.member_class.vipgo_name}}</button >
+            </div>
+        </div>
+        <div class="col-8">
+            <br> 
+            <p style="text-align: center;">{{member.member_id}}님은  {{member.member_class.vipgo_name}} 등급 입니다.</p>
+            <div style="display: flex; justify-content: space-between;">
+                <span>{{member.member_class.vipgo_name}}</span>
+                <span id="nextgrade" name="nextgrade"></span>
+            </div>
+            <div class="progress" role="progressbar" aria-label="Basic example" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">
+                <div class="progress-bar" style="width: 50%"></div>
+            </div>
+            <div style="display: flex; justify-content: space-between;">
+                <span>0</span>
+                <span id="nextscore" name="nextscore"></span>
+            </div>
+            <p style="text-align: center;">{{member.member_vipPoint}}</p>  
+        </div>
+    </div>
+    <hr>
+    <div class="row">
+        <div class="col">
+            <p style="text-align: center; margin-top: 130px;">영화 쿠폰</p>
+
+            <p style="text-align: center; margin-top: 130px">매점 쿠폰</p>
+        </div>
+        <div class="col">
+            <p style="text-align: center;"> CGV VIP</p>
+            <p style="text-align: center;">VIP {{acoupon.0.vmco_op}} 형 쿠폰 선택</p>
+            <hr>
+            {% for i in acoupon %}
+            <p>{{i.onco2_no.onco2_name}} : {{i.vmco_score}}매</p>
+            {% endfor %}
+            <hr>
+            {% for i in allcoupon %}
+            <p>{{i.onco2_no.onco2_name}} : {{i.vmco_score}}매</p>
+            {% endfor %}
+            <hr>
+        </div>
+        <div class="col">
+            {% if member.member_class.vipgo_name != 'VIP' %}
+            <p style="text-align: center; margin-top: 130px">영화 쿠폰</p>
+            <p style="text-align: center; margin-top: 130px">매점 쿠폰</p>
+            {% endif %}
+        </div>
+        <div class="col">
+            {% if member.member_class.vipgo_name != 'VIP' %}
+            <p style="text-align: center;"> {{bcoupon.0.vmco_op}}</p>
+            <p style="text-align: center;">VIP {{bcoupon.0.vmco_op}} 형 쿠폰 선택</p>
+            <hr>
+            {% for i in bcoupon %}
+            <p>{{i.onco2_no.onco2_name}} : {{i.vmco_score}}매</p>
+            {% endfor %}
+            <hr>
+            {% for i in allcoupon %}
+            <p>{{i.onco2_no.onco2_name}} : {{i.vmco_score}}매</p>
+            {% endfor %}
+            <hr>
+            {% endif %}
+        </div>
+        <div class="row" style="margin-top: 3%;">
+            <div class="col" style="text-align: center;">
+                <button id="submit_buttona" name="abutton" style="width: 50%; height: 75px;" value="{{acoupon.0.vmco_op}}">{{acoupon.0.vmco_op}}형쿠폰선택</button>
+            </div>
+            
+            <div class="col" style="text-align: center;">
+                {% if member.member_class.vipgo_name != 'VIP' %}
+                <button id="submit_buttonb"  name="bbutton"style="width: 50%; height: 75px;" value="{{bcoupon.0.vmco_op}}">{{bcoupon.0.vmco_op}}형쿠폰선택</button>
+                {% endif %}
+            </div>
+            
+        </div>
+    </div>
+    <br><br><br>
+{% endblock %}

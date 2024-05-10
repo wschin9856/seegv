@@ -1,0 +1,24 @@
+{% extends 'layout\layout.html' %}
+{% block content %}
+        {% if checkpage %}
+                <script type="text/javascript">
+                        alert("{{text}}");
+                        location.href = "{{url}}";
+                </script>
+        {% else %}
+                <form action="/user/join/" method="post">
+                        {% csrf_token %}
+                        <input type="hidden" name="user_birth" value="{{user_birth}}">
+                        <input type="hidden" name="user_tel" value="{{user_tel}}">
+                        <input type="hidden" name="user_name" value="{{user_name}}"> 
+          
+                        {{text}}
+
+                        <input type="submit" value="다시입력">
+                </form>
+                
+
+
+
+        {% endif %}
+{% endblock %}

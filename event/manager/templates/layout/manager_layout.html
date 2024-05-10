@@ -1,0 +1,60 @@
+
+{% extends 'layout\layout.html' %}
+
+
+
+
+
+
+
+{% block style %}
+    {% block head_mycgv %}{% endblock %}
+{% endblock %}
+{% block content %}
+
+
+<!--네비게이션 바-->
+<div id="3" style="float:left; width:20%; margin-top:50px;">
+
+    <div><a href="/manager/members">회원관리</a></div>
+    <div><a href="/manager/product">상품관리</a></div>
+    <div><a href="/manager/giftcon">기프트콘 관리</a></div>
+    <div><a href="/manager/"></a></div>
+    <div><a href="/manager/"></a></div>
+   
+
+<div></div>
+<div></div>
+<div></div>
+<div></div>
+<div></div>
+<div></div>
+<div></div>
+<div></div>
+<div></div>
+<div></div>
+<div></div>
+<div></div>
+
+
+</div>
+
+
+<div id="4" style="float:left; width:60%; margin-top:50px;">
+
+    {% block body_main_mycgv %}{% endblock %}
+    
+</div>
+
+<div id="4" style="float:left; width:20%; margin-top:50px;">
+
+    
+    
+</div>
+
+
+{% block body_script_mycgv %}{% endblock %}
+
+{% endblock %}
+</body>
+</html>

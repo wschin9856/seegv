@@ -1,0 +1,438 @@
+
+{% extends 'layout\mycgv_layout.html' %}
+
+{% block head_mycgv %}
+    <!--모달 사용-->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <!---->
+
+    <style>
+        .hidden {
+            display: none;
+        }
+
+		.box1 { 			
+            width:200px;
+			height:auto;
+			display:block;
+			border-width:1px;  /* 테두리 굵기 */
+            border-style: solid; }  /* 실선 */
+
+		.box2 { border-style:dotted; }  /* 점선 */
+        
+        .div {
+            width:50px;
+			height:auto;
+			display:block;
+            } 
+
+        .None { list-style: None; }
+        
+        .button {display:block;}
+ 
+    </style>
+
+
+
+<script type="text/javascript">
+    let list = [];
+    console.log(list)
+
+
+/////////////////////////////////////////////////////////////////////// 자주가는 CGV 표출
+    window.onload = function(){
+	//실행될 코드
+        const f_no = '{{no}}';  // 파이썬에서 문자열로 전달 받음
+        const f_name = '{{name}}';  //  &#x27 글자 깨짐현상 없애기 |safe
+        
+        const no_list = f_no.split(',');  // 문자열을 리스트로 변환
+        const name_list = f_name.split(',');
+
+        if(no_list == ''){
+            list = []
+        }else{
+
+            for(var i = 0; i < no_list.length; i++){    // 등록된 북마크 list에 넣기
+            list.push({'no':no_list[i], 'name':name_list[i]});
+
+        }}
+    
+        const favorite_theate = document.getElementsByName('favorite_theate');  
+        const ul = document.getElementById('table');
+        const li = ul.getElementsByTagName('li');
+
+  
+            for(var i = 0; i < list.length; i++){
+                favorite_theate[i].innerText = list[i].name;
+                // 북마크된 영화관 이름 mycgv 에서 출력
+                li[i].children[0].children[0].innerText = list[i].name;
+            }; 
+        
+    };
+
+
+/////////////////////////////////////////////////////////////////////// ajax
+
+    function getCookie(name) {
+    var cookieValue = null;
+    if (document.cookie && document.cookie !== '') {
+        var cookies = document.cookie.split(';');
+        for (var i = 0; i < cookies.length; i++) {
+            var cookie = cookies[i].trim();
+            if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                break;
+            }
+        }
+    }
+    return cookieValue;
+};
+
+    var csrftoken = getCookie('csrftoken');
+    /////////////////////////////////////////////////////////////////////// select문을 위한 ajax (get방식)    
+    function makeRequest1(){
+
+
+        // >>통신을 위한 객체 준비<<
+        if(window.ActiveXObject){   // 익스플로어인 경우 T 그 외의 브라우저일 경우 F
+        xhr = new ActiveXObject("Microsoft.XMLHTTP")
+        }else{
+        xhr = new XMLHttpRequest();
+        }
+
+        if(!xhr){ // xhr이 없으면
+        alert("XMLHTTP 객체를 생성할 수 없습니다.");
+        return;                
+        }
+        // >>통신을 위한 객체 준비 완<<     
+
+        // >>데이터 전달<<
+        data = document.getElementById('select_region'); // 아래의 body에서 입력된 데이터
+        xhr.open('GET','/user/mycgv/popup/ajax?select_region='+data.value); // 서버에 보낼 url 생성
+        // 데이터 타입
+        xhr.setRequestHeader('Content-Type',"application/x-www-form-urlencoded") ;
+                // application/json (json파일로 전달) , text/plain (text 파일로 전달), multipart/
+        // 콜백 메소드 (함수 실행 후 자동으로 불러질 함수, 결과후 실행될 행동)
+        xhr.onreadystatechange = alertContents1;         // 바로 함수 만들어도되고 외부에서 만들어서 지정해도 됨        
+        xhr.send()// get방식은 send에 데이터 값을 안넣는다 
+    };
+
+
+    function alertContents1(){
+        
+        let result = document.getElementById('select_theater') //현재 페이지 데이터의 json파일
+
+        
+        if(xhr.readyState === xhr.DONE){ // readyState 상태값(0~4) 4(DONE) : 데이터를 다 받은 상태
+        // json파일 : dic인 문자열 타입>> json 타입으로 변경해 줘야한다                
+            text = JSON.parse(xhr.responseText)//responseText : 넘겨받은 데이터(json파일)
+            console.log(text["msg"]);
+            result.innerHTML = text["msg"] 
+
+
+        };
+        
+        
+    };
+
+/////////////////////////////////////////////////////////////////////// 자주가는 CGV 지역선택 (POST 방식)
+
+    function makeRequest2(){
+
+    // >>통신을 위한 객체 준비<<
+    if(window.ActiveXObject){   // 익스플로어인 경우 T 그 외의 브라우저일 경우 F
+    xhr = new ActiveXObject("Microsoft.XMLHTTP")
+    }else{
+    xhr = new XMLHttpRequest();
+    }
+
+    if(!xhr){ // xhr이 없으면
+    alert("XMLHTTP 객체를 생성할 수 없습니다.");
+    return;                
+    }
+    // >>통신을 위한 객체 준비 완<<     
+
+
+    //POST 방식으로 데이터 전달
+    data = document.getElementById('select_theater');
+    xhr.open('POST','/user/mycgv/popup/ajax2');  // 서버에 보낼 url 생성 (메소드 방식, 보낼url)
+    xhr.setRequestHeader('Content-Type',"application/x-www-form-urlencoded");
+    xhr.setRequestHeader('X-CSRFToken', csrftoken); // csrftoken검사 함수 실행 (POST방식에서만 사용)
+    
+    xhr.send('select_theater=' + data.value);  // + '&list=' +list  // Post 방식은 send에 데이터 값을 넣는다 
+    xhr.onreadystatechange = alertContents2;
+
+
+    };
+
+
+
+    function alertContents2(){
+    // readyState 상태값(0~4) 4(DONE) : 데이터를 다 받은 상태
+    const ul = document.getElementById('table');
+    const li = ul.getElementsByTagName('li');
+    
+
+  
+
+    if(xhr.readyState === xhr.DONE){ // 데이터 처리가 끝난 후의 행동을 지정한다. 
+    // json파일 : dic인 문자열 타입>> json 타입으로 변경해 줘야한다                
+    text = JSON.parse(xhr.responseText)  //responseText : 넘겨받은 데이터(json파일)
+    check = list.filter(num => num.no == text["t"].no)
+
+    if(check.length != 0){
+        alert("이미 선택한 CGV입니다.");
+    }else{
+        if(list.length >= 5){
+            alert("자주가는 CGV는 5개까지 등록이 가능합니다.");
+        }else{        
+            list.push(text["t"])
+        };};}
+
+        
+    for(i=0; i<list.length; i++){
+        li[i].children[0].children[0].innerText = list[i].name 
+        };     
+    };                           
+/////////////////////////////////////////////////////////////////////// 자주가는 CGV 처리 (POST 방식)    
+
+
+    function clickHandler() {
+        const ul = document.getElementById('table');
+        const li = ul.getElementsByTagName('li');
+        // const btn = li.getElementsByTagName('button');
+    
+
+        const v = event.target.value;
+        console.log(v)
+        console.log(list[v])
+        
+        
+        list.splice(v,1);
+
+        for(i=0; i<5; i++){
+            li[i].children[0].children[0].innerText = ''
+        };     
+
+        for(i=0; i<list.length; i++){
+            li[i].children[0].children[0].innerText = list[i].name 
+        };     
+    };
+
+
+
+/////////////////////////////////////////////////////////////////////// 자주가는 CGV 저장(저장하기버튼 누르기)(POST 방식)
+
+
+    function makeRequest3(){
+
+        // >>통신을 위한 객체 준비<<
+        if(window.ActiveXObject){   // 익스플로어인 경우 T 그 외의 브라우저일 경우 F
+        xhr = new ActiveXObject("Microsoft.XMLHTTP")
+        }else{
+        xhr = new XMLHttpRequest();
+        }
+
+        if(!xhr){ // xhr이 없으면
+        alert("XMLHTTP 객체를 생성할 수 없습니다.");
+        return;                
+        }
+
+
+
+        //POST 방식으로 데이터 전달 
+        
+        
+        data = JSON.stringify(list);
+
+        xhr.open('POST','/user/mycgv/popup/ajax3');  // 서버에 보낼 url 생성 (메소드 방식, 보낼url)
+        xhr.setRequestHeader('Content-Type',"application/x-www-form-urlencoded");
+        xhr.setRequestHeader('X-CSRFToken', csrftoken); // csrftoken검사 함수 실행 (POST방식에서만 사용)
+        console.log(data);
+        console.log(list);
+        // xhr.send(list);  // Post 방식은 send에 데이터 값을 넣는다 
+        xhr.send('data=' + data);
+        xhr.onreadystatechange = alertContents3;
+
+    };
+
+
+    function alertContents3(){
+
+    if(xhr.readyState === xhr.DONE){
+        result = JSON.parse(xhr.responseText)
+        alert(result['msg']);
+        let list = []
+        location.reload()            
+
+        };     
+            
+    }; 
+/////////////////////////////////////////////////////////////////////// 모달 취소
+
+
+
+    function Close(){
+        alert("취소되었습니다");
+        let list = [] 
+        location.reload()  ;
+    };
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</script>
+
+{% endblock %}
+
+
+
+{% block body_top_mycgv %}
+
+
+<!--모달 사용-->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+<!---->
+
+
+<fieldset>
+    <div id="1">
+        <div style="float: left; width:30%; height:200px;">
+        {% if profile.profileimage == "" or profile.profileimage == None %}
+            <img name = 'default' src="http://img.cgv.co.kr/R2014/images/common/default_profile.gif" width="200px">
+        {% else %}
+            <img id = 'user_image' src="..{{profile.profileimage.url}}" width="200px" >
+        {% endif %}
+        </div>
+        <div style="float: left; width:70%; height:200px;">
+            <span>{{login_name}}님</span>&nbsp&nbsp<span>{{login_id}}</span>&nbsp&nbsp<span>닉네임</span>&nbsp&nbsp<span>{{profile.nickname}}</span>
+            <hr>
+            <div>고객등급 : {{member_class.vipgo_name}}</div>
+            <div><button>MY 지난 등급이력 보기</button></div>
+        </div>
+    </div>
+    
+    
+        
+        <div id="2">
+            <div style="float: left; width:33%; height:200px">
+                <div>MY COUPON</div>
+                <div>CGV VIP에 도전하세요!</div>
+                <div>CGV 할인쿠폰</div>
+                <div>영화관람권</div>
+            </div>
+            <div style="float: left; width:33%; height:200px">
+                <div>CJ ONE POINT<a href="/user/mycgv/point"><button type="button">+</button></a></div>
+                <div>CJ ONE 사용가능 포인트 {{point}}점</div>
+                <div>VIP 점수</div>
+                <div>VIP 누적 점수</div>
+            </div>
+            <div style="float: left; width:33%; height:200px">
+                <table>
+                <tr>
+
+                    <td name="favorite_theate"></td>
+                    <td name="favorite_theate"></td>
+                </tr>
+                <tr>
+                    <td name="favorite_theate"></td>
+                    <td name="favorite_theate"></td>
+                </tr>
+                <tr>
+                    <td name="favorite_theate"></td>
+                    <td>
+                        <button type="button" id="Modal"  class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+                        자주가는cgv 설정하기</button>
+                    </td>                    
+                </tr>
+                
+                </table>
+            </div>
+        </div>
+    </fieldset>
+
+
+
+
+
+
+
+
+
+    
+    <!-- Modal -->
+    <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+            <h1 class="modal-title fs-5" id="staticBackdropLabel">자주가는cgv</h1>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+
+        <form>
+            <div>
+                영화관을 선택하여 등록해주세요. 최대 5개까지 등록하실 수 있습니다
+            </div>
+            <fieldset>
+                <legend>선택창</legend>
+                <select id="select_region"  title="자주가는 지역선택" onchange="javascript:makeRequest1()">
+                    <option value selected="selected">지역선택</option>
+                    {% for r in region %}                    
+                        <option value="{{r.no}}">{{r.name}}</option>
+                    {% endfor %} 
+                    </optgroup>
+                </select>
+                <select id="select_theater" title="자주가는 CGV선택" >
+                </select>              
+                    <button id="add_favorite_theater" type="button" onclick="javascript:makeRequest2()"><span>자주가는 CGV 추가</span></button>
+                </fieldset>
+        </form>
+
+
+
+
+        <ul id = "table">
+            <li class="None"><div class="box1"><div></div><button name="btn" value="0" onclick="javascript:clickHandler()">X</button></div></li>
+            <li class="None"><div class="box1"><div></div><button name="btn" value="1" onclick="javascript:clickHandler()">X</button></div></li>
+            <li class="None"><div class="box1"><div></div><button name="btn" value="2" onclick="javascript:clickHandler()">X</button></div></li>
+            <li class="None"><div class="box1"><div></div><button name="btn" value="3" onclick="javascript:clickHandler()">X</button></div></li>
+            <li class="None"><div class="box1"><div></div><button name="btn" value="4" onclick="javascript:clickHandler()">X</button></div></li>        
+        </ul>
+
+
+
+            </div>
+            <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" onclick="javascript:Close()">닫기</button>
+            <button type="button" class="btn btn-primary" onclick="javascript:makeRequest3()">저장하기</button>
+            </div>
+
+
+
+        </div>
+        </div>
+    </div>
+
+
+    
+
+
+{% endblock %}
+
+
+{% block body_main_mycgv %}{% endblock %}
+
+
+
+

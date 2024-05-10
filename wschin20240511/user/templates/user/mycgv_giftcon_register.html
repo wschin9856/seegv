@@ -1,0 +1,45 @@
+{% extends 'layout\mycgv_layout.html' %}
+
+{% block head_mycgv %}
+
+
+{% endblock %}
+
+
+{% block body_main_mycgv %}
+
+<div>
+    <h4>CGV 기프트샵 기프트콘 등록하기</h4>
+  
+  </div>
+  <div><a href="/user/mycgv/giftcon"><button>내 기프트콘 조회</button></a></div>
+  
+
+  <table class="" style="border-bottom: 20px;">
+
+  <form action="/user/mycgv/giftcon/register/result" method="post">
+    {% csrf_token %}
+
+
+    <tr> 
+      <td>
+        기프트콘 번호 : <input type="text" name="giftcon_number">
+      </td>
+      <td>
+        <input type="submit" value="등록하기">
+
+      </td>
+    </tr>
+
+    <tr>
+
+    </tr>
+  </form>  
+
+</table>
+<br>
+<br>
+
+
+{% endblock %}
+

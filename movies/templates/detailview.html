@@ -1,0 +1,420 @@
+{% extends 'layout/layout.html' %}
+
+{% block style %}
+<style>
+
+    /* 링크 스타일 */
+    a {
+        color: #007bff; /* 링크 색상 */
+        text-decoration: none; /* 밑줄 제거 */
+        transition: color 0.3s, background-color 0.3s; /* 색상 및 배경색 변화 애니메이션 */
+
+        background-color: #f8f9fa; /* 배경색 */
+        border: 2px solid transparent; /* 테두리 스타일 */
+    }
+
+    /* 마우스 호버 시 링크 스타일 */
+    a:hover {
+        color: #0056b3; /* 호버 시 링크 색상 */
+        background-color: #e9ecef; /* 호버 시 배경색 */
+        border-color: #dee2e6; /* 호버 시 테두리 색상 */
+    }
+
+
+    body {
+      font-family: Arial, sans-serif;
+    }
+    .nav {
+      background-color: #f8f9fa;
+      border-radius: 5px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      overflow: hidden; /* 이 부분 추가 */
+    }
+    .nav-item {
+      float: left; /* 이 부분 수정 */
+      width: 25%; /* 이 부분 추가 */
+    }
+    .nav-link {
+      display: block; /* 이 부분 수정 */
+      color: #333;
+      text-decoration: none;
+      padding: 10px 0; /* 이 부분 수정 */
+      text-align: center; /* 이 부분 추가 */
+      border-right: 1px solid #ddd; /* 이 부분 추가 */
+      transition: background-color 0.3s ease;
+    }
+    .nav-link:last-child {
+      border-right: none; /* 이 부분 추가 */
+    }
+    .nav-link.active,
+    .nav-link:hover {
+      background-color: #007bff;
+      color: #fff;
+    }
+    .nav-link.disabled {
+      opacity: 0.5;
+      pointer-events: none;
+    }
+
+    .card-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.card-group {
+    width: calc(33.33% - 20px); /* 한 줄에 세 개의 카드가 나오도록 설정 */
+    margin-right: 20px;
+}
+
+.card-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+.actor-header {
+    text-align: center; /* 가운데 정렬 */
+    margin-bottom: 20px; /* 배우 텍스트와 카드 사이의 간격 설정 */
+}
+
+
+</style>
+{% endblock %}
+{% block script %}
+<script type="text/javascript">
+    function previewSave() {
+        var member_id = '{{member_id}}'
+        if (!member_id){
+            if (confirm("로그인이 필요합니다. 로그인 페이지로 이동하시겠습니까?")) {
+            var returnURL = window.location.href;
+            window.location.href = "/user/login/?returnURL=" + returnURL;
+        }
+        return; // 로그인 페이지로 이동한 후에 더 이상의 코드 실행을 막습니다.
+    }
+        if (confirm("이 영화가 기대되시나요?")) {
+            alert('기대되는 영화에 추가되었습니다.');
+            var value = '1';
+                } else {
+                    alert("글쎄요로 등록되었습니다.");
+                    var value = '2';
+                }
+        var movieNo = '{{movie.no}}';
+        var loginId = '{{member_id.member_id}}';
+        var csrftoken = $('[name=csrfmiddlewaretoken]').val();
+        $.ajax({
+            type: 'POST',
+            url: '/movies/preview_save/',
+            data: {
+                'movie_no': movieNo,
+                'login_id': loginId,
+                'value': value,
+                'csrfmiddlewaretoken': csrftoken
+            },
+            headers:{"X-CSRFToken":csrftoken},
+            success: function(response) {
+                if (value == '1'){
+                    if (confirm("기대되는 영화 목록으로 이동하시겠습니까?")) {
+                        window.location.href="/user/mycgv/movielog/";
+                    } else {
+                        
+                    }
+                }
+            },
+            
+        });
+    }
+</script>
+<script>
+    function recommandCount(clickedButton){
+        
+        var member_no = '{{member_no}}';
+        var viewer = '{{viewer}}';
+        var review_no = $(clickedButton).val();
+        if (!member_no){
+            if (confirm("로그인이 필요합니다. 로그인 페이지로 이동하시겠습니까?")){
+                var returnURL = window.location.href;
+                window.location.href = "/user/login/?returnURL=" + returnURL;
+            }
+            return;
+        }
+        if (viewer == 'False'){
+            alert("영화를 본 후 추천이 가능합니다.");
+            return;
+        }
+        
+        $.ajax({
+            type:'GET',
+            url: '/movies/recommand_save/',
+            data: {
+                'member_no':member_no,
+                'review_no':review_no
+            },
+            success: function(response){
+                if (response.rec){
+                    alert("추천했습니다.");
+                    location.reload();
+                }
+                else{
+                    alert("추천을 취소했습니다.");
+                    location.reload();
+                }
+
+            }
+        })
+
+    }
+</script>
+<script>
+    function makeReview(){
+        var member_no = '{{member_no}}';
+        var viewer = '{{viewer}}';
+        var movie_no = '{{no}}'
+        var reviews = '{{reviews}}'
+        if (!member_no){
+            if (confirm("로그인이 필요합니다. 로그인 페이지로 이동하시겠습니까?")){
+                var returnURL = window.location.href;
+                window.location.href = "/user/login/?returnURL=" + returnURL;
+            }
+            return;
+        }
+        if (viewer == 'False'){
+            alert("영화를 본 후 리뷰 작성이 가능합니다.");
+            return;
+        } else if (reviews == 'True'){
+            alert("하나의 영화에 한 개의 리뷰만 작성할 수 있습니다.");
+            return;
+        }
+        else {
+            if (confirm("리뷰를 작성하시겠습니까?")){
+                window.location.href = "/movies/write_review/?Movie_no="+movie_no+"&member_no="+member_no;
+            } else{
+            return;
+        }
+        }
+        
+    }
+</script>
+{% endblock %}
+{% block content %}
+<body>
+
+    <!-- Product section-->
+    <section class="py-5">
+        <div class="container px-4 px-lg-5 my-5">
+            <div class="row gx-4 gx-lg-5 align-items-center" id="detail">
+                <div class="col-md-6"><img class="card-img-top mb-5 mb-md-0" src="{{movie.image.url}}" alt="..." /></div>
+                <div class="col-md-6">
+                    <h1 class="display-5 fw-bolder">{{movie.krname}}</h1>
+                    <div class="small mb-1">{{movie.ername}}</div>
+                    <div class="fs-5 mb-5">
+                        <span>
+                            {% if movie.opendate <= currentdate %}
+                                상영중 
+                            {% else %}
+                                상영예정 D-{{open}}
+                            {% endif %} | 
+                        </span>
+                        {% if movie.opendate > currentdate %}
+                            {% if preper != 0 %}
+                                프리에그{{preper}}%
+                            {% else %}
+                                프리에그 ?
+                            {% endif %}
+                        {% else %}
+                            {% if reper != 0 %}
+                                골든에그{{reper}}%
+                            {% else %}
+                                골든에그 ?
+                            {% endif %}
+                        {% endif %} |
+                        <span>예매율</span>
+                    </div>
+                    <p class="lead">감독:
+                        {% for i in mp %}
+                            {% if i.role == '감독' %}
+                                <a href="/movies/persons/?no={{i.Person_no_id}}">{{i.Person_no.krname}}</a>
+                            {% endif %}
+                        {% endfor %}
+                        / 배우:
+                        {% for l in mp %}
+                            {% if l.role == '배우' %}
+                                <a href="/movies/persons/?no={{l.Person_no_id}}">{{l.Person_no.krname}}</a>
+                            {% endif %}
+                        {% endfor %}
+                        / 장르:
+                        {% for g in mg %}
+                            {{g.Genre_no.name}}
+                        {% endfor %}
+                        / 런타임:
+                            {{movie.runtime}}
+                        / 국가:
+                        {% for c in mc %}
+                            {{c.Country_no.name}}
+                        {% endfor %}
+                        / 개봉일:
+                        {{movie.opendate}}
+                    </p>
+                    <div class="d-flex">
+                        {% csrf_token %}
+                        <button class="btn btn-outline-dark flex-shrink-0" type="button" onclick="javascript:previewSave()">
+                            프리에그
+                        </button>
+                        <button class="btn btn-outline-dark flex-shrink-0" type="button" onclick="document.location.href='/ticket/?Movie_no={{movie.no}}'">
+                            예매하기
+                        </button>
+                    </div>
+                    <br>
+                    <p>{{movie.story}}</p>
+                </div>
+            </div>
+            <br>
+            <br>
+            <ul class="nav justify-content-center">
+                <li class="nav-item">
+                  <a class="nav-link" aria-current="page" href="#detail">상세정보</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="#stillcut">스틸컷</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="#">평점/리뷰</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="#director">감독/출연</a>
+                </li>
+              </ul>
+        </div>
+    </section>
+    <!-- Related items section-->
+    <section>
+        <div id="stillcut" class="carousel carousel-dark slide">
+            <h2 align="center" style="padding: 120px">스틸컷</h2>
+            <div class="carousel-indicators">
+                {% for s in ms %}
+                    {% if forloop.first %}
+                        <button type="button" data-bs-target="#stillcut" data-bs-slide-to="{{ forloop.counter0 }}" class="active" aria-current="true" aria-label="Slide 1"></button>
+                    {% else %}
+                        <button type="button" data-bs-target="#stillcut" data-bs-slide-to="{{ forloop.counter0 }}" aria-label="Slide {{ forloop.counter }}"></button>
+                    {% endif %}
+                {% endfor %}
+            </div>
+            <div class="carousel-inner">
+                {% for s in ms %}
+                {% if forloop.first %}
+                <div class="carousel-item active">
+                {% else %}
+                <div class="carousel-item">
+                {% endif %}
+                    <img src="{{s.image.url}}" class="d-block mx-auto" alt="...">
+                </div>
+                {% endfor %}
+            </div>
+            <button class="carousel-control-prev" type="button" data-bs-target="#stillcut" data-bs-slide="prev">
+              <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+              <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#stillcut" data-bs-slide="next">
+              <span class="carousel-control-next-icon" aria-hidden="true"></span>
+              <span class="visually-hidden">Next</span>
+            </button>
+          </div>
+
+    </section>
+<div>
+    <h2 align="center" style="padding: 120px">출연 정보</h2>
+</div>
+    <section>
+        <h3 style="padding-left: 120px;">감독</h3>
+        <div id="director" class="card-container" style="padding-left: 120px; padding-bottom: 30px;">
+            
+            {% for p in mp %}
+            {% if p.role == '감독' %}
+            <div class="card" style="width: 12rem;">
+                <a href="/movies/persons?no={{p.Person_no_id}}">
+                    <img src="{{p.Person_no.image.url}}" class="card-img-top" alt="..." >
+                </a>
+                <div class="card-body">
+                    <a class="card-title" href="/movies/persons?no={{p.Person_no_id}}">{{p.Person_no.krname}}</a>
+                    <p class="card-text">{{p.Person_no.enname}}</p>
+                </div>
+                <ul class="list-group list-group-flush">
+                    {% for i in mpall %}
+                    {% if i.Person_no_id == p.Person_no_id %}
+                        {% if movie.no != i.Movie_no_id %}
+                        <a class="list-group-item" href="/movies/detailview?no={{i.Movie_no_id}}">{{i.Movie_no.krname}} - {{i.Movie_no.opendate|date:'Y'}}</a>
+                        {% endif %}
+                    {% endif %}
+                    {% endfor %}
+                </ul>
+
+            </div>
+            {% endif %}
+            {% endfor %}
+        </div>
+        <br><br><br>
+        <h3 style="padding-left: 120px;">배우</h3>
+        <div id="actor" class="card-container" style="padding-left: 120px; padding-bottom: 120px;">
+
+            {% for p in mp %}
+            {% if p.role == '배우' %}
+            <div class="card" style="width: 12rem;">
+                <a href="/movies/persons?no={{p.Person_no_id}}">
+                    <img src="{{p.Person_no.image.url}}" class="card-img-top" alt="..." >
+                </a>
+                <div class="card-body">
+                <a class="card-title" href="/movies/persons?no={{p.Person_no_id}}">{{p.Person_no.krname}}</a>
+                <p class="card-text">{{p.Person_no.enname}}</p>
+                </div>
+                <ul class="list-group list-group-flush">
+                    {% for j in mpall %}
+                    {% if j.Person_no_id == p.Person_no_id %}
+                        {% if movie.no != j.Movie_no_id %}
+                        
+                        <a class="list-group-item" href="/movies/detailview?no={{j.Movie_no_id}}">{{j.Movie_no.krname}} - {{j.Movie_no.opendate|date:'Y'}}</a>
+                        {% endif %}
+                    {% endif %}
+                    {% endfor %}
+                </ul>
+            </div>
+            {% endif %}
+            {% endfor %}
+        </div>
+    </section>
+    <section>
+        <div class="container px-4 py-5" id="featured-3">
+            <h2 class="pb-2 border-bottom" align="center" style="padding: 50px; margin-bottom: 50px;">평점 / 리뷰</h2>
+            <div align="right">
+                <button id="review" onclick="javascript:makeReview()">평점 작성</button>
+            </div>
+            {% if rv %}
+            {% for i in rv %}
+            <div class="row g-4 py-5 row-cols-1 row-cols-lg-3">
+              <div class="feature col">
+                <div class="feature-icon d-inline-flex align-items-center justify-content-center text-bg-primary bg-gradient fs-2 mb-3">
+                  <svg class="bi" width="4em" height="4em"><image xlink:href="/media/profile/none.gif" width="100%" height="100%"></svg>
+                </div>
+                {% if i.profile_name %}
+                    <h3 class="fs-2 text-body-emphasis">{{i.profile_no.profile_name}}</h3>
+                {% else %}
+                    <h3 class="fs-2 text-body-emphasis">{{i.profile_no.member_no.member_name}}</h3>
+                {% endif %}
+                <p>{{i.uploadtext}}</p>
+                <p>작성일 : {{i.uploaddate}}</p>
+                추천 수 : {{ reccount|slice:forloop.counter|last }} <button onclick="javascript:recommandCount(this)" value="{{i.no}}"class="icon-link">추천</button>
+                  
+                  <svg class="bi"><use xlink:href="#chevron-right"></use></svg>
+                </a>
+              </div>
+            </div>
+            {% endfor %}
+            {% else %}
+                
+                <p align="center">작성된 리뷰가 없습니다.</p>
+            {% endif %}
+          </div>
+    </section>
+
+</body>
+</html>
+{% endblock %}
+

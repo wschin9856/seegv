@@ -1,0 +1,42 @@
+{% extends 'layout/layout.html' %}
+{% block style %}{% endblock %}
+<style>
+
+</style>
+{% block script %}
+<script type="text/javascript">
+    $(document).ready(function(){
+        $('button[id^="test2"]').click(function() {
+            var regionId = $(this).attr('name');
+            $.ajax({
+               url : '/get_theaters/',
+               type: 'GET',
+               data : {'region_id':regionId},
+            success: function(data) {
+                var theatersHTML = '<ul>';
+                $.each(data.theaters, function(index, theater) {
+                    theatersHTML += '<a href="/theater?no='+theater.no+'">' + theater.name + '</a>' + " | ";
+                });
+                theatersHTML += '</ul>';
+                $('#output').html(theatersHTML);
+                
+            }
+               
+            });
+        });
+    });
+</script>
+{% endblock %}
+{% block content %}  
+
+    {% for i in rl %}
+    <button class="btn btn-primary" id="test2{{i.no}}" name="{{i.no}}">{{i.name}}</button>
+    {% endfor %}   
+
+<div id="output"></div> <!-- 클릭된 요소의 name 값이 여기에 출력됩니다 -->
+<div>
+    {{th.no}}
+</div>
+
+
+{% endblock %}

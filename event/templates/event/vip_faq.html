@@ -1,0 +1,61 @@
+{% extends 'layout/layout.html' %}
+{% block style %}
+
+{% endblock %}
+{% block script %}
+<script>
+$(document).ready(function(){
+  $("[id^='showbutton']").click(function(){
+    var a = $(this).val();
+    $('#'+a).slideToggle("slow");
+  });
+  $("#searchtitle").click(function(){
+    var b = $("#text1").val();
+    console.log(b);
+    window.location.href="/event/vip/faq/?searchtext="+b;
+    });
+});
+</script>
+{% endblock %}
+{% block content %}  
+    <h3>VIP FAQ</h3>
+    <p>고객님 께서 궁금하신 내용을 먼저 확인해 주세요</p>
+    {% if searchtext != None %}
+    <p><input type="text" placeholder="검색어를 입력해주세요" id="text1" value="{{searchtext}}"><button id="searchtitle">검색하기</button>
+    {% else %}  
+    <p><input type="text" placeholder="검색어를 입력해주세요" id="text1"><button id="searchtitle">검색하기</button>
+    {% endif %}
+        <div class="row">
+            <hr>
+            <div class="col-md-2">
+                번호
+            </div>
+            <div class="col-md-8">
+                제목
+            </div>
+            <hr>
+        </div>
+        {% for i in faq %}
+        <div class="row">
+            <div class="col-md-2">
+            {{forloop.counter}}
+            </div>
+            <div class="col-md-8">
+                {{i.vipg_title}}
+            </div>
+            <div class="col-md-2">
+                <button id="showbutton{{i.vigc_no}}" name="showbutton_{{i.vigc_no}}" value="{{i.vigc_no}}">자세한 내용 보기</button>
+            </div>
+        </div>
+        <div class="row" id="{{i.vigc_no}}" name="{{i.vigc_no}}" style="display: none;">
+            <hr>
+            <div class="col-md-2">
+                내용 :
+            </div>
+            <div class="col-md-8">
+             {{i.vipg_content}}
+            </div>
+        </div>
+        <hr>
+        {% endfor %}
+{% endblock %}

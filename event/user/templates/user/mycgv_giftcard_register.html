@@ -1,0 +1,47 @@
+{% extends 'layout\mycgv_layout.html' %}
+
+{% block head_mycgv %}
+
+{% endblock %}
+
+
+{% block body_main_mycgv %}
+
+<div>
+    <h4>CGV 기프트샵 기프트카드 등록하기</h4>
+  
+  </div>
+  <div><a href="/user/mycgv/giftcard"><button>내 기프트카드 조회</button></a></div>
+  
+
+  <table class="" style="border-bottom: 20px;">
+
+  <form action="/user/mycgv/giftcard/register/result" method="post">
+    {% csrf_token %}
+
+
+    <tr> 
+      <td>
+        기프트콘 카드 번호 : <input type="text" name="giftcard_number">
+      </td>
+      <td>
+        기프트콘 카드 비밀번호 : <input type="text" name="giftcard_pw">
+      </td>
+      <td>
+        <input type="submit" value="등록하기">
+
+      </td>
+    </tr>
+
+    <tr>
+
+    </tr>
+  </form>  
+
+</table>
+<br>
+<br>
+
+
+{% endblock %}
+

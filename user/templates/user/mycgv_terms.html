@@ -1,0 +1,98 @@
+
+{% extends 'layout\mycgv_layout.html' %}
+
+{% block body_main_mycgv %}
+
+{% if check %}
+
+    <form action="/user/mycgv/terms/result" method="post">
+        {% csrf_token %}
+            {% for term in terms %}
+                {% if term.terms_no in pp %}
+                    <table style="width: 600px; height: auto;" >
+                        <th>
+                            <tr colspan="3">{{term.terms_title}}
+                                {% if term.terms_required == 0 %}
+                                    (필수) 비 동의시 회원 탈퇴 서비스로 연결됩니다.
+                                {% else %}
+                                    (선택)
+                                {% endif %}
+                            </tr>
+                                                
+                        </th>
+                        <tr>
+                            <td style="width: 25%;">약관제목</td>
+                            <td style="width: 50%;">약관항목</td>
+                            <td style="width: 25%;">이용목적</td>
+                        </tr>
+                        <tr>
+                            <td>{{term.terms_item}}</td>
+                            <td>{{term.terms_purpose}}</td>
+                            <td>{{term.terms_period}}</td>
+                        </tr>
+                        <td colspan="3" align="right">
+
+                            {% if term.terms_no in aa %}
+                                {% for a in agreement %}
+                                    {% if term.terms_no == a.terms_no_id %}
+                                        {% if a.useragreement == 1 %}
+                                            <label><input type="radio" name="terms{{term.terms_no}}" value="1" checked>동의</label><label><input type="radio" name="terms{{term.terms_no}}" value="0">비동의</label>
+                                        {% elif a.useragreement == 0 %}
+                                            <label><input type="radio" name="terms{{term.terms_no}}" value="1">동의</label><label><input type="radio" name="terms{{term.terms_no}}" value="0" checked>비동의</label>
+                                        {% endif %}
+                                    {% endif %}
+                                {% endfor %}
+                            {% else %}
+                                <label><input type="radio" name="terms{{term.terms_no}}" value="1">동의</label><label><input type="radio" name="terms{{term.terms_no}}" value="0" checked>비동의</label>
+                            {% endif %}
+
+                        </td>
+
+                    </table>
+                    <br><br><br>
+                {%else%}
+                {% endif %}
+            {% endfor %}
+
+            <table align="right">
+                <td ><input type = "submit" id = "submit" value = "저장하기"></td>    
+            </table>
+            
+    </form>
+
+
+{% else %}
+    <script type="text/javascript">
+        alert("{{text}}");
+        location.href = "{{url}}";
+    </script>
+{% endif %}
+
+
+<!-- 
+
+<script type="text/javascript">
+
+
+
+const btn = document.getElementById('btn')
+
+
+    const Handler = (event) => {
+        pw1.className = ("hidden");
+        pw2.className = ("");
+        pw3.className = ("");
+    };
+
+btn.onload = Handler;
+
+
+
+
+</script>
+ -->
+
+
+{% endblock %}
+
+
